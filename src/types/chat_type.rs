@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -111,7 +112,7 @@ pub struct ChatTypePrivate {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// User identifier
   user_id: i64,
   
@@ -120,7 +121,11 @@ pub struct ChatTypePrivate {
 impl RObject for ChatTypePrivate {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatTypePrivate" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -150,7 +155,7 @@ pub struct RTDChatTypePrivateBuilder {
 impl RTDChatTypePrivateBuilder {
   pub fn build(&self) -> ChatTypePrivate { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -184,7 +189,7 @@ pub struct ChatTypeBasicGroup {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Basic group identifier
   basic_group_id: i64,
   
@@ -193,7 +198,11 @@ pub struct ChatTypeBasicGroup {
 impl RObject for ChatTypeBasicGroup {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatTypeBasicGroup" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -223,7 +232,7 @@ pub struct RTDChatTypeBasicGroupBuilder {
 impl RTDChatTypeBasicGroupBuilder {
   pub fn build(&self) -> ChatTypeBasicGroup { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -257,7 +266,7 @@ pub struct ChatTypeSupergroup {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Supergroup or channel identifier
   supergroup_id: i64,
   /// True, if the supergroup is a channel
@@ -268,7 +277,11 @@ pub struct ChatTypeSupergroup {
 impl RObject for ChatTypeSupergroup {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatTypeSupergroup" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -300,7 +313,7 @@ pub struct RTDChatTypeSupergroupBuilder {
 impl RTDChatTypeSupergroupBuilder {
   pub fn build(&self) -> ChatTypeSupergroup { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -340,7 +353,7 @@ pub struct ChatTypeSecret {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Secret chat identifier
   secret_chat_id: i64,
   /// User identifier of the secret chat peer
@@ -351,7 +364,11 @@ pub struct ChatTypeSecret {
 impl RObject for ChatTypeSecret {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatTypeSecret" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -383,7 +400,7 @@ pub struct RTDChatTypeSecretBuilder {
 impl RTDChatTypeSecretBuilder {
   pub fn build(&self) -> ChatTypeSecret { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

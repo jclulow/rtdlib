@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -13,7 +14,7 @@ pub struct ChatNotificationSettings {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// If true, mute_for is ignored and the value for the relevant type of chat is used instead
   use_default_mute_for: bool,
   /// Time left before notifications will be unmuted, in seconds
@@ -40,7 +41,11 @@ pub struct ChatNotificationSettings {
 impl RObject for ChatNotificationSettings {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatNotificationSettings" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -85,7 +90,7 @@ pub struct RTDChatNotificationSettingsBuilder {
 impl RTDChatNotificationSettingsBuilder {
   pub fn build(&self) -> ChatNotificationSettings { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

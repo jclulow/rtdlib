@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -13,7 +14,7 @@ pub struct PollOption {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Option text, 1-100 characters
   text: String,
   /// Number of voters for this option, available only for closed or voted polls
@@ -30,7 +31,11 @@ pub struct PollOption {
 impl RObject for PollOption {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pollOption" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -65,7 +70,7 @@ pub struct RTDPollOptionBuilder {
 impl RTDPollOptionBuilder {
   pub fn build(&self) -> PollOption { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -111,7 +112,7 @@ pub struct NotificationTypeNewMessage {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The message
   message: Message,
   
@@ -120,7 +121,11 @@ pub struct NotificationTypeNewMessage {
 impl RObject for NotificationTypeNewMessage {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "notificationTypeNewMessage" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -150,7 +155,7 @@ pub struct RTDNotificationTypeNewMessageBuilder {
 impl RTDNotificationTypeNewMessageBuilder {
   pub fn build(&self) -> NotificationTypeNewMessage { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -184,14 +189,18 @@ pub struct NotificationTypeNewSecretChat {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for NotificationTypeNewSecretChat {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "notificationTypeNewSecretChat" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -219,7 +228,7 @@ pub struct RTDNotificationTypeNewSecretChatBuilder {
 impl RTDNotificationTypeNewSecretChatBuilder {
   pub fn build(&self) -> NotificationTypeNewSecretChat { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -247,7 +256,7 @@ pub struct NotificationTypeNewCall {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Call identifier
   call_id: i64,
   
@@ -256,7 +265,11 @@ pub struct NotificationTypeNewCall {
 impl RObject for NotificationTypeNewCall {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "notificationTypeNewCall" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -286,7 +299,7 @@ pub struct RTDNotificationTypeNewCallBuilder {
 impl RTDNotificationTypeNewCallBuilder {
   pub fn build(&self) -> NotificationTypeNewCall { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -320,7 +333,7 @@ pub struct NotificationTypeNewPushMessage {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The message identifier. The message will not be available in the chat history, but the ID can be used in viewMessages and as reply_to_message_id
   message_id: i64,
   /// Sender of the message. Corresponding user may be inaccessible
@@ -333,7 +346,11 @@ pub struct NotificationTypeNewPushMessage {
 impl RObject for NotificationTypeNewPushMessage {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "notificationTypeNewPushMessage" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -367,7 +384,7 @@ pub struct RTDNotificationTypeNewPushMessageBuilder {
 impl RTDNotificationTypeNewPushMessageBuilder {
   pub fn build(&self) -> NotificationTypeNewPushMessage { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

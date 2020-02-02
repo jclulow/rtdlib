@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -309,7 +310,7 @@ pub struct PushMessageContentHidden {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// True, if the message is a pinned message with the specified content
   is_pinned: bool,
   
@@ -318,7 +319,11 @@ pub struct PushMessageContentHidden {
 impl RObject for PushMessageContentHidden {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentHidden" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -348,7 +353,7 @@ pub struct RTDPushMessageContentHiddenBuilder {
 impl RTDPushMessageContentHiddenBuilder {
   pub fn build(&self) -> PushMessageContentHidden { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -382,7 +387,7 @@ pub struct PushMessageContentAnimation {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Message content; may be null
   animation: Option<Animation>,
   /// Animation caption
@@ -395,7 +400,11 @@ pub struct PushMessageContentAnimation {
 impl RObject for PushMessageContentAnimation {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentAnimation" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -429,7 +438,7 @@ pub struct RTDPushMessageContentAnimationBuilder {
 impl RTDPushMessageContentAnimationBuilder {
   pub fn build(&self) -> PushMessageContentAnimation { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -475,7 +484,7 @@ pub struct PushMessageContentAudio {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Message content; may be null
   audio: Option<Audio>,
   /// True, if the message is a pinned message with the specified content
@@ -486,7 +495,11 @@ pub struct PushMessageContentAudio {
 impl RObject for PushMessageContentAudio {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentAudio" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -518,7 +531,7 @@ pub struct RTDPushMessageContentAudioBuilder {
 impl RTDPushMessageContentAudioBuilder {
   pub fn build(&self) -> PushMessageContentAudio { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -558,7 +571,7 @@ pub struct PushMessageContentContact {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Contact's name
   name: String,
   /// True, if the message is a pinned message with the specified content
@@ -569,7 +582,11 @@ pub struct PushMessageContentContact {
 impl RObject for PushMessageContentContact {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentContact" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -601,7 +618,7 @@ pub struct RTDPushMessageContentContactBuilder {
 impl RTDPushMessageContentContactBuilder {
   pub fn build(&self) -> PushMessageContentContact { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -641,14 +658,18 @@ pub struct PushMessageContentContactRegistered {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PushMessageContentContactRegistered {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentContactRegistered" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -676,7 +697,7 @@ pub struct RTDPushMessageContentContactRegisteredBuilder {
 impl RTDPushMessageContentContactRegisteredBuilder {
   pub fn build(&self) -> PushMessageContentContactRegistered { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -704,7 +725,7 @@ pub struct PushMessageContentDocument {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Message content; may be null
   document: Option<Document>,
   /// True, if the message is a pinned message with the specified content
@@ -715,7 +736,11 @@ pub struct PushMessageContentDocument {
 impl RObject for PushMessageContentDocument {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentDocument" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -747,7 +772,7 @@ pub struct RTDPushMessageContentDocumentBuilder {
 impl RTDPushMessageContentDocumentBuilder {
   pub fn build(&self) -> PushMessageContentDocument { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -787,7 +812,7 @@ pub struct PushMessageContentGame {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Game title, empty for pinned game message
   title: String,
   /// True, if the message is a pinned message with the specified content
@@ -798,7 +823,11 @@ pub struct PushMessageContentGame {
 impl RObject for PushMessageContentGame {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentGame" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -830,7 +859,7 @@ pub struct RTDPushMessageContentGameBuilder {
 impl RTDPushMessageContentGameBuilder {
   pub fn build(&self) -> PushMessageContentGame { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -870,7 +899,7 @@ pub struct PushMessageContentGameScore {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Game title, empty for pinned message
   title: String,
   /// New score, 0 for pinned message
@@ -883,7 +912,11 @@ pub struct PushMessageContentGameScore {
 impl RObject for PushMessageContentGameScore {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentGameScore" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -917,7 +950,7 @@ pub struct RTDPushMessageContentGameScoreBuilder {
 impl RTDPushMessageContentGameScoreBuilder {
   pub fn build(&self) -> PushMessageContentGameScore { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -963,7 +996,7 @@ pub struct PushMessageContentInvoice {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Product price
   price: String,
   /// True, if the message is a pinned message with the specified content
@@ -974,7 +1007,11 @@ pub struct PushMessageContentInvoice {
 impl RObject for PushMessageContentInvoice {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentInvoice" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1006,7 +1043,7 @@ pub struct RTDPushMessageContentInvoiceBuilder {
 impl RTDPushMessageContentInvoiceBuilder {
   pub fn build(&self) -> PushMessageContentInvoice { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1046,7 +1083,7 @@ pub struct PushMessageContentLocation {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// True, if the location is live
   is_live: bool,
   /// True, if the message is a pinned message with the specified content
@@ -1057,7 +1094,11 @@ pub struct PushMessageContentLocation {
 impl RObject for PushMessageContentLocation {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentLocation" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1089,7 +1130,7 @@ pub struct RTDPushMessageContentLocationBuilder {
 impl RTDPushMessageContentLocationBuilder {
   pub fn build(&self) -> PushMessageContentLocation { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1129,7 +1170,7 @@ pub struct PushMessageContentPhoto {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Message content; may be null
   photo: Option<Photo>,
   /// Photo caption
@@ -1144,7 +1185,11 @@ pub struct PushMessageContentPhoto {
 impl RObject for PushMessageContentPhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentPhoto" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1180,7 +1225,7 @@ pub struct RTDPushMessageContentPhotoBuilder {
 impl RTDPushMessageContentPhotoBuilder {
   pub fn build(&self) -> PushMessageContentPhoto { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1232,7 +1277,7 @@ pub struct PushMessageContentPoll {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Poll question
   question: String,
   /// True, if the message is a pinned message with the specified content
@@ -1243,7 +1288,11 @@ pub struct PushMessageContentPoll {
 impl RObject for PushMessageContentPoll {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentPoll" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1275,7 +1324,7 @@ pub struct RTDPushMessageContentPollBuilder {
 impl RTDPushMessageContentPollBuilder {
   pub fn build(&self) -> PushMessageContentPoll { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1315,14 +1364,18 @@ pub struct PushMessageContentScreenshotTaken {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PushMessageContentScreenshotTaken {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentScreenshotTaken" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1350,7 +1403,7 @@ pub struct RTDPushMessageContentScreenshotTakenBuilder {
 impl RTDPushMessageContentScreenshotTakenBuilder {
   pub fn build(&self) -> PushMessageContentScreenshotTaken { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1378,7 +1431,7 @@ pub struct PushMessageContentSticker {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Message content; may be null
   sticker: Option<Sticker>,
   /// Emoji corresponding to the sticker; may be empty
@@ -1391,7 +1444,11 @@ pub struct PushMessageContentSticker {
 impl RObject for PushMessageContentSticker {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentSticker" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1425,7 +1482,7 @@ pub struct RTDPushMessageContentStickerBuilder {
 impl RTDPushMessageContentStickerBuilder {
   pub fn build(&self) -> PushMessageContentSticker { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1471,7 +1528,7 @@ pub struct PushMessageContentText {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Message text
   text: String,
   /// True, if the message is a pinned message with the specified content
@@ -1482,7 +1539,11 @@ pub struct PushMessageContentText {
 impl RObject for PushMessageContentText {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentText" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1514,7 +1575,7 @@ pub struct RTDPushMessageContentTextBuilder {
 impl RTDPushMessageContentTextBuilder {
   pub fn build(&self) -> PushMessageContentText { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1554,7 +1615,7 @@ pub struct PushMessageContentVideo {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Message content; may be null
   video: Option<Video>,
   /// Video caption
@@ -1569,7 +1630,11 @@ pub struct PushMessageContentVideo {
 impl RObject for PushMessageContentVideo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentVideo" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1605,7 +1670,7 @@ pub struct RTDPushMessageContentVideoBuilder {
 impl RTDPushMessageContentVideoBuilder {
   pub fn build(&self) -> PushMessageContentVideo { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1657,7 +1722,7 @@ pub struct PushMessageContentVideoNote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Message content; may be null
   video_note: Option<VideoNote>,
   /// True, if the message is a pinned message with the specified content
@@ -1668,7 +1733,11 @@ pub struct PushMessageContentVideoNote {
 impl RObject for PushMessageContentVideoNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentVideoNote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1700,7 +1769,7 @@ pub struct RTDPushMessageContentVideoNoteBuilder {
 impl RTDPushMessageContentVideoNoteBuilder {
   pub fn build(&self) -> PushMessageContentVideoNote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1740,7 +1809,7 @@ pub struct PushMessageContentVoiceNote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Message content; may be null
   voice_note: Option<VoiceNote>,
   /// True, if the message is a pinned message with the specified content
@@ -1751,7 +1820,11 @@ pub struct PushMessageContentVoiceNote {
 impl RObject for PushMessageContentVoiceNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentVoiceNote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1783,7 +1856,7 @@ pub struct RTDPushMessageContentVoiceNoteBuilder {
 impl RTDPushMessageContentVoiceNoteBuilder {
   pub fn build(&self) -> PushMessageContentVoiceNote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1823,14 +1896,18 @@ pub struct PushMessageContentBasicGroupChatCreate {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PushMessageContentBasicGroupChatCreate {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentBasicGroupChatCreate" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1858,7 +1935,7 @@ pub struct RTDPushMessageContentBasicGroupChatCreateBuilder {
 impl RTDPushMessageContentBasicGroupChatCreateBuilder {
   pub fn build(&self) -> PushMessageContentBasicGroupChatCreate { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1886,7 +1963,7 @@ pub struct PushMessageContentChatAddMembers {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Name of the added member
   member_name: String,
   /// True, if the current user was added to the group
@@ -1899,7 +1976,11 @@ pub struct PushMessageContentChatAddMembers {
 impl RObject for PushMessageContentChatAddMembers {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentChatAddMembers" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1933,7 +2014,7 @@ pub struct RTDPushMessageContentChatAddMembersBuilder {
 impl RTDPushMessageContentChatAddMembersBuilder {
   pub fn build(&self) -> PushMessageContentChatAddMembers { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1979,14 +2060,18 @@ pub struct PushMessageContentChatChangePhoto {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PushMessageContentChatChangePhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentChatChangePhoto" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2014,7 +2099,7 @@ pub struct RTDPushMessageContentChatChangePhotoBuilder {
 impl RTDPushMessageContentChatChangePhotoBuilder {
   pub fn build(&self) -> PushMessageContentChatChangePhoto { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2042,7 +2127,7 @@ pub struct PushMessageContentChatChangeTitle {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// New chat title
   title: String,
   
@@ -2051,7 +2136,11 @@ pub struct PushMessageContentChatChangeTitle {
 impl RObject for PushMessageContentChatChangeTitle {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentChatChangeTitle" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2081,7 +2170,7 @@ pub struct RTDPushMessageContentChatChangeTitleBuilder {
 impl RTDPushMessageContentChatChangeTitleBuilder {
   pub fn build(&self) -> PushMessageContentChatChangeTitle { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2115,7 +2204,7 @@ pub struct PushMessageContentChatDeleteMember {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Name of the deleted member
   member_name: String,
   /// True, if the current user was deleted from the group
@@ -2128,7 +2217,11 @@ pub struct PushMessageContentChatDeleteMember {
 impl RObject for PushMessageContentChatDeleteMember {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentChatDeleteMember" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2162,7 +2255,7 @@ pub struct RTDPushMessageContentChatDeleteMemberBuilder {
 impl RTDPushMessageContentChatDeleteMemberBuilder {
   pub fn build(&self) -> PushMessageContentChatDeleteMember { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2208,14 +2301,18 @@ pub struct PushMessageContentChatJoinByLink {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PushMessageContentChatJoinByLink {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentChatJoinByLink" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2243,7 +2340,7 @@ pub struct RTDPushMessageContentChatJoinByLinkBuilder {
 impl RTDPushMessageContentChatJoinByLinkBuilder {
   pub fn build(&self) -> PushMessageContentChatJoinByLink { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2271,7 +2368,7 @@ pub struct PushMessageContentMessageForwards {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Number of forwarded messages
   total_count: i64,
   
@@ -2280,7 +2377,11 @@ pub struct PushMessageContentMessageForwards {
 impl RObject for PushMessageContentMessageForwards {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentMessageForwards" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2310,7 +2411,7 @@ pub struct RTDPushMessageContentMessageForwardsBuilder {
 impl RTDPushMessageContentMessageForwardsBuilder {
   pub fn build(&self) -> PushMessageContentMessageForwards { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2344,7 +2445,7 @@ pub struct PushMessageContentMediaAlbum {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Number of messages in the album
   total_count: i64,
   /// True, if the album has at least one photo
@@ -2357,7 +2458,11 @@ pub struct PushMessageContentMediaAlbum {
 impl RObject for PushMessageContentMediaAlbum {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushMessageContentMediaAlbum" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2391,7 +2496,7 @@ pub struct RTDPushMessageContentMediaAlbumBuilder {
 impl RTDPushMessageContentMediaAlbumBuilder {
   pub fn build(&self) -> PushMessageContentMediaAlbum { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

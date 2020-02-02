@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -183,7 +184,7 @@ pub struct InlineQueryResultArticle {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier of the query result
   id: String,
   /// URL of the result, if it exists
@@ -202,7 +203,11 @@ pub struct InlineQueryResultArticle {
 impl RObject for InlineQueryResultArticle {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inlineQueryResultArticle" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -242,7 +247,7 @@ pub struct RTDInlineQueryResultArticleBuilder {
 impl RTDInlineQueryResultArticleBuilder {
   pub fn build(&self) -> InlineQueryResultArticle { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -306,7 +311,7 @@ pub struct InlineQueryResultContact {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier of the query result
   id: String,
   /// A user contact
@@ -319,7 +324,11 @@ pub struct InlineQueryResultContact {
 impl RObject for InlineQueryResultContact {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inlineQueryResultContact" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -353,7 +362,7 @@ pub struct RTDInlineQueryResultContactBuilder {
 impl RTDInlineQueryResultContactBuilder {
   pub fn build(&self) -> InlineQueryResultContact { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -399,7 +408,7 @@ pub struct InlineQueryResultLocation {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier of the query result
   id: String,
   /// Location result
@@ -414,7 +423,11 @@ pub struct InlineQueryResultLocation {
 impl RObject for InlineQueryResultLocation {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inlineQueryResultLocation" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -450,7 +463,7 @@ pub struct RTDInlineQueryResultLocationBuilder {
 impl RTDInlineQueryResultLocationBuilder {
   pub fn build(&self) -> InlineQueryResultLocation { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -502,7 +515,7 @@ pub struct InlineQueryResultVenue {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier of the query result
   id: String,
   /// Venue result
@@ -515,7 +528,11 @@ pub struct InlineQueryResultVenue {
 impl RObject for InlineQueryResultVenue {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inlineQueryResultVenue" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -549,7 +566,7 @@ pub struct RTDInlineQueryResultVenueBuilder {
 impl RTDInlineQueryResultVenueBuilder {
   pub fn build(&self) -> InlineQueryResultVenue { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -595,7 +612,7 @@ pub struct InlineQueryResultGame {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier of the query result
   id: String,
   /// Game result
@@ -606,7 +623,11 @@ pub struct InlineQueryResultGame {
 impl RObject for InlineQueryResultGame {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inlineQueryResultGame" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -638,7 +659,7 @@ pub struct RTDInlineQueryResultGameBuilder {
 impl RTDInlineQueryResultGameBuilder {
   pub fn build(&self) -> InlineQueryResultGame { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -678,7 +699,7 @@ pub struct InlineQueryResultAnimation {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier of the query result
   id: String,
   /// Animation file
@@ -691,7 +712,11 @@ pub struct InlineQueryResultAnimation {
 impl RObject for InlineQueryResultAnimation {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inlineQueryResultAnimation" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -725,7 +750,7 @@ pub struct RTDInlineQueryResultAnimationBuilder {
 impl RTDInlineQueryResultAnimationBuilder {
   pub fn build(&self) -> InlineQueryResultAnimation { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -771,7 +796,7 @@ pub struct InlineQueryResultAudio {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier of the query result
   id: String,
   /// Audio file
@@ -782,7 +807,11 @@ pub struct InlineQueryResultAudio {
 impl RObject for InlineQueryResultAudio {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inlineQueryResultAudio" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -814,7 +843,7 @@ pub struct RTDInlineQueryResultAudioBuilder {
 impl RTDInlineQueryResultAudioBuilder {
   pub fn build(&self) -> InlineQueryResultAudio { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -854,7 +883,7 @@ pub struct InlineQueryResultDocument {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier of the query result
   id: String,
   /// Document
@@ -869,7 +898,11 @@ pub struct InlineQueryResultDocument {
 impl RObject for InlineQueryResultDocument {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inlineQueryResultDocument" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -905,7 +938,7 @@ pub struct RTDInlineQueryResultDocumentBuilder {
 impl RTDInlineQueryResultDocumentBuilder {
   pub fn build(&self) -> InlineQueryResultDocument { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -957,7 +990,7 @@ pub struct InlineQueryResultPhoto {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier of the query result
   id: String,
   /// Photo
@@ -972,7 +1005,11 @@ pub struct InlineQueryResultPhoto {
 impl RObject for InlineQueryResultPhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inlineQueryResultPhoto" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1008,7 +1045,7 @@ pub struct RTDInlineQueryResultPhotoBuilder {
 impl RTDInlineQueryResultPhotoBuilder {
   pub fn build(&self) -> InlineQueryResultPhoto { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1060,7 +1097,7 @@ pub struct InlineQueryResultSticker {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier of the query result
   id: String,
   /// Sticker
@@ -1071,7 +1108,11 @@ pub struct InlineQueryResultSticker {
 impl RObject for InlineQueryResultSticker {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inlineQueryResultSticker" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1103,7 +1144,7 @@ pub struct RTDInlineQueryResultStickerBuilder {
 impl RTDInlineQueryResultStickerBuilder {
   pub fn build(&self) -> InlineQueryResultSticker { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1143,7 +1184,7 @@ pub struct InlineQueryResultVideo {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier of the query result
   id: String,
   /// Video
@@ -1158,7 +1199,11 @@ pub struct InlineQueryResultVideo {
 impl RObject for InlineQueryResultVideo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inlineQueryResultVideo" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1194,7 +1239,7 @@ pub struct RTDInlineQueryResultVideoBuilder {
 impl RTDInlineQueryResultVideoBuilder {
   pub fn build(&self) -> InlineQueryResultVideo { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1246,7 +1291,7 @@ pub struct InlineQueryResultVoiceNote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier of the query result
   id: String,
   /// Voice note
@@ -1259,7 +1304,11 @@ pub struct InlineQueryResultVoiceNote {
 impl RObject for InlineQueryResultVoiceNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inlineQueryResultVoiceNote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1293,7 +1342,7 @@ pub struct RTDInlineQueryResultVoiceNoteBuilder {
 impl RTDInlineQueryResultVoiceNoteBuilder {
   pub fn build(&self) -> InlineQueryResultVoiceNote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

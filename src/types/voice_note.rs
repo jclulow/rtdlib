@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -13,7 +14,7 @@ pub struct VoiceNote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Duration of the voice note, in seconds; as defined by the sender
   duration: i64,
   /// A waveform representation of the voice note in 5-bit format
@@ -28,7 +29,11 @@ pub struct VoiceNote {
 impl RObject for VoiceNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "voiceNote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -61,7 +66,7 @@ pub struct RTDVoiceNoteBuilder {
 impl RTDVoiceNoteBuilder {
   pub fn build(&self) -> VoiceNote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -183,14 +184,18 @@ pub struct AuthorizationStateWaitTdlibParameters {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for AuthorizationStateWaitTdlibParameters {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authorizationStateWaitTdlibParameters" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -218,7 +223,7 @@ pub struct RTDAuthorizationStateWaitTdlibParametersBuilder {
 impl RTDAuthorizationStateWaitTdlibParametersBuilder {
   pub fn build(&self) -> AuthorizationStateWaitTdlibParameters { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -246,7 +251,7 @@ pub struct AuthorizationStateWaitEncryptionKey {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// True, if the database is currently encrypted
   is_encrypted: bool,
   
@@ -255,7 +260,11 @@ pub struct AuthorizationStateWaitEncryptionKey {
 impl RObject for AuthorizationStateWaitEncryptionKey {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authorizationStateWaitEncryptionKey" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -285,7 +294,7 @@ pub struct RTDAuthorizationStateWaitEncryptionKeyBuilder {
 impl RTDAuthorizationStateWaitEncryptionKeyBuilder {
   pub fn build(&self) -> AuthorizationStateWaitEncryptionKey { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -319,14 +328,18 @@ pub struct AuthorizationStateWaitPhoneNumber {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for AuthorizationStateWaitPhoneNumber {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authorizationStateWaitPhoneNumber" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -354,7 +367,7 @@ pub struct RTDAuthorizationStateWaitPhoneNumberBuilder {
 impl RTDAuthorizationStateWaitPhoneNumberBuilder {
   pub fn build(&self) -> AuthorizationStateWaitPhoneNumber { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -382,7 +395,7 @@ pub struct AuthorizationStateWaitCode {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Information about the authorization code that was sent
   code_info: AuthenticationCodeInfo,
   
@@ -391,7 +404,11 @@ pub struct AuthorizationStateWaitCode {
 impl RObject for AuthorizationStateWaitCode {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authorizationStateWaitCode" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -421,7 +438,7 @@ pub struct RTDAuthorizationStateWaitCodeBuilder {
 impl RTDAuthorizationStateWaitCodeBuilder {
   pub fn build(&self) -> AuthorizationStateWaitCode { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -455,7 +472,7 @@ pub struct AuthorizationStateWaitOtherDeviceConfirmation {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// A tg:// URL for the QR code. The link will be updated frequently
   link: String,
   
@@ -464,7 +481,11 @@ pub struct AuthorizationStateWaitOtherDeviceConfirmation {
 impl RObject for AuthorizationStateWaitOtherDeviceConfirmation {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authorizationStateWaitOtherDeviceConfirmation" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -494,7 +515,7 @@ pub struct RTDAuthorizationStateWaitOtherDeviceConfirmationBuilder {
 impl RTDAuthorizationStateWaitOtherDeviceConfirmationBuilder {
   pub fn build(&self) -> AuthorizationStateWaitOtherDeviceConfirmation { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -528,7 +549,7 @@ pub struct AuthorizationStateWaitRegistration {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Telegram terms of service
   terms_of_service: TermsOfService,
   
@@ -537,7 +558,11 @@ pub struct AuthorizationStateWaitRegistration {
 impl RObject for AuthorizationStateWaitRegistration {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authorizationStateWaitRegistration" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -567,7 +592,7 @@ pub struct RTDAuthorizationStateWaitRegistrationBuilder {
 impl RTDAuthorizationStateWaitRegistrationBuilder {
   pub fn build(&self) -> AuthorizationStateWaitRegistration { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -601,7 +626,7 @@ pub struct AuthorizationStateWaitPassword {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Hint for the password; may be empty
   password_hint: String,
   /// True, if a recovery email address has been set up
@@ -614,7 +639,11 @@ pub struct AuthorizationStateWaitPassword {
 impl RObject for AuthorizationStateWaitPassword {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authorizationStateWaitPassword" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -648,7 +677,7 @@ pub struct RTDAuthorizationStateWaitPasswordBuilder {
 impl RTDAuthorizationStateWaitPasswordBuilder {
   pub fn build(&self) -> AuthorizationStateWaitPassword { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -694,14 +723,18 @@ pub struct AuthorizationStateReady {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for AuthorizationStateReady {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authorizationStateReady" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -729,7 +762,7 @@ pub struct RTDAuthorizationStateReadyBuilder {
 impl RTDAuthorizationStateReadyBuilder {
   pub fn build(&self) -> AuthorizationStateReady { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -757,14 +790,18 @@ pub struct AuthorizationStateLoggingOut {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for AuthorizationStateLoggingOut {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authorizationStateLoggingOut" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -792,7 +829,7 @@ pub struct RTDAuthorizationStateLoggingOutBuilder {
 impl RTDAuthorizationStateLoggingOutBuilder {
   pub fn build(&self) -> AuthorizationStateLoggingOut { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -820,14 +857,18 @@ pub struct AuthorizationStateClosing {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for AuthorizationStateClosing {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authorizationStateClosing" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -855,7 +896,7 @@ pub struct RTDAuthorizationStateClosingBuilder {
 impl RTDAuthorizationStateClosingBuilder {
   pub fn build(&self) -> AuthorizationStateClosing { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -883,14 +924,18 @@ pub struct AuthorizationStateClosed {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for AuthorizationStateClosed {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authorizationStateClosed" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -918,7 +963,7 @@ pub struct RTDAuthorizationStateClosedBuilder {
 impl RTDAuthorizationStateClosedBuilder {
   pub fn build(&self) -> AuthorizationStateClosed { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

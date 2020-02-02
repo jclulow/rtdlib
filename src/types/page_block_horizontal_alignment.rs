@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -102,14 +103,18 @@ pub struct PageBlockHorizontalAlignmentLeft {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PageBlockHorizontalAlignmentLeft {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockHorizontalAlignmentLeft" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -137,7 +142,7 @@ pub struct RTDPageBlockHorizontalAlignmentLeftBuilder {
 impl RTDPageBlockHorizontalAlignmentLeftBuilder {
   pub fn build(&self) -> PageBlockHorizontalAlignmentLeft { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -165,14 +170,18 @@ pub struct PageBlockHorizontalAlignmentCenter {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PageBlockHorizontalAlignmentCenter {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockHorizontalAlignmentCenter" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -200,7 +209,7 @@ pub struct RTDPageBlockHorizontalAlignmentCenterBuilder {
 impl RTDPageBlockHorizontalAlignmentCenterBuilder {
   pub fn build(&self) -> PageBlockHorizontalAlignmentCenter { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -228,14 +237,18 @@ pub struct PageBlockHorizontalAlignmentRight {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PageBlockHorizontalAlignmentRight {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockHorizontalAlignmentRight" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -263,7 +276,7 @@ pub struct RTDPageBlockHorizontalAlignmentRightBuilder {
 impl RTDPageBlockHorizontalAlignmentRightBuilder {
   pub fn build(&self) -> PageBlockHorizontalAlignmentRight { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

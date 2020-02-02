@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -111,14 +112,18 @@ pub struct LogStreamDefault {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for LogStreamDefault {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "logStreamDefault" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -146,7 +151,7 @@ pub struct RTDLogStreamDefaultBuilder {
 impl RTDLogStreamDefaultBuilder {
   pub fn build(&self) -> LogStreamDefault { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -174,7 +179,7 @@ pub struct LogStreamFile {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Path to the file to where the internal TDLib log will be written
   path: String,
   /// Maximum size of the file to where the internal TDLib log is written before the file will be auto-rotated
@@ -185,7 +190,11 @@ pub struct LogStreamFile {
 impl RObject for LogStreamFile {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "logStreamFile" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -217,7 +226,7 @@ pub struct RTDLogStreamFileBuilder {
 impl RTDLogStreamFileBuilder {
   pub fn build(&self) -> LogStreamFile { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -257,14 +266,18 @@ pub struct LogStreamEmpty {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for LogStreamEmpty {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "logStreamEmpty" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -292,7 +305,7 @@ pub struct RTDLogStreamEmptyBuilder {
 impl RTDLogStreamEmptyBuilder {
   pub fn build(&self) -> LogStreamEmpty { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

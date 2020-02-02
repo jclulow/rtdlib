@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -102,7 +103,7 @@ pub struct ProxyTypeSocks5 {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Username for logging in; may be empty
   username: String,
   /// Password for logging in; may be empty
@@ -113,7 +114,11 @@ pub struct ProxyTypeSocks5 {
 impl RObject for ProxyTypeSocks5 {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "proxyTypeSocks5" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -145,7 +150,7 @@ pub struct RTDProxyTypeSocks5Builder {
 impl RTDProxyTypeSocks5Builder {
   pub fn build(&self) -> ProxyTypeSocks5 { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -185,7 +190,7 @@ pub struct ProxyTypeHttp {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Username for logging in; may be empty
   username: String,
   /// Password for logging in; may be empty
@@ -198,7 +203,11 @@ pub struct ProxyTypeHttp {
 impl RObject for ProxyTypeHttp {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "proxyTypeHttp" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -232,7 +241,7 @@ pub struct RTDProxyTypeHttpBuilder {
 impl RTDProxyTypeHttpBuilder {
   pub fn build(&self) -> ProxyTypeHttp { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -278,7 +287,7 @@ pub struct ProxyTypeMtproto {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The proxy's secret in hexadecimal encoding
   secret: String,
   
@@ -287,7 +296,11 @@ pub struct ProxyTypeMtproto {
 impl RObject for ProxyTypeMtproto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "proxyTypeMtproto" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -317,7 +330,7 @@ pub struct RTDProxyTypeMtprotoBuilder {
 impl RTDProxyTypeMtprotoBuilder {
   pub fn build(&self) -> ProxyTypeMtproto { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

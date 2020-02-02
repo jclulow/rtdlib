@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -273,7 +274,7 @@ pub struct ChatEventMessageEdited {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The original message before the edit
   old_message: Message,
   /// The message after it was edited
@@ -284,7 +285,11 @@ pub struct ChatEventMessageEdited {
 impl RObject for ChatEventMessageEdited {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventMessageEdited" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -316,7 +321,7 @@ pub struct RTDChatEventMessageEditedBuilder {
 impl RTDChatEventMessageEditedBuilder {
   pub fn build(&self) -> ChatEventMessageEdited { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -356,7 +361,7 @@ pub struct ChatEventMessageDeleted {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Deleted message
   message: Message,
   
@@ -365,7 +370,11 @@ pub struct ChatEventMessageDeleted {
 impl RObject for ChatEventMessageDeleted {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventMessageDeleted" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -395,7 +404,7 @@ pub struct RTDChatEventMessageDeletedBuilder {
 impl RTDChatEventMessageDeletedBuilder {
   pub fn build(&self) -> ChatEventMessageDeleted { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -429,7 +438,7 @@ pub struct ChatEventPollStopped {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The message with the poll
   message: Message,
   
@@ -438,7 +447,11 @@ pub struct ChatEventPollStopped {
 impl RObject for ChatEventPollStopped {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventPollStopped" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -468,7 +481,7 @@ pub struct RTDChatEventPollStoppedBuilder {
 impl RTDChatEventPollStoppedBuilder {
   pub fn build(&self) -> ChatEventPollStopped { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -502,7 +515,7 @@ pub struct ChatEventMessagePinned {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Pinned message
   message: Message,
   
@@ -511,7 +524,11 @@ pub struct ChatEventMessagePinned {
 impl RObject for ChatEventMessagePinned {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventMessagePinned" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -541,7 +558,7 @@ pub struct RTDChatEventMessagePinnedBuilder {
 impl RTDChatEventMessagePinnedBuilder {
   pub fn build(&self) -> ChatEventMessagePinned { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -575,14 +592,18 @@ pub struct ChatEventMessageUnpinned {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for ChatEventMessageUnpinned {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventMessageUnpinned" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -610,7 +631,7 @@ pub struct RTDChatEventMessageUnpinnedBuilder {
 impl RTDChatEventMessageUnpinnedBuilder {
   pub fn build(&self) -> ChatEventMessageUnpinned { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -638,14 +659,18 @@ pub struct ChatEventMemberJoined {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for ChatEventMemberJoined {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventMemberJoined" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -673,7 +698,7 @@ pub struct RTDChatEventMemberJoinedBuilder {
 impl RTDChatEventMemberJoinedBuilder {
   pub fn build(&self) -> ChatEventMemberJoined { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -701,14 +726,18 @@ pub struct ChatEventMemberLeft {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for ChatEventMemberLeft {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventMemberLeft" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -736,7 +765,7 @@ pub struct RTDChatEventMemberLeftBuilder {
 impl RTDChatEventMemberLeftBuilder {
   pub fn build(&self) -> ChatEventMemberLeft { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -764,7 +793,7 @@ pub struct ChatEventMemberInvited {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// New member user identifier
   user_id: i64,
   /// New member status
@@ -775,7 +804,11 @@ pub struct ChatEventMemberInvited {
 impl RObject for ChatEventMemberInvited {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventMemberInvited" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -807,7 +840,7 @@ pub struct RTDChatEventMemberInvitedBuilder {
 impl RTDChatEventMemberInvitedBuilder {
   pub fn build(&self) -> ChatEventMemberInvited { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -847,7 +880,7 @@ pub struct ChatEventMemberPromoted {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat member user identifier
   user_id: i64,
   /// Previous status of the chat member
@@ -860,7 +893,11 @@ pub struct ChatEventMemberPromoted {
 impl RObject for ChatEventMemberPromoted {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventMemberPromoted" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -894,7 +931,7 @@ pub struct RTDChatEventMemberPromotedBuilder {
 impl RTDChatEventMemberPromotedBuilder {
   pub fn build(&self) -> ChatEventMemberPromoted { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -940,7 +977,7 @@ pub struct ChatEventMemberRestricted {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat member user identifier
   user_id: i64,
   /// Previous status of the chat member
@@ -953,7 +990,11 @@ pub struct ChatEventMemberRestricted {
 impl RObject for ChatEventMemberRestricted {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventMemberRestricted" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -987,7 +1028,7 @@ pub struct RTDChatEventMemberRestrictedBuilder {
 impl RTDChatEventMemberRestrictedBuilder {
   pub fn build(&self) -> ChatEventMemberRestricted { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1033,7 +1074,7 @@ pub struct ChatEventTitleChanged {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Previous chat title
   old_title: String,
   /// New chat title
@@ -1044,7 +1085,11 @@ pub struct ChatEventTitleChanged {
 impl RObject for ChatEventTitleChanged {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventTitleChanged" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1076,7 +1121,7 @@ pub struct RTDChatEventTitleChangedBuilder {
 impl RTDChatEventTitleChangedBuilder {
   pub fn build(&self) -> ChatEventTitleChanged { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1116,7 +1161,7 @@ pub struct ChatEventPermissionsChanged {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Previous chat permissions
   old_permissions: ChatPermissions,
   /// New chat permissions
@@ -1127,7 +1172,11 @@ pub struct ChatEventPermissionsChanged {
 impl RObject for ChatEventPermissionsChanged {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventPermissionsChanged" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1159,7 +1208,7 @@ pub struct RTDChatEventPermissionsChangedBuilder {
 impl RTDChatEventPermissionsChangedBuilder {
   pub fn build(&self) -> ChatEventPermissionsChanged { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1199,7 +1248,7 @@ pub struct ChatEventDescriptionChanged {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Previous chat description
   old_description: String,
   /// New chat description
@@ -1210,7 +1259,11 @@ pub struct ChatEventDescriptionChanged {
 impl RObject for ChatEventDescriptionChanged {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventDescriptionChanged" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1242,7 +1295,7 @@ pub struct RTDChatEventDescriptionChangedBuilder {
 impl RTDChatEventDescriptionChangedBuilder {
   pub fn build(&self) -> ChatEventDescriptionChanged { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1282,7 +1335,7 @@ pub struct ChatEventUsernameChanged {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Previous chat username
   old_username: String,
   /// New chat username
@@ -1293,7 +1346,11 @@ pub struct ChatEventUsernameChanged {
 impl RObject for ChatEventUsernameChanged {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventUsernameChanged" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1325,7 +1382,7 @@ pub struct RTDChatEventUsernameChangedBuilder {
 impl RTDChatEventUsernameChangedBuilder {
   pub fn build(&self) -> ChatEventUsernameChanged { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1365,7 +1422,7 @@ pub struct ChatEventPhotoChanged {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Previous chat photo value; may be null
   old_photo: Option<Photo>,
   /// New chat photo value; may be null
@@ -1376,7 +1433,11 @@ pub struct ChatEventPhotoChanged {
 impl RObject for ChatEventPhotoChanged {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventPhotoChanged" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1408,7 +1469,7 @@ pub struct RTDChatEventPhotoChangedBuilder {
 impl RTDChatEventPhotoChangedBuilder {
   pub fn build(&self) -> ChatEventPhotoChanged { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1448,7 +1509,7 @@ pub struct ChatEventInvitesToggled {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// New value of can_invite_users permission
   can_invite_users: bool,
   
@@ -1457,7 +1518,11 @@ pub struct ChatEventInvitesToggled {
 impl RObject for ChatEventInvitesToggled {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventInvitesToggled" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1487,7 +1552,7 @@ pub struct RTDChatEventInvitesToggledBuilder {
 impl RTDChatEventInvitesToggledBuilder {
   pub fn build(&self) -> ChatEventInvitesToggled { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1521,7 +1586,7 @@ pub struct ChatEventLinkedChatChanged {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Previous supergroup linked chat identifier
   old_linked_chat_id: i64,
   /// New supergroup linked chat identifier
@@ -1532,7 +1597,11 @@ pub struct ChatEventLinkedChatChanged {
 impl RObject for ChatEventLinkedChatChanged {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventLinkedChatChanged" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1564,7 +1633,7 @@ pub struct RTDChatEventLinkedChatChangedBuilder {
 impl RTDChatEventLinkedChatChangedBuilder {
   pub fn build(&self) -> ChatEventLinkedChatChanged { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1604,7 +1673,7 @@ pub struct ChatEventSlowModeDelayChanged {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Previous value of slow_mode_delay
   old_slow_mode_delay: i64,
   /// New value of slow_mode_delay
@@ -1615,7 +1684,11 @@ pub struct ChatEventSlowModeDelayChanged {
 impl RObject for ChatEventSlowModeDelayChanged {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventSlowModeDelayChanged" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1647,7 +1720,7 @@ pub struct RTDChatEventSlowModeDelayChangedBuilder {
 impl RTDChatEventSlowModeDelayChangedBuilder {
   pub fn build(&self) -> ChatEventSlowModeDelayChanged { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1687,7 +1760,7 @@ pub struct ChatEventSignMessagesToggled {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// New value of sign_messages
   sign_messages: bool,
   
@@ -1696,7 +1769,11 @@ pub struct ChatEventSignMessagesToggled {
 impl RObject for ChatEventSignMessagesToggled {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventSignMessagesToggled" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1726,7 +1803,7 @@ pub struct RTDChatEventSignMessagesToggledBuilder {
 impl RTDChatEventSignMessagesToggledBuilder {
   pub fn build(&self) -> ChatEventSignMessagesToggled { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1760,7 +1837,7 @@ pub struct ChatEventStickerSetChanged {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Previous identifier of the chat sticker set; 0 if none
   old_sticker_set_id: isize,
   /// New identifier of the chat sticker set; 0 if none
@@ -1771,7 +1848,11 @@ pub struct ChatEventStickerSetChanged {
 impl RObject for ChatEventStickerSetChanged {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventStickerSetChanged" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1803,7 +1884,7 @@ pub struct RTDChatEventStickerSetChangedBuilder {
 impl RTDChatEventStickerSetChangedBuilder {
   pub fn build(&self) -> ChatEventStickerSetChanged { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1843,7 +1924,7 @@ pub struct ChatEventLocationChanged {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Previous location; may be null
   old_location: Option<ChatLocation>,
   /// New location; may be null
@@ -1854,7 +1935,11 @@ pub struct ChatEventLocationChanged {
 impl RObject for ChatEventLocationChanged {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventLocationChanged" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1886,7 +1971,7 @@ pub struct RTDChatEventLocationChangedBuilder {
 impl RTDChatEventLocationChangedBuilder {
   pub fn build(&self) -> ChatEventLocationChanged { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1926,7 +2011,7 @@ pub struct ChatEventIsAllHistoryAvailableToggled {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// New value of is_all_history_available
   is_all_history_available: bool,
   
@@ -1935,7 +2020,11 @@ pub struct ChatEventIsAllHistoryAvailableToggled {
 impl RObject for ChatEventIsAllHistoryAvailableToggled {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventIsAllHistoryAvailableToggled" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1965,7 +2054,7 @@ pub struct RTDChatEventIsAllHistoryAvailableToggledBuilder {
 impl RTDChatEventIsAllHistoryAvailableToggledBuilder {
   pub fn build(&self) -> ChatEventIsAllHistoryAvailableToggled { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

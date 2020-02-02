@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -219,14 +220,18 @@ pub struct SearchMessagesFilterEmpty {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterEmpty {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterEmpty" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -254,7 +259,7 @@ pub struct RTDSearchMessagesFilterEmptyBuilder {
 impl RTDSearchMessagesFilterEmptyBuilder {
   pub fn build(&self) -> SearchMessagesFilterEmpty { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -282,14 +287,18 @@ pub struct SearchMessagesFilterAnimation {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterAnimation {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterAnimation" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -317,7 +326,7 @@ pub struct RTDSearchMessagesFilterAnimationBuilder {
 impl RTDSearchMessagesFilterAnimationBuilder {
   pub fn build(&self) -> SearchMessagesFilterAnimation { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -345,14 +354,18 @@ pub struct SearchMessagesFilterAudio {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterAudio {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterAudio" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -380,7 +393,7 @@ pub struct RTDSearchMessagesFilterAudioBuilder {
 impl RTDSearchMessagesFilterAudioBuilder {
   pub fn build(&self) -> SearchMessagesFilterAudio { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -408,14 +421,18 @@ pub struct SearchMessagesFilterDocument {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterDocument {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterDocument" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -443,7 +460,7 @@ pub struct RTDSearchMessagesFilterDocumentBuilder {
 impl RTDSearchMessagesFilterDocumentBuilder {
   pub fn build(&self) -> SearchMessagesFilterDocument { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -471,14 +488,18 @@ pub struct SearchMessagesFilterPhoto {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterPhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterPhoto" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -506,7 +527,7 @@ pub struct RTDSearchMessagesFilterPhotoBuilder {
 impl RTDSearchMessagesFilterPhotoBuilder {
   pub fn build(&self) -> SearchMessagesFilterPhoto { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -534,14 +555,18 @@ pub struct SearchMessagesFilterVideo {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterVideo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterVideo" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -569,7 +594,7 @@ pub struct RTDSearchMessagesFilterVideoBuilder {
 impl RTDSearchMessagesFilterVideoBuilder {
   pub fn build(&self) -> SearchMessagesFilterVideo { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -597,14 +622,18 @@ pub struct SearchMessagesFilterVoiceNote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterVoiceNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterVoiceNote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -632,7 +661,7 @@ pub struct RTDSearchMessagesFilterVoiceNoteBuilder {
 impl RTDSearchMessagesFilterVoiceNoteBuilder {
   pub fn build(&self) -> SearchMessagesFilterVoiceNote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -660,14 +689,18 @@ pub struct SearchMessagesFilterPhotoAndVideo {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterPhotoAndVideo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterPhotoAndVideo" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -695,7 +728,7 @@ pub struct RTDSearchMessagesFilterPhotoAndVideoBuilder {
 impl RTDSearchMessagesFilterPhotoAndVideoBuilder {
   pub fn build(&self) -> SearchMessagesFilterPhotoAndVideo { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -723,14 +756,18 @@ pub struct SearchMessagesFilterUrl {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterUrl {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterUrl" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -758,7 +795,7 @@ pub struct RTDSearchMessagesFilterUrlBuilder {
 impl RTDSearchMessagesFilterUrlBuilder {
   pub fn build(&self) -> SearchMessagesFilterUrl { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -786,14 +823,18 @@ pub struct SearchMessagesFilterChatPhoto {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterChatPhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterChatPhoto" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -821,7 +862,7 @@ pub struct RTDSearchMessagesFilterChatPhotoBuilder {
 impl RTDSearchMessagesFilterChatPhotoBuilder {
   pub fn build(&self) -> SearchMessagesFilterChatPhoto { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -849,14 +890,18 @@ pub struct SearchMessagesFilterCall {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterCall {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterCall" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -884,7 +929,7 @@ pub struct RTDSearchMessagesFilterCallBuilder {
 impl RTDSearchMessagesFilterCallBuilder {
   pub fn build(&self) -> SearchMessagesFilterCall { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -912,14 +957,18 @@ pub struct SearchMessagesFilterMissedCall {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterMissedCall {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterMissedCall" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -947,7 +996,7 @@ pub struct RTDSearchMessagesFilterMissedCallBuilder {
 impl RTDSearchMessagesFilterMissedCallBuilder {
   pub fn build(&self) -> SearchMessagesFilterMissedCall { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -975,14 +1024,18 @@ pub struct SearchMessagesFilterVideoNote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterVideoNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterVideoNote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1010,7 +1063,7 @@ pub struct RTDSearchMessagesFilterVideoNoteBuilder {
 impl RTDSearchMessagesFilterVideoNoteBuilder {
   pub fn build(&self) -> SearchMessagesFilterVideoNote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1038,14 +1091,18 @@ pub struct SearchMessagesFilterVoiceAndVideoNote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterVoiceAndVideoNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterVoiceAndVideoNote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1073,7 +1130,7 @@ pub struct RTDSearchMessagesFilterVoiceAndVideoNoteBuilder {
 impl RTDSearchMessagesFilterVoiceAndVideoNoteBuilder {
   pub fn build(&self) -> SearchMessagesFilterVoiceAndVideoNote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1101,14 +1158,18 @@ pub struct SearchMessagesFilterMention {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterMention {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterMention" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1136,7 +1197,7 @@ pub struct RTDSearchMessagesFilterMentionBuilder {
 impl RTDSearchMessagesFilterMentionBuilder {
   pub fn build(&self) -> SearchMessagesFilterMention { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1164,14 +1225,18 @@ pub struct SearchMessagesFilterUnreadMention {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for SearchMessagesFilterUnreadMention {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "searchMessagesFilterUnreadMention" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1199,7 +1264,7 @@ pub struct RTDSearchMessagesFilterUnreadMentionBuilder {
 impl RTDSearchMessagesFilterUnreadMentionBuilder {
   pub fn build(&self) -> SearchMessagesFilterUnreadMention { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

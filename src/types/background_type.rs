@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -102,7 +103,7 @@ pub struct BackgroundTypeWallpaper {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// True, if the wallpaper must be downscaled to fit in 450x450 square and then box-blurred with radius 12
   is_blurred: bool,
   /// True, if the background needs to be slightly moved when device is tilted
@@ -113,7 +114,11 @@ pub struct BackgroundTypeWallpaper {
 impl RObject for BackgroundTypeWallpaper {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "backgroundTypeWallpaper" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -145,7 +150,7 @@ pub struct RTDBackgroundTypeWallpaperBuilder {
 impl RTDBackgroundTypeWallpaperBuilder {
   pub fn build(&self) -> BackgroundTypeWallpaper { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -185,7 +190,7 @@ pub struct BackgroundTypePattern {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Description of the background fill
   fill: BackgroundFill,
   /// Intensity of the pattern when it is shown above the filled background, 0-100
@@ -198,7 +203,11 @@ pub struct BackgroundTypePattern {
 impl RObject for BackgroundTypePattern {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "backgroundTypePattern" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -232,7 +241,7 @@ pub struct RTDBackgroundTypePatternBuilder {
 impl RTDBackgroundTypePatternBuilder {
   pub fn build(&self) -> BackgroundTypePattern { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -278,7 +287,7 @@ pub struct BackgroundTypeFill {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Description of the background fill
   fill: BackgroundFill,
   
@@ -287,7 +296,11 @@ pub struct BackgroundTypeFill {
 impl RObject for BackgroundTypeFill {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "backgroundTypeFill" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -317,7 +330,7 @@ pub struct RTDBackgroundTypeFillBuilder {
 impl RTDBackgroundTypeFillBuilder {
   pub fn build(&self) -> BackgroundTypeFill { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

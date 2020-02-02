@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -111,7 +112,7 @@ pub struct ReplyMarkupRemoveKeyboard {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// True, if the keyboard is removed only for the mentioned users or the target user of a reply
   is_personal: bool,
   
@@ -120,7 +121,11 @@ pub struct ReplyMarkupRemoveKeyboard {
 impl RObject for ReplyMarkupRemoveKeyboard {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "replyMarkupRemoveKeyboard" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -150,7 +155,7 @@ pub struct RTDReplyMarkupRemoveKeyboardBuilder {
 impl RTDReplyMarkupRemoveKeyboardBuilder {
   pub fn build(&self) -> ReplyMarkupRemoveKeyboard { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -184,7 +189,7 @@ pub struct ReplyMarkupForceReply {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// True, if a forced reply must automatically be shown to the current user. For outgoing messages, specify true to show the forced reply only for the mentioned users and for the target user of a reply
   is_personal: bool,
   
@@ -193,7 +198,11 @@ pub struct ReplyMarkupForceReply {
 impl RObject for ReplyMarkupForceReply {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "replyMarkupForceReply" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -223,7 +232,7 @@ pub struct RTDReplyMarkupForceReplyBuilder {
 impl RTDReplyMarkupForceReplyBuilder {
   pub fn build(&self) -> ReplyMarkupForceReply { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -257,7 +266,7 @@ pub struct ReplyMarkupShowKeyboard {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// A list of rows of bot keyboard buttons
   rows: Vec<Vec<KeyboardButton>>,
   /// True, if the client needs to resize the keyboard vertically
@@ -272,7 +281,11 @@ pub struct ReplyMarkupShowKeyboard {
 impl RObject for ReplyMarkupShowKeyboard {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "replyMarkupShowKeyboard" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -308,7 +321,7 @@ pub struct RTDReplyMarkupShowKeyboardBuilder {
 impl RTDReplyMarkupShowKeyboardBuilder {
   pub fn build(&self) -> ReplyMarkupShowKeyboard { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -360,7 +373,7 @@ pub struct ReplyMarkupInlineKeyboard {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// A list of rows of inline keyboard buttons
   rows: Vec<Vec<InlineKeyboardButton>>,
   
@@ -369,7 +382,11 @@ pub struct ReplyMarkupInlineKeyboard {
 impl RObject for ReplyMarkupInlineKeyboard {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "replyMarkupInlineKeyboard" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -399,7 +416,7 @@ pub struct RTDReplyMarkupInlineKeyboardBuilder {
 impl RTDReplyMarkupInlineKeyboardBuilder {
   pub fn build(&self) -> ReplyMarkupInlineKeyboard { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

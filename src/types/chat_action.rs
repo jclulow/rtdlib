@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -192,14 +193,18 @@ pub struct ChatActionTyping {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for ChatActionTyping {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatActionTyping" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -227,7 +232,7 @@ pub struct RTDChatActionTypingBuilder {
 impl RTDChatActionTypingBuilder {
   pub fn build(&self) -> ChatActionTyping { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -255,14 +260,18 @@ pub struct ChatActionRecordingVideo {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for ChatActionRecordingVideo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatActionRecordingVideo" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -290,7 +299,7 @@ pub struct RTDChatActionRecordingVideoBuilder {
 impl RTDChatActionRecordingVideoBuilder {
   pub fn build(&self) -> ChatActionRecordingVideo { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -318,7 +327,7 @@ pub struct ChatActionUploadingVideo {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Upload progress, as a percentage
   progress: i64,
   
@@ -327,7 +336,11 @@ pub struct ChatActionUploadingVideo {
 impl RObject for ChatActionUploadingVideo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatActionUploadingVideo" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -357,7 +370,7 @@ pub struct RTDChatActionUploadingVideoBuilder {
 impl RTDChatActionUploadingVideoBuilder {
   pub fn build(&self) -> ChatActionUploadingVideo { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -391,14 +404,18 @@ pub struct ChatActionRecordingVoiceNote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for ChatActionRecordingVoiceNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatActionRecordingVoiceNote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -426,7 +443,7 @@ pub struct RTDChatActionRecordingVoiceNoteBuilder {
 impl RTDChatActionRecordingVoiceNoteBuilder {
   pub fn build(&self) -> ChatActionRecordingVoiceNote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -454,7 +471,7 @@ pub struct ChatActionUploadingVoiceNote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Upload progress, as a percentage
   progress: i64,
   
@@ -463,7 +480,11 @@ pub struct ChatActionUploadingVoiceNote {
 impl RObject for ChatActionUploadingVoiceNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatActionUploadingVoiceNote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -493,7 +514,7 @@ pub struct RTDChatActionUploadingVoiceNoteBuilder {
 impl RTDChatActionUploadingVoiceNoteBuilder {
   pub fn build(&self) -> ChatActionUploadingVoiceNote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -527,7 +548,7 @@ pub struct ChatActionUploadingPhoto {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Upload progress, as a percentage
   progress: i64,
   
@@ -536,7 +557,11 @@ pub struct ChatActionUploadingPhoto {
 impl RObject for ChatActionUploadingPhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatActionUploadingPhoto" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -566,7 +591,7 @@ pub struct RTDChatActionUploadingPhotoBuilder {
 impl RTDChatActionUploadingPhotoBuilder {
   pub fn build(&self) -> ChatActionUploadingPhoto { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -600,7 +625,7 @@ pub struct ChatActionUploadingDocument {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Upload progress, as a percentage
   progress: i64,
   
@@ -609,7 +634,11 @@ pub struct ChatActionUploadingDocument {
 impl RObject for ChatActionUploadingDocument {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatActionUploadingDocument" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -639,7 +668,7 @@ pub struct RTDChatActionUploadingDocumentBuilder {
 impl RTDChatActionUploadingDocumentBuilder {
   pub fn build(&self) -> ChatActionUploadingDocument { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -673,14 +702,18 @@ pub struct ChatActionChoosingLocation {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for ChatActionChoosingLocation {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatActionChoosingLocation" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -708,7 +741,7 @@ pub struct RTDChatActionChoosingLocationBuilder {
 impl RTDChatActionChoosingLocationBuilder {
   pub fn build(&self) -> ChatActionChoosingLocation { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -736,14 +769,18 @@ pub struct ChatActionChoosingContact {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for ChatActionChoosingContact {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatActionChoosingContact" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -771,7 +808,7 @@ pub struct RTDChatActionChoosingContactBuilder {
 impl RTDChatActionChoosingContactBuilder {
   pub fn build(&self) -> ChatActionChoosingContact { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -799,14 +836,18 @@ pub struct ChatActionStartPlayingGame {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for ChatActionStartPlayingGame {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatActionStartPlayingGame" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -834,7 +875,7 @@ pub struct RTDChatActionStartPlayingGameBuilder {
 impl RTDChatActionStartPlayingGameBuilder {
   pub fn build(&self) -> ChatActionStartPlayingGame { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -862,14 +903,18 @@ pub struct ChatActionRecordingVideoNote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for ChatActionRecordingVideoNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatActionRecordingVideoNote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -897,7 +942,7 @@ pub struct RTDChatActionRecordingVideoNoteBuilder {
 impl RTDChatActionRecordingVideoNoteBuilder {
   pub fn build(&self) -> ChatActionRecordingVideoNote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -925,7 +970,7 @@ pub struct ChatActionUploadingVideoNote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Upload progress, as a percentage
   progress: i64,
   
@@ -934,7 +979,11 @@ pub struct ChatActionUploadingVideoNote {
 impl RObject for ChatActionUploadingVideoNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatActionUploadingVideoNote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -964,7 +1013,7 @@ pub struct RTDChatActionUploadingVideoNoteBuilder {
 impl RTDChatActionUploadingVideoNoteBuilder {
   pub fn build(&self) -> ChatActionUploadingVideoNote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -998,14 +1047,18 @@ pub struct ChatActionCancel {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for ChatActionCancel {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatActionCancel" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1033,7 +1086,7 @@ pub struct RTDChatActionCancelBuilder {
 impl RTDChatActionCancelBuilder {
   pub fn build(&self) -> ChatActionCancel { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -336,7 +337,7 @@ pub struct PageBlockTitle {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Title
   title: RichText,
   
@@ -345,7 +346,11 @@ pub struct PageBlockTitle {
 impl RObject for PageBlockTitle {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockTitle" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -375,7 +380,7 @@ pub struct RTDPageBlockTitleBuilder {
 impl RTDPageBlockTitleBuilder {
   pub fn build(&self) -> PageBlockTitle { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -409,7 +414,7 @@ pub struct PageBlockSubtitle {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Subtitle
   subtitle: RichText,
   
@@ -418,7 +423,11 @@ pub struct PageBlockSubtitle {
 impl RObject for PageBlockSubtitle {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockSubtitle" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -448,7 +457,7 @@ pub struct RTDPageBlockSubtitleBuilder {
 impl RTDPageBlockSubtitleBuilder {
   pub fn build(&self) -> PageBlockSubtitle { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -482,7 +491,7 @@ pub struct PageBlockAuthorDate {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Author
   author: RichText,
   /// Point in time (Unix timestamp) when the article was published; 0 if unknown
@@ -493,7 +502,11 @@ pub struct PageBlockAuthorDate {
 impl RObject for PageBlockAuthorDate {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockAuthorDate" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -525,7 +538,7 @@ pub struct RTDPageBlockAuthorDateBuilder {
 impl RTDPageBlockAuthorDateBuilder {
   pub fn build(&self) -> PageBlockAuthorDate { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -565,7 +578,7 @@ pub struct PageBlockHeader {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Header
   header: RichText,
   
@@ -574,7 +587,11 @@ pub struct PageBlockHeader {
 impl RObject for PageBlockHeader {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockHeader" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -604,7 +621,7 @@ pub struct RTDPageBlockHeaderBuilder {
 impl RTDPageBlockHeaderBuilder {
   pub fn build(&self) -> PageBlockHeader { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -638,7 +655,7 @@ pub struct PageBlockSubheader {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Subheader
   subheader: RichText,
   
@@ -647,7 +664,11 @@ pub struct PageBlockSubheader {
 impl RObject for PageBlockSubheader {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockSubheader" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -677,7 +698,7 @@ pub struct RTDPageBlockSubheaderBuilder {
 impl RTDPageBlockSubheaderBuilder {
   pub fn build(&self) -> PageBlockSubheader { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -711,7 +732,7 @@ pub struct PageBlockKicker {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Kicker
   kicker: RichText,
   
@@ -720,7 +741,11 @@ pub struct PageBlockKicker {
 impl RObject for PageBlockKicker {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockKicker" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -750,7 +775,7 @@ pub struct RTDPageBlockKickerBuilder {
 impl RTDPageBlockKickerBuilder {
   pub fn build(&self) -> PageBlockKicker { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -784,7 +809,7 @@ pub struct PageBlockParagraph {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Paragraph text
   text: RichText,
   
@@ -793,7 +818,11 @@ pub struct PageBlockParagraph {
 impl RObject for PageBlockParagraph {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockParagraph" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -823,7 +852,7 @@ pub struct RTDPageBlockParagraphBuilder {
 impl RTDPageBlockParagraphBuilder {
   pub fn build(&self) -> PageBlockParagraph { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -857,7 +886,7 @@ pub struct PageBlockPreformatted {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Paragraph text
   text: RichText,
   /// Programming language for which the text should be formatted
@@ -868,7 +897,11 @@ pub struct PageBlockPreformatted {
 impl RObject for PageBlockPreformatted {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockPreformatted" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -900,7 +933,7 @@ pub struct RTDPageBlockPreformattedBuilder {
 impl RTDPageBlockPreformattedBuilder {
   pub fn build(&self) -> PageBlockPreformatted { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -940,7 +973,7 @@ pub struct PageBlockFooter {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Footer
   footer: RichText,
   
@@ -949,7 +982,11 @@ pub struct PageBlockFooter {
 impl RObject for PageBlockFooter {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockFooter" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -979,7 +1016,7 @@ pub struct RTDPageBlockFooterBuilder {
 impl RTDPageBlockFooterBuilder {
   pub fn build(&self) -> PageBlockFooter { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1013,14 +1050,18 @@ pub struct PageBlockDivider {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PageBlockDivider {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockDivider" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1048,7 +1089,7 @@ pub struct RTDPageBlockDividerBuilder {
 impl RTDPageBlockDividerBuilder {
   pub fn build(&self) -> PageBlockDivider { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1076,7 +1117,7 @@ pub struct PageBlockAnchor {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Name of the anchor
   name: String,
   
@@ -1085,7 +1126,11 @@ pub struct PageBlockAnchor {
 impl RObject for PageBlockAnchor {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockAnchor" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1115,7 +1160,7 @@ pub struct RTDPageBlockAnchorBuilder {
 impl RTDPageBlockAnchorBuilder {
   pub fn build(&self) -> PageBlockAnchor { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1149,7 +1194,7 @@ pub struct PageBlockList {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The items of the list
   items: Vec<PageBlockListItem>,
   
@@ -1158,7 +1203,11 @@ pub struct PageBlockList {
 impl RObject for PageBlockList {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockList" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1188,7 +1237,7 @@ pub struct RTDPageBlockListBuilder {
 impl RTDPageBlockListBuilder {
   pub fn build(&self) -> PageBlockList { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1222,7 +1271,7 @@ pub struct PageBlockBlockQuote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Quote text
   text: RichText,
   /// Quote credit
@@ -1233,7 +1282,11 @@ pub struct PageBlockBlockQuote {
 impl RObject for PageBlockBlockQuote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockBlockQuote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1265,7 +1318,7 @@ pub struct RTDPageBlockBlockQuoteBuilder {
 impl RTDPageBlockBlockQuoteBuilder {
   pub fn build(&self) -> PageBlockBlockQuote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1305,7 +1358,7 @@ pub struct PageBlockPullQuote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Quote text
   text: RichText,
   /// Quote credit
@@ -1316,7 +1369,11 @@ pub struct PageBlockPullQuote {
 impl RObject for PageBlockPullQuote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockPullQuote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1348,7 +1405,7 @@ pub struct RTDPageBlockPullQuoteBuilder {
 impl RTDPageBlockPullQuoteBuilder {
   pub fn build(&self) -> PageBlockPullQuote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1388,7 +1445,7 @@ pub struct PageBlockAnimation {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Animation file; may be null
   animation: Option<Animation>,
   /// Animation caption
@@ -1401,7 +1458,11 @@ pub struct PageBlockAnimation {
 impl RObject for PageBlockAnimation {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockAnimation" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1435,7 +1496,7 @@ pub struct RTDPageBlockAnimationBuilder {
 impl RTDPageBlockAnimationBuilder {
   pub fn build(&self) -> PageBlockAnimation { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1481,7 +1542,7 @@ pub struct PageBlockAudio {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Audio file; may be null
   audio: Option<Audio>,
   /// Audio file caption
@@ -1492,7 +1553,11 @@ pub struct PageBlockAudio {
 impl RObject for PageBlockAudio {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockAudio" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1524,7 +1589,7 @@ pub struct RTDPageBlockAudioBuilder {
 impl RTDPageBlockAudioBuilder {
   pub fn build(&self) -> PageBlockAudio { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1564,7 +1629,7 @@ pub struct PageBlockPhoto {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Photo file; may be null
   photo: Option<Photo>,
   /// Photo caption
@@ -1577,7 +1642,11 @@ pub struct PageBlockPhoto {
 impl RObject for PageBlockPhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockPhoto" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1611,7 +1680,7 @@ pub struct RTDPageBlockPhotoBuilder {
 impl RTDPageBlockPhotoBuilder {
   pub fn build(&self) -> PageBlockPhoto { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1657,7 +1726,7 @@ pub struct PageBlockVideo {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Video file; may be null
   video: Option<Video>,
   /// Video caption
@@ -1672,7 +1741,11 @@ pub struct PageBlockVideo {
 impl RObject for PageBlockVideo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockVideo" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1708,7 +1781,7 @@ pub struct RTDPageBlockVideoBuilder {
 impl RTDPageBlockVideoBuilder {
   pub fn build(&self) -> PageBlockVideo { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1760,7 +1833,7 @@ pub struct PageBlockVoiceNote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Voice note; may be null
   voice_note: Option<VoiceNote>,
   /// Voice note caption
@@ -1771,7 +1844,11 @@ pub struct PageBlockVoiceNote {
 impl RObject for PageBlockVoiceNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockVoiceNote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1803,7 +1880,7 @@ pub struct RTDPageBlockVoiceNoteBuilder {
 impl RTDPageBlockVoiceNoteBuilder {
   pub fn build(&self) -> PageBlockVoiceNote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1843,7 +1920,7 @@ pub struct PageBlockCover {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Cover
   cover: Box<PageBlock>,
   
@@ -1852,7 +1929,11 @@ pub struct PageBlockCover {
 impl RObject for PageBlockCover {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockCover" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1882,7 +1963,7 @@ pub struct RTDPageBlockCoverBuilder {
 impl RTDPageBlockCoverBuilder {
   pub fn build(&self) -> PageBlockCover { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1916,7 +1997,7 @@ pub struct PageBlockEmbedded {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Web page URL, if available
   url: String,
   /// HTML-markup of the embedded page
@@ -1939,7 +2020,11 @@ pub struct PageBlockEmbedded {
 impl RObject for PageBlockEmbedded {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockEmbedded" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1983,7 +2068,7 @@ pub struct RTDPageBlockEmbeddedBuilder {
 impl RTDPageBlockEmbeddedBuilder {
   pub fn build(&self) -> PageBlockEmbedded { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2059,7 +2144,7 @@ pub struct PageBlockEmbeddedPost {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Web page URL
   url: String,
   /// Post author
@@ -2078,7 +2163,11 @@ pub struct PageBlockEmbeddedPost {
 impl RObject for PageBlockEmbeddedPost {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockEmbeddedPost" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2118,7 +2207,7 @@ pub struct RTDPageBlockEmbeddedPostBuilder {
 impl RTDPageBlockEmbeddedPostBuilder {
   pub fn build(&self) -> PageBlockEmbeddedPost { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2182,7 +2271,7 @@ pub struct PageBlockCollage {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Collage item contents
   page_blocks: Vec<PageBlock>,
   /// Block caption
@@ -2193,7 +2282,11 @@ pub struct PageBlockCollage {
 impl RObject for PageBlockCollage {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockCollage" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2225,7 +2318,7 @@ pub struct RTDPageBlockCollageBuilder {
 impl RTDPageBlockCollageBuilder {
   pub fn build(&self) -> PageBlockCollage { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2265,7 +2358,7 @@ pub struct PageBlockSlideshow {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Slideshow item contents
   page_blocks: Vec<PageBlock>,
   /// Block caption
@@ -2276,7 +2369,11 @@ pub struct PageBlockSlideshow {
 impl RObject for PageBlockSlideshow {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockSlideshow" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2308,7 +2405,7 @@ pub struct RTDPageBlockSlideshowBuilder {
 impl RTDPageBlockSlideshowBuilder {
   pub fn build(&self) -> PageBlockSlideshow { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2348,7 +2445,7 @@ pub struct PageBlockChatLink {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat title
   title: String,
   /// Chat photo; may be null
@@ -2361,7 +2458,11 @@ pub struct PageBlockChatLink {
 impl RObject for PageBlockChatLink {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockChatLink" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2395,7 +2496,7 @@ pub struct RTDPageBlockChatLinkBuilder {
 impl RTDPageBlockChatLinkBuilder {
   pub fn build(&self) -> PageBlockChatLink { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2441,7 +2542,7 @@ pub struct PageBlockTable {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Table caption
   caption: RichText,
   /// Table cells
@@ -2456,7 +2557,11 @@ pub struct PageBlockTable {
 impl RObject for PageBlockTable {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockTable" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2492,7 +2597,7 @@ pub struct RTDPageBlockTableBuilder {
 impl RTDPageBlockTableBuilder {
   pub fn build(&self) -> PageBlockTable { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2544,7 +2649,7 @@ pub struct PageBlockDetails {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Always visible heading for the block
   header: RichText,
   /// Block contents
@@ -2557,7 +2662,11 @@ pub struct PageBlockDetails {
 impl RObject for PageBlockDetails {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockDetails" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2591,7 +2700,7 @@ pub struct RTDPageBlockDetailsBuilder {
 impl RTDPageBlockDetailsBuilder {
   pub fn build(&self) -> PageBlockDetails { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2637,7 +2746,7 @@ pub struct PageBlockRelatedArticles {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Block header
   header: RichText,
   /// List of related articles
@@ -2648,7 +2757,11 @@ pub struct PageBlockRelatedArticles {
 impl RObject for PageBlockRelatedArticles {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockRelatedArticles" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2680,7 +2793,7 @@ pub struct RTDPageBlockRelatedArticlesBuilder {
 impl RTDPageBlockRelatedArticlesBuilder {
   pub fn build(&self) -> PageBlockRelatedArticles { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2720,7 +2833,7 @@ pub struct PageBlockMap {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Location of the map center
   location: Location,
   /// Map zoom level
@@ -2737,7 +2850,11 @@ pub struct PageBlockMap {
 impl RObject for PageBlockMap {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockMap" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2775,7 +2892,7 @@ pub struct RTDPageBlockMapBuilder {
 impl RTDPageBlockMapBuilder {
   pub fn build(&self) -> PageBlockMap { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

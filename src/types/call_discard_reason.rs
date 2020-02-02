@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -120,14 +121,18 @@ pub struct CallDiscardReasonEmpty {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for CallDiscardReasonEmpty {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callDiscardReasonEmpty" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -155,7 +160,7 @@ pub struct RTDCallDiscardReasonEmptyBuilder {
 impl RTDCallDiscardReasonEmptyBuilder {
   pub fn build(&self) -> CallDiscardReasonEmpty { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -183,14 +188,18 @@ pub struct CallDiscardReasonMissed {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for CallDiscardReasonMissed {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callDiscardReasonMissed" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -218,7 +227,7 @@ pub struct RTDCallDiscardReasonMissedBuilder {
 impl RTDCallDiscardReasonMissedBuilder {
   pub fn build(&self) -> CallDiscardReasonMissed { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -246,14 +255,18 @@ pub struct CallDiscardReasonDeclined {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for CallDiscardReasonDeclined {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callDiscardReasonDeclined" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -281,7 +294,7 @@ pub struct RTDCallDiscardReasonDeclinedBuilder {
 impl RTDCallDiscardReasonDeclinedBuilder {
   pub fn build(&self) -> CallDiscardReasonDeclined { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -309,14 +322,18 @@ pub struct CallDiscardReasonDisconnected {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for CallDiscardReasonDisconnected {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callDiscardReasonDisconnected" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -344,7 +361,7 @@ pub struct RTDCallDiscardReasonDisconnectedBuilder {
 impl RTDCallDiscardReasonDisconnectedBuilder {
   pub fn build(&self) -> CallDiscardReasonDisconnected { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -372,14 +389,18 @@ pub struct CallDiscardReasonHungUp {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for CallDiscardReasonHungUp {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callDiscardReasonHungUp" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -407,7 +428,7 @@ pub struct RTDCallDiscardReasonHungUpBuilder {
 impl RTDCallDiscardReasonHungUpBuilder {
   pub fn build(&self) -> CallDiscardReasonHungUp { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

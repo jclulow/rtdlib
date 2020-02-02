@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -111,7 +112,7 @@ pub struct AuthenticationCodeTypeTelegramMessage {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Length of the code
   length: i64,
   
@@ -120,7 +121,11 @@ pub struct AuthenticationCodeTypeTelegramMessage {
 impl RObject for AuthenticationCodeTypeTelegramMessage {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authenticationCodeTypeTelegramMessage" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -150,7 +155,7 @@ pub struct RTDAuthenticationCodeTypeTelegramMessageBuilder {
 impl RTDAuthenticationCodeTypeTelegramMessageBuilder {
   pub fn build(&self) -> AuthenticationCodeTypeTelegramMessage { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -184,7 +189,7 @@ pub struct AuthenticationCodeTypeSms {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Length of the code
   length: i64,
   
@@ -193,7 +198,11 @@ pub struct AuthenticationCodeTypeSms {
 impl RObject for AuthenticationCodeTypeSms {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authenticationCodeTypeSms" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -223,7 +232,7 @@ pub struct RTDAuthenticationCodeTypeSmsBuilder {
 impl RTDAuthenticationCodeTypeSmsBuilder {
   pub fn build(&self) -> AuthenticationCodeTypeSms { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -257,7 +266,7 @@ pub struct AuthenticationCodeTypeCall {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Length of the code
   length: i64,
   
@@ -266,7 +275,11 @@ pub struct AuthenticationCodeTypeCall {
 impl RObject for AuthenticationCodeTypeCall {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authenticationCodeTypeCall" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -296,7 +309,7 @@ pub struct RTDAuthenticationCodeTypeCallBuilder {
 impl RTDAuthenticationCodeTypeCallBuilder {
   pub fn build(&self) -> AuthenticationCodeTypeCall { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -330,7 +343,7 @@ pub struct AuthenticationCodeTypeFlashCall {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Pattern of the phone number from which the call will be made
   pattern: String,
   
@@ -339,7 +352,11 @@ pub struct AuthenticationCodeTypeFlashCall {
 impl RObject for AuthenticationCodeTypeFlashCall {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authenticationCodeTypeFlashCall" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -369,7 +386,7 @@ pub struct RTDAuthenticationCodeTypeFlashCallBuilder {
 impl RTDAuthenticationCodeTypeFlashCallBuilder {
   pub fn build(&self) -> AuthenticationCodeTypeFlashCall { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

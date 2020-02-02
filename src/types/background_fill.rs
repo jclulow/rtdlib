@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -93,7 +94,7 @@ pub struct BackgroundFillSolid {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// A color of the background in the RGB24 format
   color: i64,
   
@@ -102,7 +103,11 @@ pub struct BackgroundFillSolid {
 impl RObject for BackgroundFillSolid {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "backgroundFillSolid" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -132,7 +137,7 @@ pub struct RTDBackgroundFillSolidBuilder {
 impl RTDBackgroundFillSolidBuilder {
   pub fn build(&self) -> BackgroundFillSolid { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -166,7 +171,7 @@ pub struct BackgroundFillGradient {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// A top color of the background in the RGB24 format
   top_color: i64,
   /// A bottom color of the background in the RGB24 format
@@ -179,7 +184,11 @@ pub struct BackgroundFillGradient {
 impl RObject for BackgroundFillGradient {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "backgroundFillGradient" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -213,7 +222,7 @@ pub struct RTDBackgroundFillGradientBuilder {
 impl RTDBackgroundFillGradientBuilder {
   pub fn build(&self) -> BackgroundFillGradient { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

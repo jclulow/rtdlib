@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -120,7 +121,7 @@ pub struct OptionValueBoolean {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The value of the option
   value: bool,
   
@@ -129,7 +130,11 @@ pub struct OptionValueBoolean {
 impl RObject for OptionValueBoolean {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "optionValueBoolean" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -159,7 +164,7 @@ pub struct RTDOptionValueBooleanBuilder {
 impl RTDOptionValueBooleanBuilder {
   pub fn build(&self) -> OptionValueBoolean { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -193,14 +198,18 @@ pub struct OptionValueEmpty {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for OptionValueEmpty {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "optionValueEmpty" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -228,7 +237,7 @@ pub struct RTDOptionValueEmptyBuilder {
 impl RTDOptionValueEmptyBuilder {
   pub fn build(&self) -> OptionValueEmpty { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -256,7 +265,7 @@ pub struct OptionValueInteger {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The value of the option
   value: i64,
   
@@ -265,7 +274,11 @@ pub struct OptionValueInteger {
 impl RObject for OptionValueInteger {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "optionValueInteger" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -295,7 +308,7 @@ pub struct RTDOptionValueIntegerBuilder {
 impl RTDOptionValueIntegerBuilder {
   pub fn build(&self) -> OptionValueInteger { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -329,7 +342,7 @@ pub struct OptionValueString {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The value of the option
   value: String,
   
@@ -338,7 +351,11 @@ pub struct OptionValueString {
 impl RObject for OptionValueString {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "optionValueString" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -368,7 +385,7 @@ pub struct RTDOptionValueStringBuilder {
 impl RTDOptionValueStringBuilder {
   pub fn build(&self) -> OptionValueString { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

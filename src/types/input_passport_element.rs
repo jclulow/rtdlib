@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -192,7 +193,7 @@ pub struct InputPassportElementPersonalDetails {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Personal details of the user
   personal_details: PersonalDetails,
   
@@ -201,7 +202,11 @@ pub struct InputPassportElementPersonalDetails {
 impl RObject for InputPassportElementPersonalDetails {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputPassportElementPersonalDetails" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -231,7 +236,7 @@ pub struct RTDInputPassportElementPersonalDetailsBuilder {
 impl RTDInputPassportElementPersonalDetailsBuilder {
   pub fn build(&self) -> InputPassportElementPersonalDetails { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -265,7 +270,7 @@ pub struct InputPassportElementPassport {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The passport to be saved
   passport: InputIdentityDocument,
   
@@ -274,7 +279,11 @@ pub struct InputPassportElementPassport {
 impl RObject for InputPassportElementPassport {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputPassportElementPassport" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -304,7 +313,7 @@ pub struct RTDInputPassportElementPassportBuilder {
 impl RTDInputPassportElementPassportBuilder {
   pub fn build(&self) -> InputPassportElementPassport { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -338,7 +347,7 @@ pub struct InputPassportElementDriverLicense {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The driver license to be saved
   driver_license: InputIdentityDocument,
   
@@ -347,7 +356,11 @@ pub struct InputPassportElementDriverLicense {
 impl RObject for InputPassportElementDriverLicense {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputPassportElementDriverLicense" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -377,7 +390,7 @@ pub struct RTDInputPassportElementDriverLicenseBuilder {
 impl RTDInputPassportElementDriverLicenseBuilder {
   pub fn build(&self) -> InputPassportElementDriverLicense { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -411,7 +424,7 @@ pub struct InputPassportElementIdentityCard {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The identity card to be saved
   identity_card: InputIdentityDocument,
   
@@ -420,7 +433,11 @@ pub struct InputPassportElementIdentityCard {
 impl RObject for InputPassportElementIdentityCard {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputPassportElementIdentityCard" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -450,7 +467,7 @@ pub struct RTDInputPassportElementIdentityCardBuilder {
 impl RTDInputPassportElementIdentityCardBuilder {
   pub fn build(&self) -> InputPassportElementIdentityCard { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -484,7 +501,7 @@ pub struct InputPassportElementInternalPassport {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The internal passport to be saved
   internal_passport: InputIdentityDocument,
   
@@ -493,7 +510,11 @@ pub struct InputPassportElementInternalPassport {
 impl RObject for InputPassportElementInternalPassport {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputPassportElementInternalPassport" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -523,7 +544,7 @@ pub struct RTDInputPassportElementInternalPassportBuilder {
 impl RTDInputPassportElementInternalPassportBuilder {
   pub fn build(&self) -> InputPassportElementInternalPassport { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -557,7 +578,7 @@ pub struct InputPassportElementAddress {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The address to be saved
   address: Address,
   
@@ -566,7 +587,11 @@ pub struct InputPassportElementAddress {
 impl RObject for InputPassportElementAddress {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputPassportElementAddress" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -596,7 +621,7 @@ pub struct RTDInputPassportElementAddressBuilder {
 impl RTDInputPassportElementAddressBuilder {
   pub fn build(&self) -> InputPassportElementAddress { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -630,7 +655,7 @@ pub struct InputPassportElementUtilityBill {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The utility bill to be saved
   utility_bill: InputPersonalDocument,
   
@@ -639,7 +664,11 @@ pub struct InputPassportElementUtilityBill {
 impl RObject for InputPassportElementUtilityBill {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputPassportElementUtilityBill" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -669,7 +698,7 @@ pub struct RTDInputPassportElementUtilityBillBuilder {
 impl RTDInputPassportElementUtilityBillBuilder {
   pub fn build(&self) -> InputPassportElementUtilityBill { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -703,7 +732,7 @@ pub struct InputPassportElementBankStatement {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The bank statement to be saved
   bank_statement: InputPersonalDocument,
   
@@ -712,7 +741,11 @@ pub struct InputPassportElementBankStatement {
 impl RObject for InputPassportElementBankStatement {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputPassportElementBankStatement" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -742,7 +775,7 @@ pub struct RTDInputPassportElementBankStatementBuilder {
 impl RTDInputPassportElementBankStatementBuilder {
   pub fn build(&self) -> InputPassportElementBankStatement { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -776,7 +809,7 @@ pub struct InputPassportElementRentalAgreement {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The rental agreement to be saved
   rental_agreement: InputPersonalDocument,
   
@@ -785,7 +818,11 @@ pub struct InputPassportElementRentalAgreement {
 impl RObject for InputPassportElementRentalAgreement {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputPassportElementRentalAgreement" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -815,7 +852,7 @@ pub struct RTDInputPassportElementRentalAgreementBuilder {
 impl RTDInputPassportElementRentalAgreementBuilder {
   pub fn build(&self) -> InputPassportElementRentalAgreement { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -849,7 +886,7 @@ pub struct InputPassportElementPassportRegistration {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The passport registration page to be saved
   passport_registration: InputPersonalDocument,
   
@@ -858,7 +895,11 @@ pub struct InputPassportElementPassportRegistration {
 impl RObject for InputPassportElementPassportRegistration {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputPassportElementPassportRegistration" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -888,7 +929,7 @@ pub struct RTDInputPassportElementPassportRegistrationBuilder {
 impl RTDInputPassportElementPassportRegistrationBuilder {
   pub fn build(&self) -> InputPassportElementPassportRegistration { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -922,7 +963,7 @@ pub struct InputPassportElementTemporaryRegistration {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The temporary registration document to be saved
   temporary_registration: InputPersonalDocument,
   
@@ -931,7 +972,11 @@ pub struct InputPassportElementTemporaryRegistration {
 impl RObject for InputPassportElementTemporaryRegistration {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputPassportElementTemporaryRegistration" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -961,7 +1006,7 @@ pub struct RTDInputPassportElementTemporaryRegistrationBuilder {
 impl RTDInputPassportElementTemporaryRegistrationBuilder {
   pub fn build(&self) -> InputPassportElementTemporaryRegistration { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -995,7 +1040,7 @@ pub struct InputPassportElementPhoneNumber {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The phone number to be saved
   phone_number: String,
   
@@ -1004,7 +1049,11 @@ pub struct InputPassportElementPhoneNumber {
 impl RObject for InputPassportElementPhoneNumber {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputPassportElementPhoneNumber" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1034,7 +1083,7 @@ pub struct RTDInputPassportElementPhoneNumberBuilder {
 impl RTDInputPassportElementPhoneNumberBuilder {
   pub fn build(&self) -> InputPassportElementPhoneNumber { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1068,7 +1117,7 @@ pub struct InputPassportElementEmailAddress {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The email address to be saved
   email_address: String,
   
@@ -1077,7 +1126,11 @@ pub struct InputPassportElementEmailAddress {
 impl RObject for InputPassportElementEmailAddress {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputPassportElementEmailAddress" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1107,7 +1160,7 @@ pub struct RTDInputPassportElementEmailAddressBuilder {
 impl RTDInputPassportElementEmailAddressBuilder {
   pub fn build(&self) -> InputPassportElementEmailAddress { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

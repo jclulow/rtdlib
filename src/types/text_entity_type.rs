@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -219,14 +220,18 @@ pub struct TextEntityTypeMention {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for TextEntityTypeMention {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypeMention" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -254,7 +259,7 @@ pub struct RTDTextEntityTypeMentionBuilder {
 impl RTDTextEntityTypeMentionBuilder {
   pub fn build(&self) -> TextEntityTypeMention { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -282,14 +287,18 @@ pub struct TextEntityTypeHashtag {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for TextEntityTypeHashtag {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypeHashtag" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -317,7 +326,7 @@ pub struct RTDTextEntityTypeHashtagBuilder {
 impl RTDTextEntityTypeHashtagBuilder {
   pub fn build(&self) -> TextEntityTypeHashtag { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -345,14 +354,18 @@ pub struct TextEntityTypeCashtag {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for TextEntityTypeCashtag {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypeCashtag" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -380,7 +393,7 @@ pub struct RTDTextEntityTypeCashtagBuilder {
 impl RTDTextEntityTypeCashtagBuilder {
   pub fn build(&self) -> TextEntityTypeCashtag { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -408,14 +421,18 @@ pub struct TextEntityTypeBotCommand {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for TextEntityTypeBotCommand {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypeBotCommand" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -443,7 +460,7 @@ pub struct RTDTextEntityTypeBotCommandBuilder {
 impl RTDTextEntityTypeBotCommandBuilder {
   pub fn build(&self) -> TextEntityTypeBotCommand { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -471,14 +488,18 @@ pub struct TextEntityTypeUrl {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for TextEntityTypeUrl {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypeUrl" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -506,7 +527,7 @@ pub struct RTDTextEntityTypeUrlBuilder {
 impl RTDTextEntityTypeUrlBuilder {
   pub fn build(&self) -> TextEntityTypeUrl { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -534,14 +555,18 @@ pub struct TextEntityTypeEmailAddress {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for TextEntityTypeEmailAddress {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypeEmailAddress" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -569,7 +594,7 @@ pub struct RTDTextEntityTypeEmailAddressBuilder {
 impl RTDTextEntityTypeEmailAddressBuilder {
   pub fn build(&self) -> TextEntityTypeEmailAddress { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -597,14 +622,18 @@ pub struct TextEntityTypePhoneNumber {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for TextEntityTypePhoneNumber {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypePhoneNumber" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -632,7 +661,7 @@ pub struct RTDTextEntityTypePhoneNumberBuilder {
 impl RTDTextEntityTypePhoneNumberBuilder {
   pub fn build(&self) -> TextEntityTypePhoneNumber { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -660,14 +689,18 @@ pub struct TextEntityTypeBold {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for TextEntityTypeBold {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypeBold" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -695,7 +728,7 @@ pub struct RTDTextEntityTypeBoldBuilder {
 impl RTDTextEntityTypeBoldBuilder {
   pub fn build(&self) -> TextEntityTypeBold { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -723,14 +756,18 @@ pub struct TextEntityTypeItalic {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for TextEntityTypeItalic {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypeItalic" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -758,7 +795,7 @@ pub struct RTDTextEntityTypeItalicBuilder {
 impl RTDTextEntityTypeItalicBuilder {
   pub fn build(&self) -> TextEntityTypeItalic { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -786,14 +823,18 @@ pub struct TextEntityTypeUnderline {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for TextEntityTypeUnderline {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypeUnderline" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -821,7 +862,7 @@ pub struct RTDTextEntityTypeUnderlineBuilder {
 impl RTDTextEntityTypeUnderlineBuilder {
   pub fn build(&self) -> TextEntityTypeUnderline { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -849,14 +890,18 @@ pub struct TextEntityTypeStrikethrough {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for TextEntityTypeStrikethrough {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypeStrikethrough" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -884,7 +929,7 @@ pub struct RTDTextEntityTypeStrikethroughBuilder {
 impl RTDTextEntityTypeStrikethroughBuilder {
   pub fn build(&self) -> TextEntityTypeStrikethrough { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -912,14 +957,18 @@ pub struct TextEntityTypeCode {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for TextEntityTypeCode {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypeCode" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -947,7 +996,7 @@ pub struct RTDTextEntityTypeCodeBuilder {
 impl RTDTextEntityTypeCodeBuilder {
   pub fn build(&self) -> TextEntityTypeCode { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -975,14 +1024,18 @@ pub struct TextEntityTypePre {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for TextEntityTypePre {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypePre" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1010,7 +1063,7 @@ pub struct RTDTextEntityTypePreBuilder {
 impl RTDTextEntityTypePreBuilder {
   pub fn build(&self) -> TextEntityTypePre { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1038,7 +1091,7 @@ pub struct TextEntityTypePreCode {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Programming language of the code; as defined by the sender
   language: String,
   
@@ -1047,7 +1100,11 @@ pub struct TextEntityTypePreCode {
 impl RObject for TextEntityTypePreCode {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypePreCode" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1077,7 +1134,7 @@ pub struct RTDTextEntityTypePreCodeBuilder {
 impl RTDTextEntityTypePreCodeBuilder {
   pub fn build(&self) -> TextEntityTypePreCode { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1111,7 +1168,7 @@ pub struct TextEntityTypeTextUrl {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// HTTP or tg:// URL to be opened when the link is clicked
   url: String,
   
@@ -1120,7 +1177,11 @@ pub struct TextEntityTypeTextUrl {
 impl RObject for TextEntityTypeTextUrl {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypeTextUrl" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1150,7 +1211,7 @@ pub struct RTDTextEntityTypeTextUrlBuilder {
 impl RTDTextEntityTypeTextUrlBuilder {
   pub fn build(&self) -> TextEntityTypeTextUrl { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1184,7 +1245,7 @@ pub struct TextEntityTypeMentionName {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Identifier of the mentioned user
   user_id: i64,
   
@@ -1193,7 +1254,11 @@ pub struct TextEntityTypeMentionName {
 impl RObject for TextEntityTypeMentionName {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntityTypeMentionName" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1223,7 +1288,7 @@ pub struct RTDTextEntityTypeMentionNameBuilder {
 impl RTDTextEntityTypeMentionNameBuilder {
   pub fn build(&self) -> TextEntityTypeMentionName { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

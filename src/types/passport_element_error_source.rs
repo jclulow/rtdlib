@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -156,14 +157,18 @@ pub struct PassportElementErrorSourceUnspecified {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PassportElementErrorSourceUnspecified {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "passportElementErrorSourceUnspecified" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -191,7 +196,7 @@ pub struct RTDPassportElementErrorSourceUnspecifiedBuilder {
 impl RTDPassportElementErrorSourceUnspecifiedBuilder {
   pub fn build(&self) -> PassportElementErrorSourceUnspecified { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -219,7 +224,7 @@ pub struct PassportElementErrorSourceDataField {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Field name
   field_name: String,
   
@@ -228,7 +233,11 @@ pub struct PassportElementErrorSourceDataField {
 impl RObject for PassportElementErrorSourceDataField {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "passportElementErrorSourceDataField" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -258,7 +267,7 @@ pub struct RTDPassportElementErrorSourceDataFieldBuilder {
 impl RTDPassportElementErrorSourceDataFieldBuilder {
   pub fn build(&self) -> PassportElementErrorSourceDataField { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -292,14 +301,18 @@ pub struct PassportElementErrorSourceFrontSide {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PassportElementErrorSourceFrontSide {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "passportElementErrorSourceFrontSide" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -327,7 +340,7 @@ pub struct RTDPassportElementErrorSourceFrontSideBuilder {
 impl RTDPassportElementErrorSourceFrontSideBuilder {
   pub fn build(&self) -> PassportElementErrorSourceFrontSide { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -355,14 +368,18 @@ pub struct PassportElementErrorSourceReverseSide {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PassportElementErrorSourceReverseSide {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "passportElementErrorSourceReverseSide" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -390,7 +407,7 @@ pub struct RTDPassportElementErrorSourceReverseSideBuilder {
 impl RTDPassportElementErrorSourceReverseSideBuilder {
   pub fn build(&self) -> PassportElementErrorSourceReverseSide { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -418,14 +435,18 @@ pub struct PassportElementErrorSourceSelfie {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PassportElementErrorSourceSelfie {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "passportElementErrorSourceSelfie" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -453,7 +474,7 @@ pub struct RTDPassportElementErrorSourceSelfieBuilder {
 impl RTDPassportElementErrorSourceSelfieBuilder {
   pub fn build(&self) -> PassportElementErrorSourceSelfie { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -481,7 +502,7 @@ pub struct PassportElementErrorSourceTranslationFile {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Index of a file with the error
   file_index: i64,
   
@@ -490,7 +511,11 @@ pub struct PassportElementErrorSourceTranslationFile {
 impl RObject for PassportElementErrorSourceTranslationFile {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "passportElementErrorSourceTranslationFile" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -520,7 +545,7 @@ pub struct RTDPassportElementErrorSourceTranslationFileBuilder {
 impl RTDPassportElementErrorSourceTranslationFileBuilder {
   pub fn build(&self) -> PassportElementErrorSourceTranslationFile { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -554,14 +579,18 @@ pub struct PassportElementErrorSourceTranslationFiles {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PassportElementErrorSourceTranslationFiles {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "passportElementErrorSourceTranslationFiles" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -589,7 +618,7 @@ pub struct RTDPassportElementErrorSourceTranslationFilesBuilder {
 impl RTDPassportElementErrorSourceTranslationFilesBuilder {
   pub fn build(&self) -> PassportElementErrorSourceTranslationFiles { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -617,7 +646,7 @@ pub struct PassportElementErrorSourceFile {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Index of a file with the error
   file_index: i64,
   
@@ -626,7 +655,11 @@ pub struct PassportElementErrorSourceFile {
 impl RObject for PassportElementErrorSourceFile {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "passportElementErrorSourceFile" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -656,7 +689,7 @@ pub struct RTDPassportElementErrorSourceFileBuilder {
 impl RTDPassportElementErrorSourceFileBuilder {
   pub fn build(&self) -> PassportElementErrorSourceFile { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -690,14 +723,18 @@ pub struct PassportElementErrorSourceFiles {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for PassportElementErrorSourceFiles {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "passportElementErrorSourceFiles" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -725,7 +762,7 @@ pub struct RTDPassportElementErrorSourceFilesBuilder {
 impl RTDPassportElementErrorSourceFilesBuilder {
   pub fn build(&self) -> PassportElementErrorSourceFiles { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

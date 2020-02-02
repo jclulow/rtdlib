@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -13,7 +14,7 @@ pub struct PassportAuthorizationForm {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier of the authorization form
   id: i64,
   /// Information about the Telegram Passport elements that need to be provided to complete the form
@@ -26,7 +27,11 @@ pub struct PassportAuthorizationForm {
 impl RObject for PassportAuthorizationForm {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "passportAuthorizationForm" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -57,7 +62,7 @@ pub struct RTDPassportAuthorizationFormBuilder {
 impl RTDPassportAuthorizationFormBuilder {
   pub fn build(&self) -> PassportAuthorizationForm { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

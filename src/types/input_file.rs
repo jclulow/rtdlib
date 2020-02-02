@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -111,7 +112,7 @@ pub struct InputFileId {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique file identifier
   id: i64,
   
@@ -120,7 +121,11 @@ pub struct InputFileId {
 impl RObject for InputFileId {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputFileId" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -150,7 +155,7 @@ pub struct RTDInputFileIdBuilder {
 impl RTDInputFileIdBuilder {
   pub fn build(&self) -> InputFileId { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -184,7 +189,7 @@ pub struct InputFileRemote {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Remote file identifier
   id: String,
   
@@ -193,7 +198,11 @@ pub struct InputFileRemote {
 impl RObject for InputFileRemote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputFileRemote" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -223,7 +232,7 @@ pub struct RTDInputFileRemoteBuilder {
 impl RTDInputFileRemoteBuilder {
   pub fn build(&self) -> InputFileRemote { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -257,7 +266,7 @@ pub struct InputFileLocal {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Local path to the file
   path: String,
   
@@ -266,7 +275,11 @@ pub struct InputFileLocal {
 impl RObject for InputFileLocal {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputFileLocal" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -296,7 +309,7 @@ pub struct RTDInputFileLocalBuilder {
 impl RTDInputFileLocalBuilder {
   pub fn build(&self) -> InputFileLocal { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -330,7 +343,7 @@ pub struct InputFileGenerated {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Local path to a file from which the file is generated; may be empty if there is no such file
   original_path: String,
   /// String specifying the conversion applied to the original file; should be persistent across application restarts. Conversions beginning with '#' are reserved for internal TDLib usage
@@ -343,7 +356,11 @@ pub struct InputFileGenerated {
 impl RObject for InputFileGenerated {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputFileGenerated" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -377,7 +394,7 @@ pub struct RTDInputFileGeneratedBuilder {
 impl RTDInputFileGeneratedBuilder {
   pub fn build(&self) -> InputFileGenerated { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

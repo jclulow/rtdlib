@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -111,7 +112,7 @@ pub struct InputCredentialsSaved {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Identifier of the saved credentials
   saved_credentials_id: String,
   
@@ -120,7 +121,11 @@ pub struct InputCredentialsSaved {
 impl RObject for InputCredentialsSaved {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputCredentialsSaved" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -150,7 +155,7 @@ pub struct RTDInputCredentialsSavedBuilder {
 impl RTDInputCredentialsSavedBuilder {
   pub fn build(&self) -> InputCredentialsSaved { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -184,7 +189,7 @@ pub struct InputCredentialsNew {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Contains JSON-encoded data with a credential identifier from the payment provider
   data: String,
   /// True, if the credential identifier can be saved on the server side
@@ -195,7 +200,11 @@ pub struct InputCredentialsNew {
 impl RObject for InputCredentialsNew {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputCredentialsNew" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -227,7 +236,7 @@ pub struct RTDInputCredentialsNewBuilder {
 impl RTDInputCredentialsNewBuilder {
   pub fn build(&self) -> InputCredentialsNew { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -267,7 +276,7 @@ pub struct InputCredentialsAndroidPay {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// JSON-encoded data with the credential identifier
   data: String,
   
@@ -276,7 +285,11 @@ pub struct InputCredentialsAndroidPay {
 impl RObject for InputCredentialsAndroidPay {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputCredentialsAndroidPay" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -306,7 +319,7 @@ pub struct RTDInputCredentialsAndroidPayBuilder {
 impl RTDInputCredentialsAndroidPayBuilder {
   pub fn build(&self) -> InputCredentialsAndroidPay { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -340,7 +353,7 @@ pub struct InputCredentialsApplePay {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// JSON-encoded data with the credential identifier
   data: String,
   
@@ -349,7 +362,11 @@ pub struct InputCredentialsApplePay {
 impl RObject for InputCredentialsApplePay {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputCredentialsApplePay" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -379,7 +396,7 @@ pub struct RTDInputCredentialsApplePayBuilder {
 impl RTDInputCredentialsApplePayBuilder {
   pub fn build(&self) -> InputCredentialsApplePay { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

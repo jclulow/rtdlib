@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -759,7 +760,7 @@ pub struct UpdateAuthorizationState {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// New authorization state
   authorization_state: AuthorizationState,
   
@@ -768,7 +769,11 @@ pub struct UpdateAuthorizationState {
 impl RObject for UpdateAuthorizationState {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateAuthorizationState" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -798,7 +803,7 @@ pub struct RTDUpdateAuthorizationStateBuilder {
 impl RTDUpdateAuthorizationStateBuilder {
   pub fn build(&self) -> UpdateAuthorizationState { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -832,7 +837,7 @@ pub struct UpdateNewMessage {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The new message
   message: Message,
   
@@ -841,7 +846,11 @@ pub struct UpdateNewMessage {
 impl RObject for UpdateNewMessage {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateNewMessage" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -871,7 +880,7 @@ pub struct RTDUpdateNewMessageBuilder {
 impl RTDUpdateNewMessageBuilder {
   pub fn build(&self) -> UpdateNewMessage { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -905,7 +914,7 @@ pub struct UpdateMessageSendAcknowledged {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The chat identifier of the sent message
   chat_id: i64,
   /// A temporary message identifier
@@ -916,7 +925,11 @@ pub struct UpdateMessageSendAcknowledged {
 impl RObject for UpdateMessageSendAcknowledged {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateMessageSendAcknowledged" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -948,7 +961,7 @@ pub struct RTDUpdateMessageSendAcknowledgedBuilder {
 impl RTDUpdateMessageSendAcknowledgedBuilder {
   pub fn build(&self) -> UpdateMessageSendAcknowledged { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -988,7 +1001,7 @@ pub struct UpdateMessageSendSucceeded {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Information about the sent message. Usually only the message identifier, date, and content are changed, but almost all other fields can also change
   message: Message,
   /// The previous temporary message identifier
@@ -999,7 +1012,11 @@ pub struct UpdateMessageSendSucceeded {
 impl RObject for UpdateMessageSendSucceeded {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateMessageSendSucceeded" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1031,7 +1048,7 @@ pub struct RTDUpdateMessageSendSucceededBuilder {
 impl RTDUpdateMessageSendSucceededBuilder {
   pub fn build(&self) -> UpdateMessageSendSucceeded { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1071,7 +1088,7 @@ pub struct UpdateMessageSendFailed {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Contains information about the message which failed to send
   message: Message,
   /// The previous temporary message identifier
@@ -1086,7 +1103,11 @@ pub struct UpdateMessageSendFailed {
 impl RObject for UpdateMessageSendFailed {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateMessageSendFailed" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1122,7 +1143,7 @@ pub struct RTDUpdateMessageSendFailedBuilder {
 impl RTDUpdateMessageSendFailedBuilder {
   pub fn build(&self) -> UpdateMessageSendFailed { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1174,7 +1195,7 @@ pub struct UpdateMessageContent {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// Message identifier
@@ -1187,7 +1208,11 @@ pub struct UpdateMessageContent {
 impl RObject for UpdateMessageContent {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateMessageContent" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1221,7 +1246,7 @@ pub struct RTDUpdateMessageContentBuilder {
 impl RTDUpdateMessageContentBuilder {
   pub fn build(&self) -> UpdateMessageContent { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1267,7 +1292,7 @@ pub struct UpdateMessageEdited {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// Message identifier
@@ -1282,7 +1307,11 @@ pub struct UpdateMessageEdited {
 impl RObject for UpdateMessageEdited {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateMessageEdited" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1318,7 +1347,7 @@ pub struct RTDUpdateMessageEditedBuilder {
 impl RTDUpdateMessageEditedBuilder {
   pub fn build(&self) -> UpdateMessageEdited { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1370,7 +1399,7 @@ pub struct UpdateMessageViews {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// Message identifier
@@ -1383,7 +1412,11 @@ pub struct UpdateMessageViews {
 impl RObject for UpdateMessageViews {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateMessageViews" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1417,7 +1450,7 @@ pub struct RTDUpdateMessageViewsBuilder {
 impl RTDUpdateMessageViewsBuilder {
   pub fn build(&self) -> UpdateMessageViews { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1463,7 +1496,7 @@ pub struct UpdateMessageContentOpened {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// Message identifier
@@ -1474,7 +1507,11 @@ pub struct UpdateMessageContentOpened {
 impl RObject for UpdateMessageContentOpened {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateMessageContentOpened" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1506,7 +1543,7 @@ pub struct RTDUpdateMessageContentOpenedBuilder {
 impl RTDUpdateMessageContentOpenedBuilder {
   pub fn build(&self) -> UpdateMessageContentOpened { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1546,7 +1583,7 @@ pub struct UpdateMessageMentionRead {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// Message identifier
@@ -1559,7 +1596,11 @@ pub struct UpdateMessageMentionRead {
 impl RObject for UpdateMessageMentionRead {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateMessageMentionRead" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1593,7 +1634,7 @@ pub struct RTDUpdateMessageMentionReadBuilder {
 impl RTDUpdateMessageMentionReadBuilder {
   pub fn build(&self) -> UpdateMessageMentionRead { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1639,7 +1680,7 @@ pub struct UpdateMessageLiveLocationViewed {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Identifier of the chat with the live location message
   chat_id: i64,
   /// Identifier of the message with live location
@@ -1650,7 +1691,11 @@ pub struct UpdateMessageLiveLocationViewed {
 impl RObject for UpdateMessageLiveLocationViewed {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateMessageLiveLocationViewed" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1682,7 +1727,7 @@ pub struct RTDUpdateMessageLiveLocationViewedBuilder {
 impl RTDUpdateMessageLiveLocationViewedBuilder {
   pub fn build(&self) -> UpdateMessageLiveLocationViewed { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1722,7 +1767,7 @@ pub struct UpdateNewChat {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The chat
   chat: Chat,
   
@@ -1731,7 +1776,11 @@ pub struct UpdateNewChat {
 impl RObject for UpdateNewChat {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateNewChat" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1761,7 +1810,7 @@ pub struct RTDUpdateNewChatBuilder {
 impl RTDUpdateNewChatBuilder {
   pub fn build(&self) -> UpdateNewChat { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1795,7 +1844,7 @@ pub struct UpdateChatChatList {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// The new chat's chat list; may be null
@@ -1806,7 +1855,11 @@ pub struct UpdateChatChatList {
 impl RObject for UpdateChatChatList {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatChatList" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1838,7 +1891,7 @@ pub struct RTDUpdateChatChatListBuilder {
 impl RTDUpdateChatChatListBuilder {
   pub fn build(&self) -> UpdateChatChatList { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1878,7 +1931,7 @@ pub struct UpdateChatTitle {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// The new chat title
@@ -1889,7 +1942,11 @@ pub struct UpdateChatTitle {
 impl RObject for UpdateChatTitle {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatTitle" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -1921,7 +1978,7 @@ pub struct RTDUpdateChatTitleBuilder {
 impl RTDUpdateChatTitleBuilder {
   pub fn build(&self) -> UpdateChatTitle { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -1961,7 +2018,7 @@ pub struct UpdateChatPhoto {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// The new chat photo; may be null
@@ -1972,7 +2029,11 @@ pub struct UpdateChatPhoto {
 impl RObject for UpdateChatPhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatPhoto" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2004,7 +2065,7 @@ pub struct RTDUpdateChatPhotoBuilder {
 impl RTDUpdateChatPhotoBuilder {
   pub fn build(&self) -> UpdateChatPhoto { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2044,7 +2105,7 @@ pub struct UpdateChatPermissions {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// The new chat permissions
@@ -2055,7 +2116,11 @@ pub struct UpdateChatPermissions {
 impl RObject for UpdateChatPermissions {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatPermissions" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2087,7 +2152,7 @@ pub struct RTDUpdateChatPermissionsBuilder {
 impl RTDUpdateChatPermissionsBuilder {
   pub fn build(&self) -> UpdateChatPermissions { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2127,7 +2192,7 @@ pub struct UpdateChatLastMessage {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// The new last message in the chat; may be null
@@ -2140,7 +2205,11 @@ pub struct UpdateChatLastMessage {
 impl RObject for UpdateChatLastMessage {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatLastMessage" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2174,7 +2243,7 @@ pub struct RTDUpdateChatLastMessageBuilder {
 impl RTDUpdateChatLastMessageBuilder {
   pub fn build(&self) -> UpdateChatLastMessage { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2220,7 +2289,7 @@ pub struct UpdateChatOrder {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// New value of the order
@@ -2231,7 +2300,11 @@ pub struct UpdateChatOrder {
 impl RObject for UpdateChatOrder {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatOrder" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2263,7 +2336,7 @@ pub struct RTDUpdateChatOrderBuilder {
 impl RTDUpdateChatOrderBuilder {
   pub fn build(&self) -> UpdateChatOrder { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2303,7 +2376,7 @@ pub struct UpdateChatIsPinned {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// New value of is_pinned
@@ -2316,7 +2389,11 @@ pub struct UpdateChatIsPinned {
 impl RObject for UpdateChatIsPinned {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatIsPinned" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2350,7 +2427,7 @@ pub struct RTDUpdateChatIsPinnedBuilder {
 impl RTDUpdateChatIsPinnedBuilder {
   pub fn build(&self) -> UpdateChatIsPinned { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2396,7 +2473,7 @@ pub struct UpdateChatIsMarkedAsUnread {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// New value of is_marked_as_unread
@@ -2407,7 +2484,11 @@ pub struct UpdateChatIsMarkedAsUnread {
 impl RObject for UpdateChatIsMarkedAsUnread {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatIsMarkedAsUnread" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2439,7 +2520,7 @@ pub struct RTDUpdateChatIsMarkedAsUnreadBuilder {
 impl RTDUpdateChatIsMarkedAsUnreadBuilder {
   pub fn build(&self) -> UpdateChatIsMarkedAsUnread { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2479,7 +2560,7 @@ pub struct UpdateChatIsSponsored {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// New value of is_sponsored
@@ -2492,7 +2573,11 @@ pub struct UpdateChatIsSponsored {
 impl RObject for UpdateChatIsSponsored {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatIsSponsored" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2526,7 +2611,7 @@ pub struct RTDUpdateChatIsSponsoredBuilder {
 impl RTDUpdateChatIsSponsoredBuilder {
   pub fn build(&self) -> UpdateChatIsSponsored { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2572,7 +2657,7 @@ pub struct UpdateChatHasScheduledMessages {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// New value of has_scheduled_messages
@@ -2583,7 +2668,11 @@ pub struct UpdateChatHasScheduledMessages {
 impl RObject for UpdateChatHasScheduledMessages {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatHasScheduledMessages" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2615,7 +2704,7 @@ pub struct RTDUpdateChatHasScheduledMessagesBuilder {
 impl RTDUpdateChatHasScheduledMessagesBuilder {
   pub fn build(&self) -> UpdateChatHasScheduledMessages { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2655,7 +2744,7 @@ pub struct UpdateChatDefaultDisableNotification {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// The new default_disable_notification value
@@ -2666,7 +2755,11 @@ pub struct UpdateChatDefaultDisableNotification {
 impl RObject for UpdateChatDefaultDisableNotification {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatDefaultDisableNotification" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2698,7 +2791,7 @@ pub struct RTDUpdateChatDefaultDisableNotificationBuilder {
 impl RTDUpdateChatDefaultDisableNotificationBuilder {
   pub fn build(&self) -> UpdateChatDefaultDisableNotification { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2738,7 +2831,7 @@ pub struct UpdateChatReadInbox {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// Identifier of the last read incoming message
@@ -2751,7 +2844,11 @@ pub struct UpdateChatReadInbox {
 impl RObject for UpdateChatReadInbox {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatReadInbox" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2785,7 +2882,7 @@ pub struct RTDUpdateChatReadInboxBuilder {
 impl RTDUpdateChatReadInboxBuilder {
   pub fn build(&self) -> UpdateChatReadInbox { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2831,7 +2928,7 @@ pub struct UpdateChatReadOutbox {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// Identifier of last read outgoing message
@@ -2842,7 +2939,11 @@ pub struct UpdateChatReadOutbox {
 impl RObject for UpdateChatReadOutbox {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatReadOutbox" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2874,7 +2975,7 @@ pub struct RTDUpdateChatReadOutboxBuilder {
 impl RTDUpdateChatReadOutboxBuilder {
   pub fn build(&self) -> UpdateChatReadOutbox { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2914,7 +3015,7 @@ pub struct UpdateChatUnreadMentionCount {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// The number of unread mention messages left in the chat
@@ -2925,7 +3026,11 @@ pub struct UpdateChatUnreadMentionCount {
 impl RObject for UpdateChatUnreadMentionCount {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatUnreadMentionCount" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -2957,7 +3062,7 @@ pub struct RTDUpdateChatUnreadMentionCountBuilder {
 impl RTDUpdateChatUnreadMentionCountBuilder {
   pub fn build(&self) -> UpdateChatUnreadMentionCount { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -2997,7 +3102,7 @@ pub struct UpdateChatNotificationSettings {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// The new notification settings
@@ -3008,7 +3113,11 @@ pub struct UpdateChatNotificationSettings {
 impl RObject for UpdateChatNotificationSettings {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatNotificationSettings" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -3040,7 +3149,7 @@ pub struct RTDUpdateChatNotificationSettingsBuilder {
 impl RTDUpdateChatNotificationSettingsBuilder {
   pub fn build(&self) -> UpdateChatNotificationSettings { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -3080,7 +3189,7 @@ pub struct UpdateScopeNotificationSettings {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Types of chats for which notification settings were updated
   scope: NotificationSettingsScope,
   /// The new notification settings
@@ -3091,7 +3200,11 @@ pub struct UpdateScopeNotificationSettings {
 impl RObject for UpdateScopeNotificationSettings {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateScopeNotificationSettings" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -3123,7 +3236,7 @@ pub struct RTDUpdateScopeNotificationSettingsBuilder {
 impl RTDUpdateScopeNotificationSettingsBuilder {
   pub fn build(&self) -> UpdateScopeNotificationSettings { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -3163,7 +3276,7 @@ pub struct UpdateChatActionBar {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// The new value of the action bar; may be null
@@ -3174,7 +3287,11 @@ pub struct UpdateChatActionBar {
 impl RObject for UpdateChatActionBar {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatActionBar" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -3206,7 +3323,7 @@ pub struct RTDUpdateChatActionBarBuilder {
 impl RTDUpdateChatActionBarBuilder {
   pub fn build(&self) -> UpdateChatActionBar { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -3246,7 +3363,7 @@ pub struct UpdateChatPinnedMessage {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// The new identifier of the pinned message; 0 if there is no pinned message in the chat
@@ -3257,7 +3374,11 @@ pub struct UpdateChatPinnedMessage {
 impl RObject for UpdateChatPinnedMessage {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatPinnedMessage" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -3289,7 +3410,7 @@ pub struct RTDUpdateChatPinnedMessageBuilder {
 impl RTDUpdateChatPinnedMessageBuilder {
   pub fn build(&self) -> UpdateChatPinnedMessage { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -3329,7 +3450,7 @@ pub struct UpdateChatReplyMarkup {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat
@@ -3340,7 +3461,11 @@ pub struct UpdateChatReplyMarkup {
 impl RObject for UpdateChatReplyMarkup {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatReplyMarkup" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -3372,7 +3497,7 @@ pub struct RTDUpdateChatReplyMarkupBuilder {
 impl RTDUpdateChatReplyMarkupBuilder {
   pub fn build(&self) -> UpdateChatReplyMarkup { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -3412,7 +3537,7 @@ pub struct UpdateChatDraftMessage {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// The new draft message; may be null
@@ -3425,7 +3550,11 @@ pub struct UpdateChatDraftMessage {
 impl RObject for UpdateChatDraftMessage {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatDraftMessage" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -3459,7 +3588,7 @@ pub struct RTDUpdateChatDraftMessageBuilder {
 impl RTDUpdateChatDraftMessageBuilder {
   pub fn build(&self) -> UpdateChatDraftMessage { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -3505,7 +3634,7 @@ pub struct UpdateChatOnlineMemberCount {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Identifier of the chat
   chat_id: i64,
   /// New number of online members in the chat, or 0 if unknown
@@ -3516,7 +3645,11 @@ pub struct UpdateChatOnlineMemberCount {
 impl RObject for UpdateChatOnlineMemberCount {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateChatOnlineMemberCount" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -3548,7 +3681,7 @@ pub struct RTDUpdateChatOnlineMemberCountBuilder {
 impl RTDUpdateChatOnlineMemberCountBuilder {
   pub fn build(&self) -> UpdateChatOnlineMemberCount { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -3588,7 +3721,7 @@ pub struct UpdateNotification {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique notification group identifier
   notification_group_id: i64,
   /// Changed notification
@@ -3599,7 +3732,11 @@ pub struct UpdateNotification {
 impl RObject for UpdateNotification {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateNotification" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -3631,7 +3768,7 @@ pub struct RTDUpdateNotificationBuilder {
 impl RTDUpdateNotificationBuilder {
   pub fn build(&self) -> UpdateNotification { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -3671,7 +3808,7 @@ pub struct UpdateNotificationGroup {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique notification group identifier
   notification_group_id: i64,
   /// New type of the notification group
@@ -3694,7 +3831,11 @@ pub struct UpdateNotificationGroup {
 impl RObject for UpdateNotificationGroup {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateNotificationGroup" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -3738,7 +3879,7 @@ pub struct RTDUpdateNotificationGroupBuilder {
 impl RTDUpdateNotificationGroupBuilder {
   pub fn build(&self) -> UpdateNotificationGroup { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -3814,7 +3955,7 @@ pub struct UpdateActiveNotifications {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Lists of active notification groups
   groups: Vec<NotificationGroup>,
   
@@ -3823,7 +3964,11 @@ pub struct UpdateActiveNotifications {
 impl RObject for UpdateActiveNotifications {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateActiveNotifications" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -3853,7 +3998,7 @@ pub struct RTDUpdateActiveNotificationsBuilder {
 impl RTDUpdateActiveNotificationsBuilder {
   pub fn build(&self) -> UpdateActiveNotifications { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -3887,7 +4032,7 @@ pub struct UpdateHavePendingNotifications {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// True, if there are some delayed notification updates, which will be sent soon
   have_delayed_notifications: bool,
   /// True, if there can be some yet unreceived notifications, which are being fetched from the server
@@ -3898,7 +4043,11 @@ pub struct UpdateHavePendingNotifications {
 impl RObject for UpdateHavePendingNotifications {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateHavePendingNotifications" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -3930,7 +4079,7 @@ pub struct RTDUpdateHavePendingNotificationsBuilder {
 impl RTDUpdateHavePendingNotificationsBuilder {
   pub fn build(&self) -> UpdateHavePendingNotifications { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -3970,7 +4119,7 @@ pub struct UpdateDeleteMessages {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// Identifiers of the deleted messages
@@ -3985,7 +4134,11 @@ pub struct UpdateDeleteMessages {
 impl RObject for UpdateDeleteMessages {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateDeleteMessages" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -4021,7 +4174,7 @@ pub struct RTDUpdateDeleteMessagesBuilder {
 impl RTDUpdateDeleteMessagesBuilder {
   pub fn build(&self) -> UpdateDeleteMessages { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -4073,7 +4226,7 @@ pub struct UpdateUserChatAction {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Chat identifier
   chat_id: i64,
   /// Identifier of a user performing an action
@@ -4086,7 +4239,11 @@ pub struct UpdateUserChatAction {
 impl RObject for UpdateUserChatAction {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateUserChatAction" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -4120,7 +4277,7 @@ pub struct RTDUpdateUserChatActionBuilder {
 impl RTDUpdateUserChatActionBuilder {
   pub fn build(&self) -> UpdateUserChatAction { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -4166,7 +4323,7 @@ pub struct UpdateUserStatus {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// User identifier
   user_id: i64,
   /// New status of the user
@@ -4177,7 +4334,11 @@ pub struct UpdateUserStatus {
 impl RObject for UpdateUserStatus {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateUserStatus" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -4209,7 +4370,7 @@ pub struct RTDUpdateUserStatusBuilder {
 impl RTDUpdateUserStatusBuilder {
   pub fn build(&self) -> UpdateUserStatus { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -4249,7 +4410,7 @@ pub struct UpdateUser {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// New data about the user
   user: User,
   
@@ -4258,7 +4419,11 @@ pub struct UpdateUser {
 impl RObject for UpdateUser {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateUser" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -4288,7 +4453,7 @@ pub struct RTDUpdateUserBuilder {
 impl RTDUpdateUserBuilder {
   pub fn build(&self) -> UpdateUser { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -4322,7 +4487,7 @@ pub struct UpdateBasicGroup {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// New data about the group
   basic_group: BasicGroup,
   
@@ -4331,7 +4496,11 @@ pub struct UpdateBasicGroup {
 impl RObject for UpdateBasicGroup {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateBasicGroup" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -4361,7 +4530,7 @@ pub struct RTDUpdateBasicGroupBuilder {
 impl RTDUpdateBasicGroupBuilder {
   pub fn build(&self) -> UpdateBasicGroup { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -4395,7 +4564,7 @@ pub struct UpdateSupergroup {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// New data about the supergroup
   supergroup: Supergroup,
   
@@ -4404,7 +4573,11 @@ pub struct UpdateSupergroup {
 impl RObject for UpdateSupergroup {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateSupergroup" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -4434,7 +4607,7 @@ pub struct RTDUpdateSupergroupBuilder {
 impl RTDUpdateSupergroupBuilder {
   pub fn build(&self) -> UpdateSupergroup { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -4468,7 +4641,7 @@ pub struct UpdateSecretChat {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// New data about the secret chat
   secret_chat: SecretChat,
   
@@ -4477,7 +4650,11 @@ pub struct UpdateSecretChat {
 impl RObject for UpdateSecretChat {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateSecretChat" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -4507,7 +4684,7 @@ pub struct RTDUpdateSecretChatBuilder {
 impl RTDUpdateSecretChatBuilder {
   pub fn build(&self) -> UpdateSecretChat { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -4541,7 +4718,7 @@ pub struct UpdateUserFullInfo {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// User identifier
   user_id: i64,
   /// New full information about the user
@@ -4552,7 +4729,11 @@ pub struct UpdateUserFullInfo {
 impl RObject for UpdateUserFullInfo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateUserFullInfo" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -4584,7 +4765,7 @@ pub struct RTDUpdateUserFullInfoBuilder {
 impl RTDUpdateUserFullInfoBuilder {
   pub fn build(&self) -> UpdateUserFullInfo { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -4624,7 +4805,7 @@ pub struct UpdateBasicGroupFullInfo {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Identifier of a basic group
   basic_group_id: i64,
   /// New full information about the group
@@ -4635,7 +4816,11 @@ pub struct UpdateBasicGroupFullInfo {
 impl RObject for UpdateBasicGroupFullInfo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateBasicGroupFullInfo" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -4667,7 +4852,7 @@ pub struct RTDUpdateBasicGroupFullInfoBuilder {
 impl RTDUpdateBasicGroupFullInfoBuilder {
   pub fn build(&self) -> UpdateBasicGroupFullInfo { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -4707,7 +4892,7 @@ pub struct UpdateSupergroupFullInfo {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Identifier of the supergroup or channel
   supergroup_id: i64,
   /// New full information about the supergroup
@@ -4718,7 +4903,11 @@ pub struct UpdateSupergroupFullInfo {
 impl RObject for UpdateSupergroupFullInfo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateSupergroupFullInfo" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -4750,7 +4939,7 @@ pub struct RTDUpdateSupergroupFullInfoBuilder {
 impl RTDUpdateSupergroupFullInfoBuilder {
   pub fn build(&self) -> UpdateSupergroupFullInfo { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -4790,7 +4979,7 @@ pub struct UpdateServiceNotification {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Notification type. If type begins with "AUTH_KEY_DROP_", then two buttons "Cancel" and "Log out" should be shown under notification; if user presses the second, all local data should be destroyed using Destroy method
   #[serde(rename(serialize = "type", deserialize = "type"))] type_: String,
   /// Notification content
@@ -4801,7 +4990,11 @@ pub struct UpdateServiceNotification {
 impl RObject for UpdateServiceNotification {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateServiceNotification" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -4833,7 +5026,7 @@ pub struct RTDUpdateServiceNotificationBuilder {
 impl RTDUpdateServiceNotificationBuilder {
   pub fn build(&self) -> UpdateServiceNotification { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -4873,7 +5066,7 @@ pub struct UpdateFile {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// New data about the file
   file: File,
   
@@ -4882,7 +5075,11 @@ pub struct UpdateFile {
 impl RObject for UpdateFile {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateFile" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -4912,7 +5109,7 @@ pub struct RTDUpdateFileBuilder {
 impl RTDUpdateFileBuilder {
   pub fn build(&self) -> UpdateFile { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -4946,7 +5143,7 @@ pub struct UpdateFileGenerationStart {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier for the generation process
   generation_id: isize,
   /// The path to a file from which a new file is generated; may be empty
@@ -4961,7 +5158,11 @@ pub struct UpdateFileGenerationStart {
 impl RObject for UpdateFileGenerationStart {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateFileGenerationStart" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -4997,7 +5198,7 @@ pub struct RTDUpdateFileGenerationStartBuilder {
 impl RTDUpdateFileGenerationStartBuilder {
   pub fn build(&self) -> UpdateFileGenerationStart { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -5049,7 +5250,7 @@ pub struct UpdateFileGenerationStop {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique identifier for the generation process
   generation_id: isize,
   
@@ -5058,7 +5259,11 @@ pub struct UpdateFileGenerationStop {
 impl RObject for UpdateFileGenerationStop {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateFileGenerationStop" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -5088,7 +5293,7 @@ pub struct RTDUpdateFileGenerationStopBuilder {
 impl RTDUpdateFileGenerationStopBuilder {
   pub fn build(&self) -> UpdateFileGenerationStop { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -5122,7 +5327,7 @@ pub struct UpdateCall {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// New data about a call
   call: Call,
   
@@ -5131,7 +5336,11 @@ pub struct UpdateCall {
 impl RObject for UpdateCall {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateCall" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -5161,7 +5370,7 @@ pub struct RTDUpdateCallBuilder {
 impl RTDUpdateCallBuilder {
   pub fn build(&self) -> UpdateCall { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -5195,7 +5404,7 @@ pub struct UpdateUserPrivacySettingRules {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The privacy setting
   setting: UserPrivacySetting,
   /// New privacy rules
@@ -5206,7 +5415,11 @@ pub struct UpdateUserPrivacySettingRules {
 impl RObject for UpdateUserPrivacySettingRules {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateUserPrivacySettingRules" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -5238,7 +5451,7 @@ pub struct RTDUpdateUserPrivacySettingRulesBuilder {
 impl RTDUpdateUserPrivacySettingRulesBuilder {
   pub fn build(&self) -> UpdateUserPrivacySettingRules { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -5278,7 +5491,7 @@ pub struct UpdateUnreadMessageCount {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The chat list with changed number of unread messages
   chat_list: ChatList,
   /// Total number of unread messages
@@ -5291,7 +5504,11 @@ pub struct UpdateUnreadMessageCount {
 impl RObject for UpdateUnreadMessageCount {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateUnreadMessageCount" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -5325,7 +5542,7 @@ pub struct RTDUpdateUnreadMessageCountBuilder {
 impl RTDUpdateUnreadMessageCountBuilder {
   pub fn build(&self) -> UpdateUnreadMessageCount { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -5371,7 +5588,7 @@ pub struct UpdateUnreadChatCount {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The chat list with changed number of unread messages
   chat_list: ChatList,
   /// Approximate total number of chats in the chat list
@@ -5390,7 +5607,11 @@ pub struct UpdateUnreadChatCount {
 impl RObject for UpdateUnreadChatCount {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateUnreadChatCount" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -5430,7 +5651,7 @@ pub struct RTDUpdateUnreadChatCountBuilder {
 impl RTDUpdateUnreadChatCountBuilder {
   pub fn build(&self) -> UpdateUnreadChatCount { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -5494,7 +5715,7 @@ pub struct UpdateOption {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The option name
   name: String,
   /// The new option value
@@ -5505,7 +5726,11 @@ pub struct UpdateOption {
 impl RObject for UpdateOption {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateOption" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -5537,7 +5762,7 @@ pub struct RTDUpdateOptionBuilder {
 impl RTDUpdateOptionBuilder {
   pub fn build(&self) -> UpdateOption { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -5577,7 +5802,7 @@ pub struct UpdateInstalledStickerSets {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// True, if the list of installed mask sticker sets was updated
   is_masks: bool,
   /// The new list of installed ordinary sticker sets
@@ -5588,7 +5813,11 @@ pub struct UpdateInstalledStickerSets {
 impl RObject for UpdateInstalledStickerSets {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateInstalledStickerSets" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -5620,7 +5849,7 @@ pub struct RTDUpdateInstalledStickerSetsBuilder {
 impl RTDUpdateInstalledStickerSetsBuilder {
   pub fn build(&self) -> UpdateInstalledStickerSets { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -5660,7 +5889,7 @@ pub struct UpdateTrendingStickerSets {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The new list of trending sticker sets
   sticker_sets: StickerSets,
   
@@ -5669,7 +5898,11 @@ pub struct UpdateTrendingStickerSets {
 impl RObject for UpdateTrendingStickerSets {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateTrendingStickerSets" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -5699,7 +5932,7 @@ pub struct RTDUpdateTrendingStickerSetsBuilder {
 impl RTDUpdateTrendingStickerSetsBuilder {
   pub fn build(&self) -> UpdateTrendingStickerSets { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -5733,7 +5966,7 @@ pub struct UpdateRecentStickers {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// True, if the list of stickers attached to photo or video files was updated, otherwise the list of sent stickers is updated
   is_attached: bool,
   /// The new list of file identifiers of recently used stickers
@@ -5744,7 +5977,11 @@ pub struct UpdateRecentStickers {
 impl RObject for UpdateRecentStickers {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateRecentStickers" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -5776,7 +6013,7 @@ pub struct RTDUpdateRecentStickersBuilder {
 impl RTDUpdateRecentStickersBuilder {
   pub fn build(&self) -> UpdateRecentStickers { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -5816,7 +6053,7 @@ pub struct UpdateFavoriteStickers {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The new list of file identifiers of favorite stickers
   sticker_ids: Vec<i64>,
   
@@ -5825,7 +6062,11 @@ pub struct UpdateFavoriteStickers {
 impl RObject for UpdateFavoriteStickers {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateFavoriteStickers" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -5855,7 +6096,7 @@ pub struct RTDUpdateFavoriteStickersBuilder {
 impl RTDUpdateFavoriteStickersBuilder {
   pub fn build(&self) -> UpdateFavoriteStickers { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -5889,7 +6130,7 @@ pub struct UpdateSavedAnimations {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The new list of file identifiers of saved animations
   animation_ids: Vec<i64>,
   
@@ -5898,7 +6139,11 @@ pub struct UpdateSavedAnimations {
 impl RObject for UpdateSavedAnimations {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateSavedAnimations" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -5928,7 +6173,7 @@ pub struct RTDUpdateSavedAnimationsBuilder {
 impl RTDUpdateSavedAnimationsBuilder {
   pub fn build(&self) -> UpdateSavedAnimations { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -5962,7 +6207,7 @@ pub struct UpdateSelectedBackground {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// True, if background for dark theme has changed
   for_dark_theme: bool,
   /// The new selected background; may be null
@@ -5973,7 +6218,11 @@ pub struct UpdateSelectedBackground {
 impl RObject for UpdateSelectedBackground {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateSelectedBackground" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -6005,7 +6254,7 @@ pub struct RTDUpdateSelectedBackgroundBuilder {
 impl RTDUpdateSelectedBackgroundBuilder {
   pub fn build(&self) -> UpdateSelectedBackground { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -6045,7 +6294,7 @@ pub struct UpdateLanguagePackStrings {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Localization target to which the language pack belongs
   localization_target: String,
   /// Identifier of the updated language pack
@@ -6058,7 +6307,11 @@ pub struct UpdateLanguagePackStrings {
 impl RObject for UpdateLanguagePackStrings {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateLanguagePackStrings" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -6092,7 +6345,7 @@ pub struct RTDUpdateLanguagePackStringsBuilder {
 impl RTDUpdateLanguagePackStringsBuilder {
   pub fn build(&self) -> UpdateLanguagePackStrings { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -6138,7 +6391,7 @@ pub struct UpdateConnectionState {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The new connection state
   state: ConnectionState,
   
@@ -6147,7 +6400,11 @@ pub struct UpdateConnectionState {
 impl RObject for UpdateConnectionState {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateConnectionState" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -6177,7 +6434,7 @@ pub struct RTDUpdateConnectionStateBuilder {
 impl RTDUpdateConnectionStateBuilder {
   pub fn build(&self) -> UpdateConnectionState { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -6211,7 +6468,7 @@ pub struct UpdateTermsOfService {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Identifier of the terms of service
   terms_of_service_id: String,
   /// The new terms of service
@@ -6222,7 +6479,11 @@ pub struct UpdateTermsOfService {
 impl RObject for UpdateTermsOfService {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateTermsOfService" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -6254,7 +6515,7 @@ pub struct RTDUpdateTermsOfServiceBuilder {
 impl RTDUpdateTermsOfServiceBuilder {
   pub fn build(&self) -> UpdateTermsOfService { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -6294,7 +6555,7 @@ pub struct UpdateUsersNearby {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The new list of users nearby
   users_nearby: Vec<ChatNearby>,
   
@@ -6303,7 +6564,11 @@ pub struct UpdateUsersNearby {
 impl RObject for UpdateUsersNearby {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateUsersNearby" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -6333,7 +6598,7 @@ pub struct RTDUpdateUsersNearbyBuilder {
 impl RTDUpdateUsersNearbyBuilder {
   pub fn build(&self) -> UpdateUsersNearby { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -6367,7 +6632,7 @@ pub struct UpdateNewInlineQuery {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique query identifier
   id: isize,
   /// Identifier of the user who sent the query
@@ -6384,7 +6649,11 @@ pub struct UpdateNewInlineQuery {
 impl RObject for UpdateNewInlineQuery {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateNewInlineQuery" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -6422,7 +6691,7 @@ pub struct RTDUpdateNewInlineQueryBuilder {
 impl RTDUpdateNewInlineQueryBuilder {
   pub fn build(&self) -> UpdateNewInlineQuery { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -6480,7 +6749,7 @@ pub struct UpdateNewChosenInlineResult {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Identifier of the user who sent the query
   sender_user_id: i64,
   /// User location, provided by the client; may be null
@@ -6497,7 +6766,11 @@ pub struct UpdateNewChosenInlineResult {
 impl RObject for UpdateNewChosenInlineResult {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateNewChosenInlineResult" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -6535,7 +6808,7 @@ pub struct RTDUpdateNewChosenInlineResultBuilder {
 impl RTDUpdateNewChosenInlineResultBuilder {
   pub fn build(&self) -> UpdateNewChosenInlineResult { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -6593,7 +6866,7 @@ pub struct UpdateNewCallbackQuery {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique query identifier
   id: isize,
   /// Identifier of the user who sent the query
@@ -6612,7 +6885,11 @@ pub struct UpdateNewCallbackQuery {
 impl RObject for UpdateNewCallbackQuery {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateNewCallbackQuery" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -6652,7 +6929,7 @@ pub struct RTDUpdateNewCallbackQueryBuilder {
 impl RTDUpdateNewCallbackQueryBuilder {
   pub fn build(&self) -> UpdateNewCallbackQuery { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -6716,7 +6993,7 @@ pub struct UpdateNewInlineCallbackQuery {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique query identifier
   id: isize,
   /// Identifier of the user who sent the query
@@ -6733,7 +7010,11 @@ pub struct UpdateNewInlineCallbackQuery {
 impl RObject for UpdateNewInlineCallbackQuery {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateNewInlineCallbackQuery" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -6771,7 +7052,7 @@ pub struct RTDUpdateNewInlineCallbackQueryBuilder {
 impl RTDUpdateNewInlineCallbackQueryBuilder {
   pub fn build(&self) -> UpdateNewInlineCallbackQuery { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -6829,7 +7110,7 @@ pub struct UpdateNewShippingQuery {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique query identifier
   id: isize,
   /// Identifier of the user who sent the query
@@ -6844,7 +7125,11 @@ pub struct UpdateNewShippingQuery {
 impl RObject for UpdateNewShippingQuery {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateNewShippingQuery" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -6880,7 +7165,7 @@ pub struct RTDUpdateNewShippingQueryBuilder {
 impl RTDUpdateNewShippingQueryBuilder {
   pub fn build(&self) -> UpdateNewShippingQuery { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -6932,7 +7217,7 @@ pub struct UpdateNewPreCheckoutQuery {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Unique query identifier
   id: isize,
   /// Identifier of the user who sent the query
@@ -6953,7 +7238,11 @@ pub struct UpdateNewPreCheckoutQuery {
 impl RObject for UpdateNewPreCheckoutQuery {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateNewPreCheckoutQuery" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -6995,7 +7284,7 @@ pub struct RTDUpdateNewPreCheckoutQueryBuilder {
 impl RTDUpdateNewPreCheckoutQueryBuilder {
   pub fn build(&self) -> UpdateNewPreCheckoutQuery { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -7065,7 +7354,7 @@ pub struct UpdateNewCustomEvent {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// A JSON-serialized event
   event: String,
   
@@ -7074,7 +7363,11 @@ pub struct UpdateNewCustomEvent {
 impl RObject for UpdateNewCustomEvent {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateNewCustomEvent" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -7104,7 +7397,7 @@ pub struct RTDUpdateNewCustomEventBuilder {
 impl RTDUpdateNewCustomEventBuilder {
   pub fn build(&self) -> UpdateNewCustomEvent { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -7138,7 +7431,7 @@ pub struct UpdateNewCustomQuery {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// The query identifier
   id: isize,
   /// JSON-serialized query data
@@ -7151,7 +7444,11 @@ pub struct UpdateNewCustomQuery {
 impl RObject for UpdateNewCustomQuery {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updateNewCustomQuery" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -7185,7 +7482,7 @@ pub struct RTDUpdateNewCustomQueryBuilder {
 impl RTDUpdateNewCustomQueryBuilder {
   pub fn build(&self) -> UpdateNewCustomQuery { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -7231,7 +7528,7 @@ pub struct UpdatePoll {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// New data about the poll
   poll: Poll,
   
@@ -7240,7 +7537,11 @@ pub struct UpdatePoll {
 impl RObject for UpdatePoll {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "updatePoll" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -7270,7 +7571,7 @@ pub struct RTDUpdatePollBuilder {
 impl RTDUpdatePollBuilder {
   pub fn build(&self) -> UpdatePoll { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

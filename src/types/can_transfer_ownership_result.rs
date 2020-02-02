@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -120,14 +121,18 @@ pub struct CanTransferOwnershipResultOk {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for CanTransferOwnershipResultOk {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "canTransferOwnershipResultOk" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -155,7 +160,7 @@ pub struct RTDCanTransferOwnershipResultOkBuilder {
 impl RTDCanTransferOwnershipResultOkBuilder {
   pub fn build(&self) -> CanTransferOwnershipResultOk { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -183,14 +188,18 @@ pub struct CanTransferOwnershipResultPasswordNeeded {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for CanTransferOwnershipResultPasswordNeeded {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "canTransferOwnershipResultPasswordNeeded" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -218,7 +227,7 @@ pub struct RTDCanTransferOwnershipResultPasswordNeededBuilder {
 impl RTDCanTransferOwnershipResultPasswordNeededBuilder {
   pub fn build(&self) -> CanTransferOwnershipResultPasswordNeeded { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -246,7 +255,7 @@ pub struct CanTransferOwnershipResultPasswordTooFresh {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Time left before the session can be used to transfer ownership of a chat, in seconds
   retry_after: i64,
   
@@ -255,7 +264,11 @@ pub struct CanTransferOwnershipResultPasswordTooFresh {
 impl RObject for CanTransferOwnershipResultPasswordTooFresh {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "canTransferOwnershipResultPasswordTooFresh" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -285,7 +298,7 @@ pub struct RTDCanTransferOwnershipResultPasswordTooFreshBuilder {
 impl RTDCanTransferOwnershipResultPasswordTooFreshBuilder {
   pub fn build(&self) -> CanTransferOwnershipResultPasswordTooFresh { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -319,7 +332,7 @@ pub struct CanTransferOwnershipResultSessionTooFresh {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Time left before the session can be used to transfer ownership of a chat, in seconds
   retry_after: i64,
   
@@ -328,7 +341,11 @@ pub struct CanTransferOwnershipResultSessionTooFresh {
 impl RObject for CanTransferOwnershipResultSessionTooFresh {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "canTransferOwnershipResultSessionTooFresh" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -358,7 +375,7 @@ pub struct RTDCanTransferOwnershipResultSessionTooFreshBuilder {
 impl RTDCanTransferOwnershipResultSessionTooFreshBuilder {
   pub fn build(&self) -> CanTransferOwnershipResultSessionTooFresh { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

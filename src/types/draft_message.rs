@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -13,7 +14,7 @@ pub struct DraftMessage {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Identifier of the message to reply to; 0 if none
   reply_to_message_id: i64,
   /// Content of the message draft; this should always be of type inputMessageText
@@ -24,7 +25,11 @@ pub struct DraftMessage {
 impl RObject for DraftMessage {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "draftMessage" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -53,7 +58,7 @@ pub struct RTDDraftMessageBuilder {
 impl RTDDraftMessageBuilder {
   pub fn build(&self) -> DraftMessage { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 

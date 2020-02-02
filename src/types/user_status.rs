@@ -1,6 +1,7 @@
 
 use crate::types::*;
 use crate::errors::*;
+use crate::types::_common::Extra;
 
 
 
@@ -129,14 +130,18 @@ pub struct UserStatusEmpty {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for UserStatusEmpty {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userStatusEmpty" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -164,7 +169,7 @@ pub struct RTDUserStatusEmptyBuilder {
 impl RTDUserStatusEmptyBuilder {
   pub fn build(&self) -> UserStatusEmpty { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -192,7 +197,7 @@ pub struct UserStatusOnline {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Point in time (Unix timestamp) when the user's online status will expire
   expires: i64,
   
@@ -201,7 +206,11 @@ pub struct UserStatusOnline {
 impl RObject for UserStatusOnline {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userStatusOnline" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -231,7 +240,7 @@ pub struct RTDUserStatusOnlineBuilder {
 impl RTDUserStatusOnlineBuilder {
   pub fn build(&self) -> UserStatusOnline { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -265,7 +274,7 @@ pub struct UserStatusOffline {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   /// Point in time (Unix timestamp) when the user was last online
   was_online: i64,
   
@@ -274,7 +283,11 @@ pub struct UserStatusOffline {
 impl RObject for UserStatusOffline {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userStatusOffline" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -304,7 +317,7 @@ pub struct RTDUserStatusOfflineBuilder {
 impl RTDUserStatusOfflineBuilder {
   pub fn build(&self) -> UserStatusOffline { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -338,14 +351,18 @@ pub struct UserStatusRecently {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for UserStatusRecently {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userStatusRecently" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -373,7 +390,7 @@ pub struct RTDUserStatusRecentlyBuilder {
 impl RTDUserStatusRecentlyBuilder {
   pub fn build(&self) -> UserStatusRecently { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -401,14 +418,18 @@ pub struct UserStatusLastWeek {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for UserStatusLastWeek {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userStatusLastWeek" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -436,7 +457,7 @@ pub struct RTDUserStatusLastWeekBuilder {
 impl RTDUserStatusLastWeekBuilder {
   pub fn build(&self) -> UserStatusLastWeek { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
@@ -464,14 +485,18 @@ pub struct UserStatusLastMonth {
   td_name: String,
   #[doc(hidden)]
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
-  td_tag: Option<String>,
+  td_tag: Option<Extra>,
   
 }
 
 impl RObject for UserStatusLastMonth {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userStatusLastMonth" }
   #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
-    self.td_tag.as_deref()
+    if self.td_tag.is_none() {
+      None
+    } else {
+      self.td_tag.as_ref().unwrap().tag.as_deref()
+    }
   }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
@@ -499,7 +524,7 @@ pub struct RTDUserStatusLastMonthBuilder {
 impl RTDUserStatusLastMonthBuilder {
   pub fn build(&self) -> UserStatusLastMonth { self.inner.clone() }
   pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
-    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self.inner.td_tag = Some(Extra { tag: Some(tag.as_ref().to_string()) });
     self
   }
 
