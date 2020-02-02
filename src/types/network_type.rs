@@ -62,6 +62,7 @@ impl RObject for NetworkType {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -117,11 +118,17 @@ pub struct NetworkTypeNone {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for NetworkTypeNone {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "networkTypeNone" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -147,6 +154,10 @@ pub struct RTDNetworkTypeNoneBuilder {
 
 impl RTDNetworkTypeNoneBuilder {
   pub fn build(&self) -> NetworkTypeNone { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -170,11 +181,17 @@ pub struct NetworkTypeMobile {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for NetworkTypeMobile {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "networkTypeMobile" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -200,6 +217,10 @@ pub struct RTDNetworkTypeMobileBuilder {
 
 impl RTDNetworkTypeMobileBuilder {
   pub fn build(&self) -> NetworkTypeMobile { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -223,11 +244,17 @@ pub struct NetworkTypeMobileRoaming {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for NetworkTypeMobileRoaming {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "networkTypeMobileRoaming" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -253,6 +280,10 @@ pub struct RTDNetworkTypeMobileRoamingBuilder {
 
 impl RTDNetworkTypeMobileRoamingBuilder {
   pub fn build(&self) -> NetworkTypeMobileRoaming { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -276,11 +307,17 @@ pub struct NetworkTypeWiFi {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for NetworkTypeWiFi {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "networkTypeWiFi" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -306,6 +343,10 @@ pub struct RTDNetworkTypeWiFiBuilder {
 
 impl RTDNetworkTypeWiFiBuilder {
   pub fn build(&self) -> NetworkTypeWiFi { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -329,11 +370,17 @@ pub struct NetworkTypeOther {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for NetworkTypeOther {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "networkTypeOther" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -359,6 +406,10 @@ pub struct RTDNetworkTypeOtherBuilder {
 
 impl RTDNetworkTypeOtherBuilder {
   pub fn build(&self) -> NetworkTypeOther { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 

@@ -70,6 +70,7 @@ impl RObject for CallProblem {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -135,11 +136,17 @@ pub struct CallProblemEcho {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for CallProblemEcho {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callProblemEcho" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -165,6 +172,10 @@ pub struct RTDCallProblemEchoBuilder {
 
 impl RTDCallProblemEchoBuilder {
   pub fn build(&self) -> CallProblemEcho { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -188,11 +199,17 @@ pub struct CallProblemNoise {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for CallProblemNoise {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callProblemNoise" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -218,6 +235,10 @@ pub struct RTDCallProblemNoiseBuilder {
 
 impl RTDCallProblemNoiseBuilder {
   pub fn build(&self) -> CallProblemNoise { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -241,11 +262,17 @@ pub struct CallProblemInterruptions {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for CallProblemInterruptions {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callProblemInterruptions" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -271,6 +298,10 @@ pub struct RTDCallProblemInterruptionsBuilder {
 
 impl RTDCallProblemInterruptionsBuilder {
   pub fn build(&self) -> CallProblemInterruptions { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -294,11 +325,17 @@ pub struct CallProblemDistortedSpeech {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for CallProblemDistortedSpeech {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callProblemDistortedSpeech" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -324,6 +361,10 @@ pub struct RTDCallProblemDistortedSpeechBuilder {
 
 impl RTDCallProblemDistortedSpeechBuilder {
   pub fn build(&self) -> CallProblemDistortedSpeech { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -347,11 +388,17 @@ pub struct CallProblemSilentLocal {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for CallProblemSilentLocal {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callProblemSilentLocal" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -377,6 +424,10 @@ pub struct RTDCallProblemSilentLocalBuilder {
 
 impl RTDCallProblemSilentLocalBuilder {
   pub fn build(&self) -> CallProblemSilentLocal { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -400,11 +451,17 @@ pub struct CallProblemSilentRemote {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for CallProblemSilentRemote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callProblemSilentRemote" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -430,6 +487,10 @@ pub struct RTDCallProblemSilentRemoteBuilder {
 
 impl RTDCallProblemSilentRemoteBuilder {
   pub fn build(&self) -> CallProblemSilentRemote { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -453,11 +514,17 @@ pub struct CallProblemDropped {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for CallProblemDropped {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callProblemDropped" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -483,6 +550,10 @@ pub struct RTDCallProblemDroppedBuilder {
 
 impl RTDCallProblemDroppedBuilder {
   pub fn build(&self) -> CallProblemDropped { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 

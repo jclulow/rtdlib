@@ -11,6 +11,9 @@ pub struct TermsOfService {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text of the terms of service
   text: FormattedText,
   /// Minimum age of a user to be able to accept the terms; 0 if any
@@ -22,6 +25,9 @@ pub struct TermsOfService {
 
 impl RObject for TermsOfService {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "termsOfService" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -50,6 +56,10 @@ pub struct RTDTermsOfServiceBuilder {
 
 impl RTDTermsOfServiceBuilder {
   pub fn build(&self) -> TermsOfService { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<FormattedText>>(&mut self, text: T) -> &mut Self {

@@ -66,6 +66,7 @@ impl RObject for CallState {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -126,6 +127,9 @@ pub struct CallStatePending {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// True, if the call has already been created by the server
   is_created: bool,
   /// True, if the call has already been received by the other party
@@ -135,6 +139,9 @@ pub struct CallStatePending {
 
 impl RObject for CallStatePending {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callStatePending" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -164,6 +171,10 @@ pub struct RTDCallStatePendingBuilder {
 
 impl RTDCallStatePendingBuilder {
   pub fn build(&self) -> CallStatePending { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn is_created(&mut self, is_created: bool) -> &mut Self {
@@ -199,11 +210,17 @@ pub struct CallStateExchangingKeys {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for CallStateExchangingKeys {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callStateExchangingKeys" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -229,6 +246,10 @@ pub struct RTDCallStateExchangingKeysBuilder {
 
 impl RTDCallStateExchangingKeysBuilder {
   pub fn build(&self) -> CallStateExchangingKeys { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -252,6 +273,9 @@ pub struct CallStateReady {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Call protocols supported by the peer
   protocol: CallProtocol,
   /// Available UDP reflectors
@@ -269,6 +293,9 @@ pub struct CallStateReady {
 
 impl RObject for CallStateReady {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callStateReady" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -306,6 +333,10 @@ pub struct RTDCallStateReadyBuilder {
 
 impl RTDCallStateReadyBuilder {
   pub fn build(&self) -> CallStateReady { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn protocol<T: AsRef<CallProtocol>>(&mut self, protocol: T) -> &mut Self {
@@ -365,11 +396,17 @@ pub struct CallStateHangingUp {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for CallStateHangingUp {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callStateHangingUp" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -395,6 +432,10 @@ pub struct RTDCallStateHangingUpBuilder {
 
 impl RTDCallStateHangingUpBuilder {
   pub fn build(&self) -> CallStateHangingUp { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -418,6 +459,9 @@ pub struct CallStateDiscarded {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The reason, why the call has ended
   reason: CallDiscardReason,
   /// True, if the call rating should be sent to the server
@@ -429,6 +473,9 @@ pub struct CallStateDiscarded {
 
 impl RObject for CallStateDiscarded {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callStateDiscarded" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -460,6 +507,10 @@ pub struct RTDCallStateDiscardedBuilder {
 
 impl RTDCallStateDiscardedBuilder {
   pub fn build(&self) -> CallStateDiscarded { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn reason<T: AsRef<CallDiscardReason>>(&mut self, reason: T) -> &mut Self {
@@ -501,6 +552,9 @@ pub struct CallStateError {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Error. An error with the code 4005000 will be returned if an outgoing call is missed because of an expired timeout
   error: Error,
   
@@ -508,6 +562,9 @@ pub struct CallStateError {
 
 impl RObject for CallStateError {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callStateError" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -535,6 +592,10 @@ pub struct RTDCallStateErrorBuilder {
 
 impl RTDCallStateErrorBuilder {
   pub fn build(&self) -> CallStateError { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn error<T: AsRef<Error>>(&mut self, error: T) -> &mut Self {

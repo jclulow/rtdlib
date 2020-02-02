@@ -11,6 +11,9 @@ pub struct InputThumbnail {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Thumbnail file to send. Sending thumbnails by file_id is currently not supported
   thumbnail: InputFile,
   /// Thumbnail width, usually shouldn't exceed 320. Use 0 if unknown
@@ -22,6 +25,9 @@ pub struct InputThumbnail {
 
 impl RObject for InputThumbnail {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputThumbnail" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -50,6 +56,10 @@ pub struct RTDInputThumbnailBuilder {
 
 impl RTDInputThumbnailBuilder {
   pub fn build(&self) -> InputThumbnail { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn thumbnail<T: AsRef<InputFile>>(&mut self, thumbnail: T) -> &mut Self {

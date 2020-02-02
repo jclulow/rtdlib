@@ -58,6 +58,7 @@ impl RObject for TMeUrlType {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -108,6 +109,9 @@ pub struct TMeUrlTypeUser {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Identifier of the user
   user_id: i64,
   
@@ -115,6 +119,9 @@ pub struct TMeUrlTypeUser {
 
 impl RObject for TMeUrlTypeUser {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "tMeUrlTypeUser" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -142,6 +149,10 @@ pub struct RTDTMeUrlTypeUserBuilder {
 
 impl RTDTMeUrlTypeUserBuilder {
   pub fn build(&self) -> TMeUrlTypeUser { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn user_id(&mut self, user_id: i64) -> &mut Self {
@@ -171,6 +182,9 @@ pub struct TMeUrlTypeSupergroup {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Identifier of the supergroup or channel
   supergroup_id: i64,
   
@@ -178,6 +192,9 @@ pub struct TMeUrlTypeSupergroup {
 
 impl RObject for TMeUrlTypeSupergroup {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "tMeUrlTypeSupergroup" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -205,6 +222,10 @@ pub struct RTDTMeUrlTypeSupergroupBuilder {
 
 impl RTDTMeUrlTypeSupergroupBuilder {
   pub fn build(&self) -> TMeUrlTypeSupergroup { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn supergroup_id(&mut self, supergroup_id: i64) -> &mut Self {
@@ -234,6 +255,9 @@ pub struct TMeUrlTypeChatInvite {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Chat invite link info
   info: ChatInviteLinkInfo,
   
@@ -241,6 +265,9 @@ pub struct TMeUrlTypeChatInvite {
 
 impl RObject for TMeUrlTypeChatInvite {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "tMeUrlTypeChatInvite" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -268,6 +295,10 @@ pub struct RTDTMeUrlTypeChatInviteBuilder {
 
 impl RTDTMeUrlTypeChatInviteBuilder {
   pub fn build(&self) -> TMeUrlTypeChatInvite { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn info<T: AsRef<ChatInviteLinkInfo>>(&mut self, info: T) -> &mut Self {
@@ -297,6 +328,9 @@ pub struct TMeUrlTypeStickerSet {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Identifier of the sticker set
   sticker_set_id: isize,
   
@@ -304,6 +338,9 @@ pub struct TMeUrlTypeStickerSet {
 
 impl RObject for TMeUrlTypeStickerSet {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "tMeUrlTypeStickerSet" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -331,6 +368,10 @@ pub struct RTDTMeUrlTypeStickerSetBuilder {
 
 impl RTDTMeUrlTypeStickerSetBuilder {
   pub fn build(&self) -> TMeUrlTypeStickerSet { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn sticker_set_id(&mut self, sticker_set_id: isize) -> &mut Self {

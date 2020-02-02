@@ -11,6 +11,9 @@ pub struct Error {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Error code; subject to future changes. If the error code is 406, the error message must not be processed in any way and must not be displayed to the user
   code: i64,
   /// Error message; subject to future changes
@@ -20,6 +23,9 @@ pub struct Error {
 
 impl RObject for Error {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "error" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -46,6 +52,10 @@ pub struct RTDErrorBuilder {
 
 impl RTDErrorBuilder {
   pub fn build(&self) -> Error { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn code(&mut self, code: i64) -> &mut Self {

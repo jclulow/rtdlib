@@ -11,6 +11,9 @@ pub struct MessageLinkInfo {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// True, if the link is a public link for a message in a chat
   is_public: bool,
   /// If found, identifier of the chat to which the message belongs, 0 otherwise
@@ -24,6 +27,9 @@ pub struct MessageLinkInfo {
 
 impl RObject for MessageLinkInfo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageLinkInfo" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -54,6 +60,10 @@ pub struct RTDMessageLinkInfoBuilder {
 
 impl RTDMessageLinkInfoBuilder {
   pub fn build(&self) -> MessageLinkInfo { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn is_public(&mut self, is_public: bool) -> &mut Self {

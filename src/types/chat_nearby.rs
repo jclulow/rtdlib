@@ -11,6 +11,9 @@ pub struct ChatNearby {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Chat identifier
   chat_id: i64,
   /// Distance to the chat location in meters
@@ -20,6 +23,9 @@ pub struct ChatNearby {
 
 impl RObject for ChatNearby {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatNearby" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -46,6 +52,10 @@ pub struct RTDChatNearbyBuilder {
 
 impl RTDChatNearbyBuilder {
   pub fn build(&self) -> ChatNearby { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn chat_id(&mut self, chat_id: i64) -> &mut Self {

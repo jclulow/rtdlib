@@ -11,6 +11,9 @@ pub struct Background {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Unique background identifier
   id: isize,
   /// True, if this is one of default backgrounds
@@ -28,6 +31,9 @@ pub struct Background {
 
 impl RObject for Background {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "background" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -62,6 +68,10 @@ pub struct RTDBackgroundBuilder {
 
 impl RTDBackgroundBuilder {
   pub fn build(&self) -> Background { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn id(&mut self, id: isize) -> &mut Self {

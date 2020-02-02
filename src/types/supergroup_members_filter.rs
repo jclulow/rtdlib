@@ -70,6 +70,7 @@ impl RObject for SupergroupMembersFilter {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -135,11 +136,17 @@ pub struct SupergroupMembersFilterRecent {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for SupergroupMembersFilterRecent {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "supergroupMembersFilterRecent" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -165,6 +172,10 @@ pub struct RTDSupergroupMembersFilterRecentBuilder {
 
 impl RTDSupergroupMembersFilterRecentBuilder {
   pub fn build(&self) -> SupergroupMembersFilterRecent { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -188,6 +199,9 @@ pub struct SupergroupMembersFilterContacts {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Query to search for
   query: String,
   
@@ -195,6 +209,9 @@ pub struct SupergroupMembersFilterContacts {
 
 impl RObject for SupergroupMembersFilterContacts {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "supergroupMembersFilterContacts" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -222,6 +239,10 @@ pub struct RTDSupergroupMembersFilterContactsBuilder {
 
 impl RTDSupergroupMembersFilterContactsBuilder {
   pub fn build(&self) -> SupergroupMembersFilterContacts { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn query<T: AsRef<str>>(&mut self, query: T) -> &mut Self {
@@ -251,11 +272,17 @@ pub struct SupergroupMembersFilterAdministrators {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for SupergroupMembersFilterAdministrators {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "supergroupMembersFilterAdministrators" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -281,6 +308,10 @@ pub struct RTDSupergroupMembersFilterAdministratorsBuilder {
 
 impl RTDSupergroupMembersFilterAdministratorsBuilder {
   pub fn build(&self) -> SupergroupMembersFilterAdministrators { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -304,6 +335,9 @@ pub struct SupergroupMembersFilterSearch {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Query to search for
   query: String,
   
@@ -311,6 +345,9 @@ pub struct SupergroupMembersFilterSearch {
 
 impl RObject for SupergroupMembersFilterSearch {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "supergroupMembersFilterSearch" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -338,6 +375,10 @@ pub struct RTDSupergroupMembersFilterSearchBuilder {
 
 impl RTDSupergroupMembersFilterSearchBuilder {
   pub fn build(&self) -> SupergroupMembersFilterSearch { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn query<T: AsRef<str>>(&mut self, query: T) -> &mut Self {
@@ -367,6 +408,9 @@ pub struct SupergroupMembersFilterRestricted {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Query to search for
   query: String,
   
@@ -374,6 +418,9 @@ pub struct SupergroupMembersFilterRestricted {
 
 impl RObject for SupergroupMembersFilterRestricted {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "supergroupMembersFilterRestricted" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -401,6 +448,10 @@ pub struct RTDSupergroupMembersFilterRestrictedBuilder {
 
 impl RTDSupergroupMembersFilterRestrictedBuilder {
   pub fn build(&self) -> SupergroupMembersFilterRestricted { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn query<T: AsRef<str>>(&mut self, query: T) -> &mut Self {
@@ -430,6 +481,9 @@ pub struct SupergroupMembersFilterBanned {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Query to search for
   query: String,
   
@@ -437,6 +491,9 @@ pub struct SupergroupMembersFilterBanned {
 
 impl RObject for SupergroupMembersFilterBanned {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "supergroupMembersFilterBanned" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -464,6 +521,10 @@ pub struct RTDSupergroupMembersFilterBannedBuilder {
 
 impl RTDSupergroupMembersFilterBannedBuilder {
   pub fn build(&self) -> SupergroupMembersFilterBanned { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn query<T: AsRef<str>>(&mut self, query: T) -> &mut Self {
@@ -493,11 +554,17 @@ pub struct SupergroupMembersFilterBots {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for SupergroupMembersFilterBots {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "supergroupMembersFilterBots" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -523,6 +590,10 @@ pub struct RTDSupergroupMembersFilterBotsBuilder {
 
 impl RTDSupergroupMembersFilterBotsBuilder {
   pub fn build(&self) -> SupergroupMembersFilterBots { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 

@@ -66,6 +66,7 @@ impl RObject for UserStatus {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -126,11 +127,17 @@ pub struct UserStatusEmpty {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserStatusEmpty {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userStatusEmpty" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -156,6 +163,10 @@ pub struct RTDUserStatusEmptyBuilder {
 
 impl RTDUserStatusEmptyBuilder {
   pub fn build(&self) -> UserStatusEmpty { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -179,6 +190,9 @@ pub struct UserStatusOnline {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Point in time (Unix timestamp) when the user's online status will expire
   expires: i64,
   
@@ -186,6 +200,9 @@ pub struct UserStatusOnline {
 
 impl RObject for UserStatusOnline {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userStatusOnline" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -213,6 +230,10 @@ pub struct RTDUserStatusOnlineBuilder {
 
 impl RTDUserStatusOnlineBuilder {
   pub fn build(&self) -> UserStatusOnline { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn expires(&mut self, expires: i64) -> &mut Self {
@@ -242,6 +263,9 @@ pub struct UserStatusOffline {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Point in time (Unix timestamp) when the user was last online
   was_online: i64,
   
@@ -249,6 +273,9 @@ pub struct UserStatusOffline {
 
 impl RObject for UserStatusOffline {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userStatusOffline" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -276,6 +303,10 @@ pub struct RTDUserStatusOfflineBuilder {
 
 impl RTDUserStatusOfflineBuilder {
   pub fn build(&self) -> UserStatusOffline { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn was_online(&mut self, was_online: i64) -> &mut Self {
@@ -305,11 +336,17 @@ pub struct UserStatusRecently {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserStatusRecently {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userStatusRecently" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -335,6 +372,10 @@ pub struct RTDUserStatusRecentlyBuilder {
 
 impl RTDUserStatusRecentlyBuilder {
   pub fn build(&self) -> UserStatusRecently { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -358,11 +399,17 @@ pub struct UserStatusLastWeek {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserStatusLastWeek {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userStatusLastWeek" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -388,6 +435,10 @@ pub struct RTDUserStatusLastWeekBuilder {
 
 impl RTDUserStatusLastWeekBuilder {
   pub fn build(&self) -> UserStatusLastWeek { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -411,11 +462,17 @@ pub struct UserStatusLastMonth {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserStatusLastMonth {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userStatusLastMonth" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -441,6 +498,10 @@ pub struct RTDUserStatusLastMonthBuilder {
 
 impl RTDUserStatusLastMonthBuilder {
   pub fn build(&self) -> UserStatusLastMonth { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 

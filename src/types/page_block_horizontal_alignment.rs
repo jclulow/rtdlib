@@ -54,6 +54,7 @@ impl RObject for PageBlockHorizontalAlignment {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -99,11 +100,17 @@ pub struct PageBlockHorizontalAlignmentLeft {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for PageBlockHorizontalAlignmentLeft {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockHorizontalAlignmentLeft" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -129,6 +136,10 @@ pub struct RTDPageBlockHorizontalAlignmentLeftBuilder {
 
 impl RTDPageBlockHorizontalAlignmentLeftBuilder {
   pub fn build(&self) -> PageBlockHorizontalAlignmentLeft { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -152,11 +163,17 @@ pub struct PageBlockHorizontalAlignmentCenter {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for PageBlockHorizontalAlignmentCenter {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockHorizontalAlignmentCenter" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -182,6 +199,10 @@ pub struct RTDPageBlockHorizontalAlignmentCenterBuilder {
 
 impl RTDPageBlockHorizontalAlignmentCenterBuilder {
   pub fn build(&self) -> PageBlockHorizontalAlignmentCenter { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -205,11 +226,17 @@ pub struct PageBlockHorizontalAlignmentRight {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for PageBlockHorizontalAlignmentRight {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockHorizontalAlignmentRight" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -235,6 +262,10 @@ pub struct RTDPageBlockHorizontalAlignmentRightBuilder {
 
 impl RTDPageBlockHorizontalAlignmentRightBuilder {
   pub fn build(&self) -> PageBlockHorizontalAlignmentRight { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 

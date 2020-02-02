@@ -11,6 +11,9 @@ pub struct Document {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Original name of the file; as defined by the sender
   file_name: String,
   /// MIME type of the file; as defined by the sender
@@ -26,6 +29,9 @@ pub struct Document {
 
 impl RObject for Document {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "document" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -58,6 +64,10 @@ pub struct RTDDocumentBuilder {
 
 impl RTDDocumentBuilder {
   pub fn build(&self) -> Document { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn file_name<T: AsRef<str>>(&mut self, file_name: T) -> &mut Self {

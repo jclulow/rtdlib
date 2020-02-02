@@ -11,6 +11,9 @@ pub struct InputSticker {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// PNG image with the sticker; must be up to 512 kB in size and fit in a 512x512 square
   png_sticker: InputFile,
   /// Emoji corresponding to the sticker
@@ -22,6 +25,9 @@ pub struct InputSticker {
 
 impl RObject for InputSticker {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputSticker" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -50,6 +56,10 @@ pub struct RTDInputStickerBuilder {
 
 impl RTDInputStickerBuilder {
   pub fn build(&self) -> InputSticker { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn png_sticker<T: AsRef<InputFile>>(&mut self, png_sticker: T) -> &mut Self {

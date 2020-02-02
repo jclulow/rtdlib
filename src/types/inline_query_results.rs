@@ -11,6 +11,9 @@ pub struct InlineQueryResults {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Unique identifier of the inline query
   inline_query_id: isize,
   /// The offset for the next request. If empty, there are no more results
@@ -26,6 +29,9 @@ pub struct InlineQueryResults {
 
 impl RObject for InlineQueryResults {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inlineQueryResults" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -58,6 +64,10 @@ pub struct RTDInlineQueryResultsBuilder {
 
 impl RTDInlineQueryResultsBuilder {
   pub fn build(&self) -> InlineQueryResults { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn inline_query_id(&mut self, inline_query_id: isize) -> &mut Self {

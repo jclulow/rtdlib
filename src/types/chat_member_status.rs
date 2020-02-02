@@ -66,6 +66,7 @@ impl RObject for ChatMemberStatus {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -126,6 +127,9 @@ pub struct ChatMemberStatusCreator {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// A custom title of the owner; 0-16 characters without emojis; applicable to supergroups only
   custom_title: String,
   /// True, if the user is a member of the chat
@@ -135,6 +139,9 @@ pub struct ChatMemberStatusCreator {
 
 impl RObject for ChatMemberStatusCreator {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatMemberStatusCreator" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -164,6 +171,10 @@ pub struct RTDChatMemberStatusCreatorBuilder {
 
 impl RTDChatMemberStatusCreatorBuilder {
   pub fn build(&self) -> ChatMemberStatusCreator { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn custom_title<T: AsRef<str>>(&mut self, custom_title: T) -> &mut Self {
@@ -199,6 +210,9 @@ pub struct ChatMemberStatusAdministrator {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// A custom title of the administrator; 0-16 characters without emojis; applicable to supergroups only
   custom_title: String,
   /// True, if the current user can edit the administrator privileges for the called user
@@ -224,6 +238,9 @@ pub struct ChatMemberStatusAdministrator {
 
 impl RObject for ChatMemberStatusAdministrator {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatMemberStatusAdministrator" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -269,6 +286,10 @@ pub struct RTDChatMemberStatusAdministratorBuilder {
 
 impl RTDChatMemberStatusAdministratorBuilder {
   pub fn build(&self) -> ChatMemberStatusAdministrator { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn custom_title<T: AsRef<str>>(&mut self, custom_title: T) -> &mut Self {
@@ -352,11 +373,17 @@ pub struct ChatMemberStatusMember {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for ChatMemberStatusMember {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatMemberStatusMember" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -382,6 +409,10 @@ pub struct RTDChatMemberStatusMemberBuilder {
 
 impl RTDChatMemberStatusMemberBuilder {
   pub fn build(&self) -> ChatMemberStatusMember { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -405,6 +436,9 @@ pub struct ChatMemberStatusRestricted {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// True, if the user is a member of the chat
   is_member: bool,
   /// Point in time (Unix timestamp) when restrictions will be lifted from the user; 0 if never. If the user is restricted for more than 366 days or for less than 30 seconds from the current time, the user is considered to be restricted forever
@@ -416,6 +450,9 @@ pub struct ChatMemberStatusRestricted {
 
 impl RObject for ChatMemberStatusRestricted {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatMemberStatusRestricted" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -447,6 +484,10 @@ pub struct RTDChatMemberStatusRestrictedBuilder {
 
 impl RTDChatMemberStatusRestrictedBuilder {
   pub fn build(&self) -> ChatMemberStatusRestricted { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn is_member(&mut self, is_member: bool) -> &mut Self {
@@ -488,11 +529,17 @@ pub struct ChatMemberStatusLeft {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for ChatMemberStatusLeft {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatMemberStatusLeft" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -518,6 +565,10 @@ pub struct RTDChatMemberStatusLeftBuilder {
 
 impl RTDChatMemberStatusLeftBuilder {
   pub fn build(&self) -> ChatMemberStatusLeft { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -541,6 +592,9 @@ pub struct ChatMemberStatusBanned {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever
   banned_until_date: i64,
   
@@ -548,6 +602,9 @@ pub struct ChatMemberStatusBanned {
 
 impl RObject for ChatMemberStatusBanned {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatMemberStatusBanned" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -575,6 +632,10 @@ pub struct RTDChatMemberStatusBannedBuilder {
 
 impl RTDChatMemberStatusBannedBuilder {
   pub fn build(&self) -> ChatMemberStatusBanned { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn banned_until_date(&mut self, banned_until_date: i64) -> &mut Self {

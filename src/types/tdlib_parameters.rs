@@ -11,6 +11,9 @@ pub struct TdlibParameters {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// If set to true, the Telegram test environment will be used instead of the production environment
   use_test_dc: bool,
   /// The path to the directory for the persistent database; if empty, the current working directory will be used
@@ -46,6 +49,9 @@ pub struct TdlibParameters {
 
 impl RObject for TdlibParameters {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "tdlibParameters" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -98,6 +104,10 @@ pub struct RTDTdlibParametersBuilder {
 
 impl RTDTdlibParametersBuilder {
   pub fn build(&self) -> TdlibParameters { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn use_test_dc(&mut self, use_test_dc: bool) -> &mut Self {

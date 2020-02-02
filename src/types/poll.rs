@@ -11,6 +11,9 @@ pub struct Poll {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Unique poll identifier
   id: String,
   /// Poll question, 1-255 characters
@@ -26,6 +29,9 @@ pub struct Poll {
 
 impl RObject for Poll {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "poll" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -58,6 +64,10 @@ pub struct RTDPollBuilder {
 
 impl RTDPollBuilder {
   pub fn build(&self) -> Poll { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn id<T: AsRef<str>>(&mut self, id: T) -> &mut Self {

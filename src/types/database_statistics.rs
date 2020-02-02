@@ -11,6 +11,9 @@ pub struct DatabaseStatistics {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Database statistics in an unspecified human-readable format
   statistics: String,
   
@@ -18,6 +21,9 @@ pub struct DatabaseStatistics {
 
 impl RObject for DatabaseStatistics {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "databaseStatistics" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -42,6 +48,10 @@ pub struct RTDDatabaseStatisticsBuilder {
 
 impl RTDDatabaseStatisticsBuilder {
   pub fn build(&self) -> DatabaseStatistics { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn statistics<T: AsRef<str>>(&mut self, statistics: T) -> &mut Self {

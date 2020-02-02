@@ -50,6 +50,7 @@ impl RObject for PublicChatType {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -90,11 +91,17 @@ pub struct PublicChatTypeHasUsername {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for PublicChatTypeHasUsername {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "publicChatTypeHasUsername" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -120,6 +127,10 @@ pub struct RTDPublicChatTypeHasUsernameBuilder {
 
 impl RTDPublicChatTypeHasUsernameBuilder {
   pub fn build(&self) -> PublicChatTypeHasUsername { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -143,11 +154,17 @@ pub struct PublicChatTypeIsLocationBased {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for PublicChatTypeIsLocationBased {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "publicChatTypeIsLocationBased" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -173,6 +190,10 @@ pub struct RTDPublicChatTypeIsLocationBasedBuilder {
 
 impl RTDPublicChatTypeIsLocationBasedBuilder {
   pub fn build(&self) -> PublicChatTypeIsLocationBased { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 

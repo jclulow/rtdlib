@@ -11,6 +11,9 @@ pub struct Photo {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// True, if stickers were added to the photo
   has_stickers: bool,
   /// Photo minithumbnail; may be null
@@ -22,6 +25,9 @@ pub struct Photo {
 
 impl RObject for Photo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "photo" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -50,6 +56,10 @@ pub struct RTDPhotoBuilder {
 
 impl RTDPhotoBuilder {
   pub fn build(&self) -> Photo { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn has_stickers(&mut self, has_stickers: bool) -> &mut Self {

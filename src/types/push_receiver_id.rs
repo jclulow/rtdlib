@@ -11,6 +11,9 @@ pub struct PushReceiverId {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The globally unique identifier of push notification subscription
   id: isize,
   
@@ -18,6 +21,9 @@ pub struct PushReceiverId {
 
 impl RObject for PushReceiverId {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pushReceiverId" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -42,6 +48,10 @@ pub struct RTDPushReceiverIdBuilder {
 
 impl RTDPushReceiverIdBuilder {
   pub fn build(&self) -> PushReceiverId { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn id(&mut self, id: isize) -> &mut Self {

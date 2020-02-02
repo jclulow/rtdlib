@@ -54,6 +54,7 @@ impl RObject for LoginUrlInfo {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -99,6 +100,9 @@ pub struct LoginUrlInfoOpen {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The URL to open
   url: String,
   /// True, if there is no need to show an ordinary open URL confirm
@@ -108,6 +112,9 @@ pub struct LoginUrlInfoOpen {
 
 impl RObject for LoginUrlInfoOpen {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "loginUrlInfoOpen" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -137,6 +144,10 @@ pub struct RTDLoginUrlInfoOpenBuilder {
 
 impl RTDLoginUrlInfoOpenBuilder {
   pub fn build(&self) -> LoginUrlInfoOpen { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn url<T: AsRef<str>>(&mut self, url: T) -> &mut Self {
@@ -172,6 +183,9 @@ pub struct LoginUrlInfoRequestConfirmation {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// An HTTP URL to be opened
   url: String,
   /// A domain of the URL
@@ -185,6 +199,9 @@ pub struct LoginUrlInfoRequestConfirmation {
 
 impl RObject for LoginUrlInfoRequestConfirmation {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "loginUrlInfoRequestConfirmation" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -218,6 +235,10 @@ pub struct RTDLoginUrlInfoRequestConfirmationBuilder {
 
 impl RTDLoginUrlInfoRequestConfirmationBuilder {
   pub fn build(&self) -> LoginUrlInfoRequestConfirmation { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn url<T: AsRef<str>>(&mut self, url: T) -> &mut Self {

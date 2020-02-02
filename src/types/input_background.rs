@@ -50,6 +50,7 @@ impl RObject for InputBackground {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -90,6 +91,9 @@ pub struct InputBackgroundLocal {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Background file to use. Only inputFileLocal and inputFileGenerated are supported. The file nust be in JPEG format for wallpapers and in PNG format for patterns
   background: InputFile,
   
@@ -97,6 +101,9 @@ pub struct InputBackgroundLocal {
 
 impl RObject for InputBackgroundLocal {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputBackgroundLocal" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -124,6 +131,10 @@ pub struct RTDInputBackgroundLocalBuilder {
 
 impl RTDInputBackgroundLocalBuilder {
   pub fn build(&self) -> InputBackgroundLocal { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn background<T: AsRef<InputFile>>(&mut self, background: T) -> &mut Self {
@@ -153,6 +164,9 @@ pub struct InputBackgroundRemote {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The background identifier
   background_id: isize,
   
@@ -160,6 +174,9 @@ pub struct InputBackgroundRemote {
 
 impl RObject for InputBackgroundRemote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputBackgroundRemote" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -187,6 +204,10 @@ pub struct RTDInputBackgroundRemoteBuilder {
 
 impl RTDInputBackgroundRemoteBuilder {
   pub fn build(&self) -> InputBackgroundRemote { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn background_id(&mut self, background_id: isize) -> &mut Self {

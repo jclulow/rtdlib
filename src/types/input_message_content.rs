@@ -106,6 +106,7 @@ impl RObject for InputMessageContent {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -216,6 +217,9 @@ pub struct InputMessageText {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Formatted text to be sent; 1-GetOption("message_text_length_max") characters. Only Bold, Italic, Underline, Strikethrough, Code, Pre, PreCode, TextUrl and MentionName entities are allowed to be specified manually
   text: FormattedText,
   /// True, if rich web page previews for URLs in the message text should be disabled
@@ -227,6 +231,9 @@ pub struct InputMessageText {
 
 impl RObject for InputMessageText {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessageText" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -258,6 +265,10 @@ pub struct RTDInputMessageTextBuilder {
 
 impl RTDInputMessageTextBuilder {
   pub fn build(&self) -> InputMessageText { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<FormattedText>>(&mut self, text: T) -> &mut Self {
@@ -299,6 +310,9 @@ pub struct InputMessageAnimation {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Animation file to be sent
   animation: InputFile,
   /// Animation thumbnail, if available
@@ -316,6 +330,9 @@ pub struct InputMessageAnimation {
 
 impl RObject for InputMessageAnimation {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessageAnimation" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -353,6 +370,10 @@ pub struct RTDInputMessageAnimationBuilder {
 
 impl RTDInputMessageAnimationBuilder {
   pub fn build(&self) -> InputMessageAnimation { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn animation<T: AsRef<InputFile>>(&mut self, animation: T) -> &mut Self {
@@ -412,6 +433,9 @@ pub struct InputMessageAudio {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Audio file to be sent
   audio: InputFile,
   /// Thumbnail of the cover for the album, if available
@@ -429,6 +453,9 @@ pub struct InputMessageAudio {
 
 impl RObject for InputMessageAudio {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessageAudio" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -466,6 +493,10 @@ pub struct RTDInputMessageAudioBuilder {
 
 impl RTDInputMessageAudioBuilder {
   pub fn build(&self) -> InputMessageAudio { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn audio<T: AsRef<InputFile>>(&mut self, audio: T) -> &mut Self {
@@ -525,6 +556,9 @@ pub struct InputMessageDocument {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Document to be sent
   document: InputFile,
   /// Document thumbnail, if available
@@ -536,6 +570,9 @@ pub struct InputMessageDocument {
 
 impl RObject for InputMessageDocument {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessageDocument" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -567,6 +604,10 @@ pub struct RTDInputMessageDocumentBuilder {
 
 impl RTDInputMessageDocumentBuilder {
   pub fn build(&self) -> InputMessageDocument { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn document<T: AsRef<InputFile>>(&mut self, document: T) -> &mut Self {
@@ -608,6 +649,9 @@ pub struct InputMessagePhoto {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Photo to send
   photo: InputFile,
   /// Photo thumbnail to be sent, this is sent to the other party in secret chats only
@@ -627,6 +671,9 @@ pub struct InputMessagePhoto {
 
 impl RObject for InputMessagePhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessagePhoto" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -666,6 +713,10 @@ pub struct RTDInputMessagePhotoBuilder {
 
 impl RTDInputMessagePhotoBuilder {
   pub fn build(&self) -> InputMessagePhoto { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn photo<T: AsRef<InputFile>>(&mut self, photo: T) -> &mut Self {
@@ -731,6 +782,9 @@ pub struct InputMessageSticker {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Sticker to be sent
   sticker: InputFile,
   /// Sticker thumbnail, if available
@@ -744,6 +798,9 @@ pub struct InputMessageSticker {
 
 impl RObject for InputMessageSticker {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessageSticker" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -777,6 +834,10 @@ pub struct RTDInputMessageStickerBuilder {
 
 impl RTDInputMessageStickerBuilder {
   pub fn build(&self) -> InputMessageSticker { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn sticker<T: AsRef<InputFile>>(&mut self, sticker: T) -> &mut Self {
@@ -824,6 +885,9 @@ pub struct InputMessageVideo {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Video to be sent
   video: InputFile,
   /// Video thumbnail, if available
@@ -847,6 +911,9 @@ pub struct InputMessageVideo {
 
 impl RObject for InputMessageVideo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessageVideo" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -890,6 +957,10 @@ pub struct RTDInputMessageVideoBuilder {
 
 impl RTDInputMessageVideoBuilder {
   pub fn build(&self) -> InputMessageVideo { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn video<T: AsRef<InputFile>>(&mut self, video: T) -> &mut Self {
@@ -967,6 +1038,9 @@ pub struct InputMessageVideoNote {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Video note to be sent
   video_note: InputFile,
   /// Video thumbnail, if available
@@ -980,6 +1054,9 @@ pub struct InputMessageVideoNote {
 
 impl RObject for InputMessageVideoNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessageVideoNote" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1013,6 +1090,10 @@ pub struct RTDInputMessageVideoNoteBuilder {
 
 impl RTDInputMessageVideoNoteBuilder {
   pub fn build(&self) -> InputMessageVideoNote { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn video_note<T: AsRef<InputFile>>(&mut self, video_note: T) -> &mut Self {
@@ -1060,6 +1141,9 @@ pub struct InputMessageVoiceNote {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Voice note to be sent
   voice_note: InputFile,
   /// Duration of the voice note, in seconds
@@ -1073,6 +1157,9 @@ pub struct InputMessageVoiceNote {
 
 impl RObject for InputMessageVoiceNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessageVoiceNote" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1106,6 +1193,10 @@ pub struct RTDInputMessageVoiceNoteBuilder {
 
 impl RTDInputMessageVoiceNoteBuilder {
   pub fn build(&self) -> InputMessageVoiceNote { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn voice_note<T: AsRef<InputFile>>(&mut self, voice_note: T) -> &mut Self {
@@ -1153,6 +1244,9 @@ pub struct InputMessageLocation {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Location to be sent
   location: Location,
   /// Period for which the location can be updated, in seconds; should bebetween 60 and 86400 for a live location and 0 otherwise
@@ -1162,6 +1256,9 @@ pub struct InputMessageLocation {
 
 impl RObject for InputMessageLocation {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessageLocation" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1191,6 +1288,10 @@ pub struct RTDInputMessageLocationBuilder {
 
 impl RTDInputMessageLocationBuilder {
   pub fn build(&self) -> InputMessageLocation { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn location<T: AsRef<Location>>(&mut self, location: T) -> &mut Self {
@@ -1226,6 +1327,9 @@ pub struct InputMessageVenue {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Venue to send
   venue: Venue,
   
@@ -1233,6 +1337,9 @@ pub struct InputMessageVenue {
 
 impl RObject for InputMessageVenue {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessageVenue" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1260,6 +1367,10 @@ pub struct RTDInputMessageVenueBuilder {
 
 impl RTDInputMessageVenueBuilder {
   pub fn build(&self) -> InputMessageVenue { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn venue<T: AsRef<Venue>>(&mut self, venue: T) -> &mut Self {
@@ -1289,6 +1400,9 @@ pub struct InputMessageContact {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Contact to send
   contact: Contact,
   
@@ -1296,6 +1410,9 @@ pub struct InputMessageContact {
 
 impl RObject for InputMessageContact {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessageContact" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1323,6 +1440,10 @@ pub struct RTDInputMessageContactBuilder {
 
 impl RTDInputMessageContactBuilder {
   pub fn build(&self) -> InputMessageContact { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn contact<T: AsRef<Contact>>(&mut self, contact: T) -> &mut Self {
@@ -1352,6 +1473,9 @@ pub struct InputMessageGame {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// User identifier of the bot that owns the game
   bot_user_id: i64,
   /// Short name of the game
@@ -1361,6 +1485,9 @@ pub struct InputMessageGame {
 
 impl RObject for InputMessageGame {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessageGame" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1390,6 +1517,10 @@ pub struct RTDInputMessageGameBuilder {
 
 impl RTDInputMessageGameBuilder {
   pub fn build(&self) -> InputMessageGame { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn bot_user_id(&mut self, bot_user_id: i64) -> &mut Self {
@@ -1425,6 +1556,9 @@ pub struct InputMessageInvoice {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Invoice
   invoice: Invoice,
   /// Product title; 1-32 characters
@@ -1452,6 +1586,9 @@ pub struct InputMessageInvoice {
 
 impl RObject for InputMessageInvoice {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessageInvoice" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1499,6 +1636,10 @@ pub struct RTDInputMessageInvoiceBuilder {
 
 impl RTDInputMessageInvoiceBuilder {
   pub fn build(&self) -> InputMessageInvoice { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn invoice<T: AsRef<Invoice>>(&mut self, invoice: T) -> &mut Self {
@@ -1588,6 +1729,9 @@ pub struct InputMessagePoll {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Poll question, 1-255 characters
   question: String,
   /// List of poll answer options, 2-10 strings 1-100 characters each
@@ -1597,6 +1741,9 @@ pub struct InputMessagePoll {
 
 impl RObject for InputMessagePoll {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessagePoll" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1626,6 +1773,10 @@ pub struct RTDInputMessagePollBuilder {
 
 impl RTDInputMessagePollBuilder {
   pub fn build(&self) -> InputMessagePoll { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn question<T: AsRef<str>>(&mut self, question: T) -> &mut Self {
@@ -1661,6 +1812,9 @@ pub struct InputMessageForwarded {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Identifier for the chat this forwarded message came from
   from_chat_id: i64,
   /// Identifier of the message to forward
@@ -1676,6 +1830,9 @@ pub struct InputMessageForwarded {
 
 impl RObject for InputMessageForwarded {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "inputMessageForwarded" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1711,6 +1868,10 @@ pub struct RTDInputMessageForwardedBuilder {
 
 impl RTDInputMessageForwardedBuilder {
   pub fn build(&self) -> InputMessageForwarded { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn from_chat_id(&mut self, from_chat_id: i64) -> &mut Self {

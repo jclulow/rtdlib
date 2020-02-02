@@ -70,6 +70,7 @@ impl RObject for TopChatCategory {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -135,11 +136,17 @@ pub struct TopChatCategoryUsers {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for TopChatCategoryUsers {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "topChatCategoryUsers" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -165,6 +172,10 @@ pub struct RTDTopChatCategoryUsersBuilder {
 
 impl RTDTopChatCategoryUsersBuilder {
   pub fn build(&self) -> TopChatCategoryUsers { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -188,11 +199,17 @@ pub struct TopChatCategoryBots {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for TopChatCategoryBots {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "topChatCategoryBots" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -218,6 +235,10 @@ pub struct RTDTopChatCategoryBotsBuilder {
 
 impl RTDTopChatCategoryBotsBuilder {
   pub fn build(&self) -> TopChatCategoryBots { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -241,11 +262,17 @@ pub struct TopChatCategoryGroups {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for TopChatCategoryGroups {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "topChatCategoryGroups" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -271,6 +298,10 @@ pub struct RTDTopChatCategoryGroupsBuilder {
 
 impl RTDTopChatCategoryGroupsBuilder {
   pub fn build(&self) -> TopChatCategoryGroups { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -294,11 +325,17 @@ pub struct TopChatCategoryChannels {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for TopChatCategoryChannels {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "topChatCategoryChannels" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -324,6 +361,10 @@ pub struct RTDTopChatCategoryChannelsBuilder {
 
 impl RTDTopChatCategoryChannelsBuilder {
   pub fn build(&self) -> TopChatCategoryChannels { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -347,11 +388,17 @@ pub struct TopChatCategoryInlineBots {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for TopChatCategoryInlineBots {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "topChatCategoryInlineBots" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -377,6 +424,10 @@ pub struct RTDTopChatCategoryInlineBotsBuilder {
 
 impl RTDTopChatCategoryInlineBotsBuilder {
   pub fn build(&self) -> TopChatCategoryInlineBots { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -400,11 +451,17 @@ pub struct TopChatCategoryCalls {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for TopChatCategoryCalls {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "topChatCategoryCalls" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -430,6 +487,10 @@ pub struct RTDTopChatCategoryCallsBuilder {
 
 impl RTDTopChatCategoryCallsBuilder {
   pub fn build(&self) -> TopChatCategoryCalls { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -453,11 +514,17 @@ pub struct TopChatCategoryForwardChats {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for TopChatCategoryForwardChats {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "topChatCategoryForwardChats" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -483,6 +550,10 @@ pub struct RTDTopChatCategoryForwardChatsBuilder {
 
 impl RTDTopChatCategoryForwardChatsBuilder {
   pub fn build(&self) -> TopChatCategoryForwardChats { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 

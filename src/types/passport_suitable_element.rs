@@ -11,6 +11,9 @@ pub struct PassportSuitableElement {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Type of the element
   #[serde(rename(serialize = "type", deserialize = "type"))] type_: PassportElementType,
   /// True, if a selfie is required with the identity document
@@ -24,6 +27,9 @@ pub struct PassportSuitableElement {
 
 impl RObject for PassportSuitableElement {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "passportSuitableElement" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -54,6 +60,10 @@ pub struct RTDPassportSuitableElementBuilder {
 
 impl RTDPassportSuitableElementBuilder {
   pub fn build(&self) -> PassportSuitableElement { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn type_<T: AsRef<PassportElementType>>(&mut self, type_: T) -> &mut Self {

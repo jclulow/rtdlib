@@ -11,6 +11,9 @@ pub struct UserProfilePhoto {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Unique user profile photo identifier
   id: isize,
   /// Point in time (Unix timestamp) when the photo has been added
@@ -22,6 +25,9 @@ pub struct UserProfilePhoto {
 
 impl RObject for UserProfilePhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userProfilePhoto" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -50,6 +56,10 @@ pub struct RTDUserProfilePhotoBuilder {
 
 impl RTDUserProfilePhotoBuilder {
   pub fn build(&self) -> UserProfilePhoto { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn id(&mut self, id: isize) -> &mut Self {

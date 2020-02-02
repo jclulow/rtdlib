@@ -11,6 +11,9 @@ pub struct Audio {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Duration of the audio, in seconds; as defined by the sender
   duration: i64,
   /// Title of the audio; as defined by the sender
@@ -32,6 +35,9 @@ pub struct Audio {
 
 impl RObject for Audio {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "audio" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -70,6 +76,10 @@ pub struct RTDAudioBuilder {
 
 impl RTDAudioBuilder {
   pub fn build(&self) -> Audio { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn duration(&mut self, duration: i64) -> &mut Self {

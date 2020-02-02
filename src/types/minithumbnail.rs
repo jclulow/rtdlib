@@ -11,6 +11,9 @@ pub struct Minithumbnail {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Thumbnail width, usually doesn't exceed 40
   width: i64,
   /// Thumbnail height, usually doesn't exceed 40
@@ -22,6 +25,9 @@ pub struct Minithumbnail {
 
 impl RObject for Minithumbnail {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "minithumbnail" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -50,6 +56,10 @@ pub struct RTDMinithumbnailBuilder {
 
 impl RTDMinithumbnailBuilder {
   pub fn build(&self) -> Minithumbnail { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn width(&mut self, width: i64) -> &mut Self {

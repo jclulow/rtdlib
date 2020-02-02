@@ -11,6 +11,9 @@ pub struct ChatMember {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// User identifier of the chat member
   user_id: i64,
   /// Identifier of a user that invited/promoted/banned this member in the chat; 0 if unknown
@@ -26,6 +29,9 @@ pub struct ChatMember {
 
 impl RObject for ChatMember {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatMember" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -58,6 +64,10 @@ pub struct RTDChatMemberBuilder {
 
 impl RTDChatMemberBuilder {
   pub fn build(&self) -> ChatMember { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn user_id(&mut self, user_id: i64) -> &mut Self {

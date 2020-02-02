@@ -62,6 +62,7 @@ impl RObject for OptionValue {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -117,6 +118,9 @@ pub struct OptionValueBoolean {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The value of the option
   value: bool,
   
@@ -124,6 +128,9 @@ pub struct OptionValueBoolean {
 
 impl RObject for OptionValueBoolean {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "optionValueBoolean" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -151,6 +158,10 @@ pub struct RTDOptionValueBooleanBuilder {
 
 impl RTDOptionValueBooleanBuilder {
   pub fn build(&self) -> OptionValueBoolean { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn value(&mut self, value: bool) -> &mut Self {
@@ -180,11 +191,17 @@ pub struct OptionValueEmpty {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for OptionValueEmpty {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "optionValueEmpty" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -210,6 +227,10 @@ pub struct RTDOptionValueEmptyBuilder {
 
 impl RTDOptionValueEmptyBuilder {
   pub fn build(&self) -> OptionValueEmpty { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -233,6 +254,9 @@ pub struct OptionValueInteger {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The value of the option
   value: i64,
   
@@ -240,6 +264,9 @@ pub struct OptionValueInteger {
 
 impl RObject for OptionValueInteger {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "optionValueInteger" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -267,6 +294,10 @@ pub struct RTDOptionValueIntegerBuilder {
 
 impl RTDOptionValueIntegerBuilder {
   pub fn build(&self) -> OptionValueInteger { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn value(&mut self, value: i64) -> &mut Self {
@@ -296,6 +327,9 @@ pub struct OptionValueString {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The value of the option
   value: String,
   
@@ -303,6 +337,9 @@ pub struct OptionValueString {
 
 impl RObject for OptionValueString {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "optionValueString" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -330,6 +367,10 @@ pub struct RTDOptionValueStringBuilder {
 
 impl RTDOptionValueStringBuilder {
   pub fn build(&self) -> OptionValueString { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn value<T: AsRef<str>>(&mut self, value: T) -> &mut Self {

@@ -11,6 +11,9 @@ pub struct Animation {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Duration of the animation, in seconds; as defined by the sender
   duration: i64,
   /// Width of the animation
@@ -32,6 +35,9 @@ pub struct Animation {
 
 impl RObject for Animation {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "animation" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -70,6 +76,10 @@ pub struct RTDAnimationBuilder {
 
 impl RTDAnimationBuilder {
   pub fn build(&self) -> Animation { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn duration(&mut self, duration: i64) -> &mut Self {

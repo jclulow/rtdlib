@@ -11,6 +11,9 @@ pub struct BotInfo {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Provides information about a bot and its supported commands
   description: String,
   /// A list of commands supported by the bot
@@ -20,6 +23,9 @@ pub struct BotInfo {
 
 impl RObject for BotInfo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "botInfo" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -46,6 +52,10 @@ pub struct RTDBotInfoBuilder {
 
 impl RTDBotInfoBuilder {
   pub fn build(&self) -> BotInfo { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn description<T: AsRef<str>>(&mut self, description: T) -> &mut Self {

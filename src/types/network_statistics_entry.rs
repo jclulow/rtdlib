@@ -50,6 +50,7 @@ impl RObject for NetworkStatisticsEntry {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -90,6 +91,9 @@ pub struct NetworkStatisticsEntryFile {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Type of the file the data is part of
   file_type: FileType,
   /// Type of the network the data was sent through. Call setNetworkType to maintain the actual network type
@@ -103,6 +107,9 @@ pub struct NetworkStatisticsEntryFile {
 
 impl RObject for NetworkStatisticsEntryFile {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "networkStatisticsEntryFile" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -136,6 +143,10 @@ pub struct RTDNetworkStatisticsEntryFileBuilder {
 
 impl RTDNetworkStatisticsEntryFileBuilder {
   pub fn build(&self) -> NetworkStatisticsEntryFile { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn file_type<T: AsRef<FileType>>(&mut self, file_type: T) -> &mut Self {
@@ -183,6 +194,9 @@ pub struct NetworkStatisticsEntryCall {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Type of the network the data was sent through. Call setNetworkType to maintain the actual network type
   network_type: NetworkType,
   /// Total number of bytes sent
@@ -196,6 +210,9 @@ pub struct NetworkStatisticsEntryCall {
 
 impl RObject for NetworkStatisticsEntryCall {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "networkStatisticsEntryCall" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -229,6 +246,10 @@ pub struct RTDNetworkStatisticsEntryCallBuilder {
 
 impl RTDNetworkStatisticsEntryCallBuilder {
   pub fn build(&self) -> NetworkStatisticsEntryCall { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn network_type<T: AsRef<NetworkType>>(&mut self, network_type: T) -> &mut Self {

@@ -54,6 +54,7 @@ impl RObject for PageBlockVerticalAlignment {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -99,11 +100,17 @@ pub struct PageBlockVerticalAlignmentTop {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for PageBlockVerticalAlignmentTop {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockVerticalAlignmentTop" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -129,6 +136,10 @@ pub struct RTDPageBlockVerticalAlignmentTopBuilder {
 
 impl RTDPageBlockVerticalAlignmentTopBuilder {
   pub fn build(&self) -> PageBlockVerticalAlignmentTop { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -152,11 +163,17 @@ pub struct PageBlockVerticalAlignmentMiddle {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for PageBlockVerticalAlignmentMiddle {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockVerticalAlignmentMiddle" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -182,6 +199,10 @@ pub struct RTDPageBlockVerticalAlignmentMiddleBuilder {
 
 impl RTDPageBlockVerticalAlignmentMiddleBuilder {
   pub fn build(&self) -> PageBlockVerticalAlignmentMiddle { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -205,11 +226,17 @@ pub struct PageBlockVerticalAlignmentBottom {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for PageBlockVerticalAlignmentBottom {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "pageBlockVerticalAlignmentBottom" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -235,6 +262,10 @@ pub struct RTDPageBlockVerticalAlignmentBottomBuilder {
 
 impl RTDPageBlockVerticalAlignmentBottomBuilder {
   pub fn build(&self) -> PageBlockVerticalAlignmentBottom { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 

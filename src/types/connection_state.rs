@@ -62,6 +62,7 @@ impl RObject for ConnectionState {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -117,11 +118,17 @@ pub struct ConnectionStateWaitingForNetwork {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for ConnectionStateWaitingForNetwork {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "connectionStateWaitingForNetwork" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -147,6 +154,10 @@ pub struct RTDConnectionStateWaitingForNetworkBuilder {
 
 impl RTDConnectionStateWaitingForNetworkBuilder {
   pub fn build(&self) -> ConnectionStateWaitingForNetwork { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -170,11 +181,17 @@ pub struct ConnectionStateConnectingToProxy {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for ConnectionStateConnectingToProxy {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "connectionStateConnectingToProxy" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -200,6 +217,10 @@ pub struct RTDConnectionStateConnectingToProxyBuilder {
 
 impl RTDConnectionStateConnectingToProxyBuilder {
   pub fn build(&self) -> ConnectionStateConnectingToProxy { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -223,11 +244,17 @@ pub struct ConnectionStateConnecting {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for ConnectionStateConnecting {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "connectionStateConnecting" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -253,6 +280,10 @@ pub struct RTDConnectionStateConnectingBuilder {
 
 impl RTDConnectionStateConnectingBuilder {
   pub fn build(&self) -> ConnectionStateConnecting { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -276,11 +307,17 @@ pub struct ConnectionStateUpdating {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for ConnectionStateUpdating {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "connectionStateUpdating" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -306,6 +343,10 @@ pub struct RTDConnectionStateUpdatingBuilder {
 
 impl RTDConnectionStateUpdatingBuilder {
   pub fn build(&self) -> ConnectionStateUpdating { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -329,11 +370,17 @@ pub struct ConnectionStateReady {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for ConnectionStateReady {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "connectionStateReady" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -359,6 +406,10 @@ pub struct RTDConnectionStateReadyBuilder {
 
 impl RTDConnectionStateReadyBuilder {
   pub fn build(&self) -> ConnectionStateReady { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 

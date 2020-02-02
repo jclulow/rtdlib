@@ -11,6 +11,9 @@ pub struct TemporaryPasswordState {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// True, if a temporary password is available
   has_password: bool,
   /// Time left before the temporary password expires, in seconds
@@ -20,6 +23,9 @@ pub struct TemporaryPasswordState {
 
 impl RObject for TemporaryPasswordState {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "temporaryPasswordState" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -46,6 +52,10 @@ pub struct RTDTemporaryPasswordStateBuilder {
 
 impl RTDTemporaryPasswordStateBuilder {
   pub fn build(&self) -> TemporaryPasswordState { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn has_password(&mut self, has_password: bool) -> &mut Self {

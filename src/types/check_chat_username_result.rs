@@ -66,6 +66,7 @@ impl RObject for CheckChatUsernameResult {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -126,11 +127,17 @@ pub struct CheckChatUsernameResultOk {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for CheckChatUsernameResultOk {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "checkChatUsernameResultOk" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -156,6 +163,10 @@ pub struct RTDCheckChatUsernameResultOkBuilder {
 
 impl RTDCheckChatUsernameResultOkBuilder {
   pub fn build(&self) -> CheckChatUsernameResultOk { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -179,11 +190,17 @@ pub struct CheckChatUsernameResultUsernameInvalid {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for CheckChatUsernameResultUsernameInvalid {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "checkChatUsernameResultUsernameInvalid" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -209,6 +226,10 @@ pub struct RTDCheckChatUsernameResultUsernameInvalidBuilder {
 
 impl RTDCheckChatUsernameResultUsernameInvalidBuilder {
   pub fn build(&self) -> CheckChatUsernameResultUsernameInvalid { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -232,11 +253,17 @@ pub struct CheckChatUsernameResultUsernameOccupied {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for CheckChatUsernameResultUsernameOccupied {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "checkChatUsernameResultUsernameOccupied" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -262,6 +289,10 @@ pub struct RTDCheckChatUsernameResultUsernameOccupiedBuilder {
 
 impl RTDCheckChatUsernameResultUsernameOccupiedBuilder {
   pub fn build(&self) -> CheckChatUsernameResultUsernameOccupied { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -285,11 +316,17 @@ pub struct CheckChatUsernameResultPublicChatsTooMuch {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for CheckChatUsernameResultPublicChatsTooMuch {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "checkChatUsernameResultPublicChatsTooMuch" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -315,6 +352,10 @@ pub struct RTDCheckChatUsernameResultPublicChatsTooMuchBuilder {
 
 impl RTDCheckChatUsernameResultPublicChatsTooMuchBuilder {
   pub fn build(&self) -> CheckChatUsernameResultPublicChatsTooMuch { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -338,11 +379,17 @@ pub struct CheckChatUsernameResultPublicGroupsUnavailable {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for CheckChatUsernameResultPublicGroupsUnavailable {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "checkChatUsernameResultPublicGroupsUnavailable" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -368,6 +415,10 @@ pub struct RTDCheckChatUsernameResultPublicGroupsUnavailableBuilder {
 
 impl RTDCheckChatUsernameResultPublicGroupsUnavailableBuilder {
   pub fn build(&self) -> CheckChatUsernameResultPublicGroupsUnavailable { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 

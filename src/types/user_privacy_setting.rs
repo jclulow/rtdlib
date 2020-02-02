@@ -74,6 +74,7 @@ impl RObject for UserPrivacySetting {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -144,11 +145,17 @@ pub struct UserPrivacySettingShowStatus {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserPrivacySettingShowStatus {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingShowStatus" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -174,6 +181,10 @@ pub struct RTDUserPrivacySettingShowStatusBuilder {
 
 impl RTDUserPrivacySettingShowStatusBuilder {
   pub fn build(&self) -> UserPrivacySettingShowStatus { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -197,11 +208,17 @@ pub struct UserPrivacySettingShowProfilePhoto {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserPrivacySettingShowProfilePhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingShowProfilePhoto" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -227,6 +244,10 @@ pub struct RTDUserPrivacySettingShowProfilePhotoBuilder {
 
 impl RTDUserPrivacySettingShowProfilePhotoBuilder {
   pub fn build(&self) -> UserPrivacySettingShowProfilePhoto { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -250,11 +271,17 @@ pub struct UserPrivacySettingShowLinkInForwardedMessages {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserPrivacySettingShowLinkInForwardedMessages {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingShowLinkInForwardedMessages" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -280,6 +307,10 @@ pub struct RTDUserPrivacySettingShowLinkInForwardedMessagesBuilder {
 
 impl RTDUserPrivacySettingShowLinkInForwardedMessagesBuilder {
   pub fn build(&self) -> UserPrivacySettingShowLinkInForwardedMessages { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -303,11 +334,17 @@ pub struct UserPrivacySettingShowPhoneNumber {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserPrivacySettingShowPhoneNumber {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingShowPhoneNumber" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -333,6 +370,10 @@ pub struct RTDUserPrivacySettingShowPhoneNumberBuilder {
 
 impl RTDUserPrivacySettingShowPhoneNumberBuilder {
   pub fn build(&self) -> UserPrivacySettingShowPhoneNumber { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -356,11 +397,17 @@ pub struct UserPrivacySettingAllowChatInvites {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserPrivacySettingAllowChatInvites {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingAllowChatInvites" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -386,6 +433,10 @@ pub struct RTDUserPrivacySettingAllowChatInvitesBuilder {
 
 impl RTDUserPrivacySettingAllowChatInvitesBuilder {
   pub fn build(&self) -> UserPrivacySettingAllowChatInvites { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -409,11 +460,17 @@ pub struct UserPrivacySettingAllowCalls {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserPrivacySettingAllowCalls {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingAllowCalls" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -439,6 +496,10 @@ pub struct RTDUserPrivacySettingAllowCallsBuilder {
 
 impl RTDUserPrivacySettingAllowCallsBuilder {
   pub fn build(&self) -> UserPrivacySettingAllowCalls { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -462,11 +523,17 @@ pub struct UserPrivacySettingAllowPeerToPeerCalls {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserPrivacySettingAllowPeerToPeerCalls {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingAllowPeerToPeerCalls" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -492,6 +559,10 @@ pub struct RTDUserPrivacySettingAllowPeerToPeerCallsBuilder {
 
 impl RTDUserPrivacySettingAllowPeerToPeerCallsBuilder {
   pub fn build(&self) -> UserPrivacySettingAllowPeerToPeerCalls { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -515,11 +586,17 @@ pub struct UserPrivacySettingAllowFindingByPhoneNumber {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserPrivacySettingAllowFindingByPhoneNumber {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingAllowFindingByPhoneNumber" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -545,6 +622,10 @@ pub struct RTDUserPrivacySettingAllowFindingByPhoneNumberBuilder {
 
 impl RTDUserPrivacySettingAllowFindingByPhoneNumberBuilder {
   pub fn build(&self) -> UserPrivacySettingAllowFindingByPhoneNumber { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 

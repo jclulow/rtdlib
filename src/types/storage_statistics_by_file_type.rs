@@ -11,6 +11,9 @@ pub struct StorageStatisticsByFileType {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// File type
   file_type: FileType,
   /// Total size of the files
@@ -22,6 +25,9 @@ pub struct StorageStatisticsByFileType {
 
 impl RObject for StorageStatisticsByFileType {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "storageStatisticsByFileType" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -50,6 +56,10 @@ pub struct RTDStorageStatisticsByFileTypeBuilder {
 
 impl RTDStorageStatisticsByFileTypeBuilder {
   pub fn build(&self) -> StorageStatisticsByFileType { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn file_type<T: AsRef<FileType>>(&mut self, file_type: T) -> &mut Self {

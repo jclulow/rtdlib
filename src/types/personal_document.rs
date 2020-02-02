@@ -11,6 +11,9 @@ pub struct PersonalDocument {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// List of files containing the pages of the document
   files: Vec<DatedFile>,
   /// List of files containing a certified English translation of the document
@@ -20,6 +23,9 @@ pub struct PersonalDocument {
 
 impl RObject for PersonalDocument {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "personalDocument" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -46,6 +52,10 @@ pub struct RTDPersonalDocumentBuilder {
 
 impl RTDPersonalDocumentBuilder {
   pub fn build(&self) -> PersonalDocument { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn files(&mut self, files: Vec<DatedFile>) -> &mut Self {

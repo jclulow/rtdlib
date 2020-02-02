@@ -11,6 +11,9 @@ pub struct IdentityDocument {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Document number; 1-24 characters
   number: String,
   /// Document expiry date; may be null
@@ -28,6 +31,9 @@ pub struct IdentityDocument {
 
 impl RObject for IdentityDocument {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "identityDocument" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -62,6 +68,10 @@ pub struct RTDIdentityDocumentBuilder {
 
 impl RTDIdentityDocumentBuilder {
   pub fn build(&self) -> IdentityDocument { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn number<T: AsRef<str>>(&mut self, number: T) -> &mut Self {

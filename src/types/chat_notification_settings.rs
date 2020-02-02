@@ -11,6 +11,9 @@ pub struct ChatNotificationSettings {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// If true, mute_for is ignored and the value for the relevant type of chat is used instead
   use_default_mute_for: bool,
   /// Time left before notifications will be unmuted, in seconds
@@ -36,6 +39,9 @@ pub struct ChatNotificationSettings {
 
 impl RObject for ChatNotificationSettings {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatNotificationSettings" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -78,6 +84,10 @@ pub struct RTDChatNotificationSettingsBuilder {
 
 impl RTDChatNotificationSettingsBuilder {
   pub fn build(&self) -> ChatNotificationSettings { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn use_default_mute_for(&mut self, use_default_mute_for: bool) -> &mut Self {

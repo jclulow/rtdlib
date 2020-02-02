@@ -74,6 +74,7 @@ impl RObject for JsonValue {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -144,11 +145,17 @@ pub struct JsonValueNull {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for JsonValueNull {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "jsonValueNull" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -174,6 +181,10 @@ pub struct RTDJsonValueNullBuilder {
 
 impl RTDJsonValueNullBuilder {
   pub fn build(&self) -> JsonValueNull { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -197,6 +208,9 @@ pub struct JsonValueBoolean {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The value
   value: bool,
   
@@ -204,6 +218,9 @@ pub struct JsonValueBoolean {
 
 impl RObject for JsonValueBoolean {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "jsonValueBoolean" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -231,6 +248,10 @@ pub struct RTDJsonValueBooleanBuilder {
 
 impl RTDJsonValueBooleanBuilder {
   pub fn build(&self) -> JsonValueBoolean { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn value(&mut self, value: bool) -> &mut Self {
@@ -260,6 +281,9 @@ pub struct JsonValueNumber {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The value
   value: f32,
   
@@ -267,6 +291,9 @@ pub struct JsonValueNumber {
 
 impl RObject for JsonValueNumber {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "jsonValueNumber" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -294,6 +321,10 @@ pub struct RTDJsonValueNumberBuilder {
 
 impl RTDJsonValueNumberBuilder {
   pub fn build(&self) -> JsonValueNumber { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn value(&mut self, value: f32) -> &mut Self {
@@ -323,6 +354,9 @@ pub struct JsonValueString {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The value
   value: String,
   
@@ -330,6 +364,9 @@ pub struct JsonValueString {
 
 impl RObject for JsonValueString {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "jsonValueString" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -357,6 +394,10 @@ pub struct RTDJsonValueStringBuilder {
 
 impl RTDJsonValueStringBuilder {
   pub fn build(&self) -> JsonValueString { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn value<T: AsRef<str>>(&mut self, value: T) -> &mut Self {
@@ -386,6 +427,9 @@ pub struct JsonValueArray {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The list of array elements
   values: Vec<JsonValue>,
   
@@ -393,6 +437,9 @@ pub struct JsonValueArray {
 
 impl RObject for JsonValueArray {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "jsonValueArray" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -420,6 +467,10 @@ pub struct RTDJsonValueArrayBuilder {
 
 impl RTDJsonValueArrayBuilder {
   pub fn build(&self) -> JsonValueArray { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn values(&mut self, values: Vec<JsonValue>) -> &mut Self {
@@ -449,6 +500,9 @@ pub struct JsonValueObject {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The list of object members
   members: Vec<JsonObjectMember>,
   
@@ -456,6 +510,9 @@ pub struct JsonValueObject {
 
 impl RObject for JsonValueObject {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "jsonValueObject" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -483,6 +540,10 @@ pub struct RTDJsonValueObjectBuilder {
 
 impl RTDJsonValueObjectBuilder {
   pub fn build(&self) -> JsonValueObject { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn members(&mut self, members: Vec<JsonObjectMember>) -> &mut Self {

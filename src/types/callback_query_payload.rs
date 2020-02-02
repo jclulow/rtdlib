@@ -50,6 +50,7 @@ impl RObject for CallbackQueryPayload {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -90,6 +91,9 @@ pub struct CallbackQueryPayloadData {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Data that was attached to the callback button
   data: String,
   
@@ -97,6 +101,9 @@ pub struct CallbackQueryPayloadData {
 
 impl RObject for CallbackQueryPayloadData {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callbackQueryPayloadData" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -124,6 +131,10 @@ pub struct RTDCallbackQueryPayloadDataBuilder {
 
 impl RTDCallbackQueryPayloadDataBuilder {
   pub fn build(&self) -> CallbackQueryPayloadData { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn data<T: AsRef<str>>(&mut self, data: T) -> &mut Self {
@@ -153,6 +164,9 @@ pub struct CallbackQueryPayloadGame {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// A short name of the game that was attached to the callback button
   game_short_name: String,
   
@@ -160,6 +174,9 @@ pub struct CallbackQueryPayloadGame {
 
 impl RObject for CallbackQueryPayloadGame {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callbackQueryPayloadGame" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -187,6 +204,10 @@ pub struct RTDCallbackQueryPayloadGameBuilder {
 
 impl RTDCallbackQueryPayloadGameBuilder {
   pub fn build(&self) -> CallbackQueryPayloadGame { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn game_short_name<T: AsRef<str>>(&mut self, game_short_name: T) -> &mut Self {

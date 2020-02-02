@@ -11,6 +11,9 @@ pub struct MaskPosition {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Part of the face, relative to which the mask should be placed
   point: MaskPoint,
   /// Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. (For example, 1.0 will place the mask just to the left of the default mask position)
@@ -24,6 +27,9 @@ pub struct MaskPosition {
 
 impl RObject for MaskPosition {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "maskPosition" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -54,6 +60,10 @@ pub struct RTDMaskPositionBuilder {
 
 impl RTDMaskPositionBuilder {
   pub fn build(&self) -> MaskPosition { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn point<T: AsRef<MaskPoint>>(&mut self, point: T) -> &mut Self {

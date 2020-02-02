@@ -11,6 +11,9 @@ pub struct ChatEventLogFilters {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// True, if message edits should be returned
   message_edits: bool,
   /// True, if message deletions should be returned
@@ -36,6 +39,9 @@ pub struct ChatEventLogFilters {
 
 impl RObject for ChatEventLogFilters {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatEventLogFilters" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -78,6 +84,10 @@ pub struct RTDChatEventLogFiltersBuilder {
 
 impl RTDChatEventLogFiltersBuilder {
   pub fn build(&self) -> ChatEventLogFilters { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn message_edits(&mut self, message_edits: bool) -> &mut Self {

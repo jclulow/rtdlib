@@ -11,6 +11,9 @@ pub struct ChatPhoto {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// A small (160x160) chat photo. The file can be downloaded only before the photo is changed
   small: File,
   /// A big (640x640) chat photo. The file can be downloaded only before the photo is changed
@@ -20,6 +23,9 @@ pub struct ChatPhoto {
 
 impl RObject for ChatPhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "chatPhoto" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -46,6 +52,10 @@ pub struct RTDChatPhotoBuilder {
 
 impl RTDChatPhotoBuilder {
   pub fn build(&self) -> ChatPhoto { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn small<T: AsRef<File>>(&mut self, small: T) -> &mut Self {

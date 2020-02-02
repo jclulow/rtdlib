@@ -11,6 +11,9 @@ pub struct LocalizationTargetInfo {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// List of available language packs for this application
   language_packs: Vec<LanguagePackInfo>,
   
@@ -18,6 +21,9 @@ pub struct LocalizationTargetInfo {
 
 impl RObject for LocalizationTargetInfo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "localizationTargetInfo" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -42,6 +48,10 @@ pub struct RTDLocalizationTargetInfoBuilder {
 
 impl RTDLocalizationTargetInfoBuilder {
   pub fn build(&self) -> LocalizationTargetInfo { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn language_packs(&mut self, language_packs: Vec<LanguagePackInfo>) -> &mut Self {

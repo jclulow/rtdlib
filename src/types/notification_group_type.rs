@@ -58,6 +58,7 @@ impl RObject for NotificationGroupType {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -108,11 +109,17 @@ pub struct NotificationGroupTypeMessages {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for NotificationGroupTypeMessages {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "notificationGroupTypeMessages" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -138,6 +145,10 @@ pub struct RTDNotificationGroupTypeMessagesBuilder {
 
 impl RTDNotificationGroupTypeMessagesBuilder {
   pub fn build(&self) -> NotificationGroupTypeMessages { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -161,11 +172,17 @@ pub struct NotificationGroupTypeMentions {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for NotificationGroupTypeMentions {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "notificationGroupTypeMentions" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -191,6 +208,10 @@ pub struct RTDNotificationGroupTypeMentionsBuilder {
 
 impl RTDNotificationGroupTypeMentionsBuilder {
   pub fn build(&self) -> NotificationGroupTypeMentions { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -214,11 +235,17 @@ pub struct NotificationGroupTypeSecretChat {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for NotificationGroupTypeSecretChat {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "notificationGroupTypeSecretChat" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -244,6 +271,10 @@ pub struct RTDNotificationGroupTypeSecretChatBuilder {
 
 impl RTDNotificationGroupTypeSecretChatBuilder {
   pub fn build(&self) -> NotificationGroupTypeSecretChat { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -267,11 +298,17 @@ pub struct NotificationGroupTypeCalls {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for NotificationGroupTypeCalls {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "notificationGroupTypeCalls" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -297,6 +334,10 @@ pub struct RTDNotificationGroupTypeCallsBuilder {
 
 impl RTDNotificationGroupTypeCallsBuilder {
   pub fn build(&self) -> NotificationGroupTypeCalls { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 

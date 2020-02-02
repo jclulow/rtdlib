@@ -74,6 +74,7 @@ impl RObject for UserPrivacySettingRule {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -144,11 +145,17 @@ pub struct UserPrivacySettingRuleAllowAll {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserPrivacySettingRuleAllowAll {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingRuleAllowAll" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -174,6 +181,10 @@ pub struct RTDUserPrivacySettingRuleAllowAllBuilder {
 
 impl RTDUserPrivacySettingRuleAllowAllBuilder {
   pub fn build(&self) -> UserPrivacySettingRuleAllowAll { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -197,11 +208,17 @@ pub struct UserPrivacySettingRuleAllowContacts {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserPrivacySettingRuleAllowContacts {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingRuleAllowContacts" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -227,6 +244,10 @@ pub struct RTDUserPrivacySettingRuleAllowContactsBuilder {
 
 impl RTDUserPrivacySettingRuleAllowContactsBuilder {
   pub fn build(&self) -> UserPrivacySettingRuleAllowContacts { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -250,6 +271,9 @@ pub struct UserPrivacySettingRuleAllowUsers {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The user identifiers, total number of users in all rules must not exceed 1000
   user_ids: Vec<i64>,
   
@@ -257,6 +281,9 @@ pub struct UserPrivacySettingRuleAllowUsers {
 
 impl RObject for UserPrivacySettingRuleAllowUsers {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingRuleAllowUsers" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -284,6 +311,10 @@ pub struct RTDUserPrivacySettingRuleAllowUsersBuilder {
 
 impl RTDUserPrivacySettingRuleAllowUsersBuilder {
   pub fn build(&self) -> UserPrivacySettingRuleAllowUsers { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn user_ids(&mut self, user_ids: Vec<i64>) -> &mut Self {
@@ -313,6 +344,9 @@ pub struct UserPrivacySettingRuleAllowChatMembers {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The chat identifiers, total number of chats in all rules must not exceed 20
   chat_ids: Vec<i64>,
   
@@ -320,6 +354,9 @@ pub struct UserPrivacySettingRuleAllowChatMembers {
 
 impl RObject for UserPrivacySettingRuleAllowChatMembers {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingRuleAllowChatMembers" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -347,6 +384,10 @@ pub struct RTDUserPrivacySettingRuleAllowChatMembersBuilder {
 
 impl RTDUserPrivacySettingRuleAllowChatMembersBuilder {
   pub fn build(&self) -> UserPrivacySettingRuleAllowChatMembers { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn chat_ids(&mut self, chat_ids: Vec<i64>) -> &mut Self {
@@ -376,11 +417,17 @@ pub struct UserPrivacySettingRuleRestrictAll {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserPrivacySettingRuleRestrictAll {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingRuleRestrictAll" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -406,6 +453,10 @@ pub struct RTDUserPrivacySettingRuleRestrictAllBuilder {
 
 impl RTDUserPrivacySettingRuleRestrictAllBuilder {
   pub fn build(&self) -> UserPrivacySettingRuleRestrictAll { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -429,11 +480,17 @@ pub struct UserPrivacySettingRuleRestrictContacts {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for UserPrivacySettingRuleRestrictContacts {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingRuleRestrictContacts" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -459,6 +516,10 @@ pub struct RTDUserPrivacySettingRuleRestrictContactsBuilder {
 
 impl RTDUserPrivacySettingRuleRestrictContactsBuilder {
   pub fn build(&self) -> UserPrivacySettingRuleRestrictContacts { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -482,6 +543,9 @@ pub struct UserPrivacySettingRuleRestrictUsers {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The user identifiers, total number of users in all rules must not exceed 1000
   user_ids: Vec<i64>,
   
@@ -489,6 +553,9 @@ pub struct UserPrivacySettingRuleRestrictUsers {
 
 impl RObject for UserPrivacySettingRuleRestrictUsers {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingRuleRestrictUsers" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -516,6 +583,10 @@ pub struct RTDUserPrivacySettingRuleRestrictUsersBuilder {
 
 impl RTDUserPrivacySettingRuleRestrictUsersBuilder {
   pub fn build(&self) -> UserPrivacySettingRuleRestrictUsers { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn user_ids(&mut self, user_ids: Vec<i64>) -> &mut Self {
@@ -545,6 +616,9 @@ pub struct UserPrivacySettingRuleRestrictChatMembers {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The chat identifiers, total number of chats in all rules must not exceed 20
   chat_ids: Vec<i64>,
   
@@ -552,6 +626,9 @@ pub struct UserPrivacySettingRuleRestrictChatMembers {
 
 impl RObject for UserPrivacySettingRuleRestrictChatMembers {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "userPrivacySettingRuleRestrictChatMembers" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -579,6 +656,10 @@ pub struct RTDUserPrivacySettingRuleRestrictChatMembersBuilder {
 
 impl RTDUserPrivacySettingRuleRestrictChatMembersBuilder {
   pub fn build(&self) -> UserPrivacySettingRuleRestrictChatMembers { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn chat_ids(&mut self, chat_ids: Vec<i64>) -> &mut Self {

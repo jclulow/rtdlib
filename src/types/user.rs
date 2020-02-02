@@ -11,6 +11,9 @@ pub struct User {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// User identifier
   id: i64,
   /// First name of the user
@@ -48,6 +51,9 @@ pub struct User {
 
 impl RObject for User {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "user" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -102,6 +108,10 @@ pub struct RTDUserBuilder {
 
 impl RTDUserBuilder {
   pub fn build(&self) -> User { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn id(&mut self, id: i64) -> &mut Self {

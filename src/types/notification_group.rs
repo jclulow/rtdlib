@@ -11,6 +11,9 @@ pub struct NotificationGroup {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Unique persistent auto-incremented from 1 identifier of the notification group
   id: i64,
   /// Type of the group
@@ -26,6 +29,9 @@ pub struct NotificationGroup {
 
 impl RObject for NotificationGroup {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "notificationGroup" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -58,6 +64,10 @@ pub struct RTDNotificationGroupBuilder {
 
 impl RTDNotificationGroupBuilder {
   pub fn build(&self) -> NotificationGroup { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn id(&mut self, id: i64) -> &mut Self {

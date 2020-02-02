@@ -11,6 +11,9 @@ pub struct EncryptedCredentials {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The encrypted credentials
   data: String,
   /// The decrypted data hash
@@ -22,6 +25,9 @@ pub struct EncryptedCredentials {
 
 impl RObject for EncryptedCredentials {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "encryptedCredentials" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -50,6 +56,10 @@ pub struct RTDEncryptedCredentialsBuilder {
 
 impl RTDEncryptedCredentialsBuilder {
   pub fn build(&self) -> EncryptedCredentials { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn data<T: AsRef<str>>(&mut self, data: T) -> &mut Self {

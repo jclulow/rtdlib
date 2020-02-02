@@ -11,6 +11,9 @@ pub struct Sticker {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The identifier of the sticker set to which the sticker belongs; 0 if none
   set_id: String,
   /// Sticker width; as defined by the sender
@@ -34,6 +37,9 @@ pub struct Sticker {
 
 impl RObject for Sticker {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "sticker" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -74,6 +80,10 @@ pub struct RTDStickerBuilder {
 
 impl RTDStickerBuilder {
   pub fn build(&self) -> Sticker { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn set_id<T: AsRef<str>>(&mut self, set_id: T) -> &mut Self {

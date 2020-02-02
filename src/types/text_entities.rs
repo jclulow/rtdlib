@@ -11,6 +11,9 @@ pub struct TextEntities {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// List of text entities
   entities: Vec<TextEntity>,
   
@@ -18,6 +21,9 @@ pub struct TextEntities {
 
 impl RObject for TextEntities {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textEntities" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -42,6 +48,10 @@ pub struct RTDTextEntitiesBuilder {
 
 impl RTDTextEntitiesBuilder {
   pub fn build(&self) -> TextEntities { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn entities(&mut self, entities: Vec<TextEntity>) -> &mut Self {

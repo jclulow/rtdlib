@@ -202,6 +202,7 @@ impl RObject for MessageContent {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -432,6 +433,9 @@ pub struct MessageText {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text of the message
   text: FormattedText,
   /// A preview of the web page that's mentioned in the text; may be null
@@ -441,6 +445,9 @@ pub struct MessageText {
 
 impl RObject for MessageText {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageText" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -470,6 +477,10 @@ pub struct RTDMessageTextBuilder {
 
 impl RTDMessageTextBuilder {
   pub fn build(&self) -> MessageText { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<FormattedText>>(&mut self, text: T) -> &mut Self {
@@ -505,6 +516,9 @@ pub struct MessageAnimation {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Message content
   animation: Animation,
   /// Animation caption
@@ -516,6 +530,9 @@ pub struct MessageAnimation {
 
 impl RObject for MessageAnimation {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageAnimation" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -547,6 +564,10 @@ pub struct RTDMessageAnimationBuilder {
 
 impl RTDMessageAnimationBuilder {
   pub fn build(&self) -> MessageAnimation { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn animation<T: AsRef<Animation>>(&mut self, animation: T) -> &mut Self {
@@ -588,6 +609,9 @@ pub struct MessageAudio {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Message content
   audio: Audio,
   /// Audio caption
@@ -597,6 +621,9 @@ pub struct MessageAudio {
 
 impl RObject for MessageAudio {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageAudio" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -626,6 +653,10 @@ pub struct RTDMessageAudioBuilder {
 
 impl RTDMessageAudioBuilder {
   pub fn build(&self) -> MessageAudio { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn audio<T: AsRef<Audio>>(&mut self, audio: T) -> &mut Self {
@@ -661,6 +692,9 @@ pub struct MessageDocument {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Message content
   document: Document,
   /// Document caption
@@ -670,6 +704,9 @@ pub struct MessageDocument {
 
 impl RObject for MessageDocument {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageDocument" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -699,6 +736,10 @@ pub struct RTDMessageDocumentBuilder {
 
 impl RTDMessageDocumentBuilder {
   pub fn build(&self) -> MessageDocument { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn document<T: AsRef<Document>>(&mut self, document: T) -> &mut Self {
@@ -734,6 +775,9 @@ pub struct MessagePhoto {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Message content
   photo: Photo,
   /// Photo caption
@@ -745,6 +789,9 @@ pub struct MessagePhoto {
 
 impl RObject for MessagePhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messagePhoto" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -776,6 +823,10 @@ pub struct RTDMessagePhotoBuilder {
 
 impl RTDMessagePhotoBuilder {
   pub fn build(&self) -> MessagePhoto { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn photo<T: AsRef<Photo>>(&mut self, photo: T) -> &mut Self {
@@ -817,11 +868,17 @@ pub struct MessageExpiredPhoto {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for MessageExpiredPhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageExpiredPhoto" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -847,6 +904,10 @@ pub struct RTDMessageExpiredPhotoBuilder {
 
 impl RTDMessageExpiredPhotoBuilder {
   pub fn build(&self) -> MessageExpiredPhoto { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -870,6 +931,9 @@ pub struct MessageSticker {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Message content
   sticker: Sticker,
   
@@ -877,6 +941,9 @@ pub struct MessageSticker {
 
 impl RObject for MessageSticker {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageSticker" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -904,6 +971,10 @@ pub struct RTDMessageStickerBuilder {
 
 impl RTDMessageStickerBuilder {
   pub fn build(&self) -> MessageSticker { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn sticker<T: AsRef<Sticker>>(&mut self, sticker: T) -> &mut Self {
@@ -933,6 +1004,9 @@ pub struct MessageVideo {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Message content
   video: Video,
   /// Video caption
@@ -944,6 +1018,9 @@ pub struct MessageVideo {
 
 impl RObject for MessageVideo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageVideo" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -975,6 +1052,10 @@ pub struct RTDMessageVideoBuilder {
 
 impl RTDMessageVideoBuilder {
   pub fn build(&self) -> MessageVideo { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn video<T: AsRef<Video>>(&mut self, video: T) -> &mut Self {
@@ -1016,11 +1097,17 @@ pub struct MessageExpiredVideo {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for MessageExpiredVideo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageExpiredVideo" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1046,6 +1133,10 @@ pub struct RTDMessageExpiredVideoBuilder {
 
 impl RTDMessageExpiredVideoBuilder {
   pub fn build(&self) -> MessageExpiredVideo { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -1069,6 +1160,9 @@ pub struct MessageVideoNote {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Message content
   video_note: VideoNote,
   /// True, if at least one of the recipients has viewed the video note
@@ -1080,6 +1174,9 @@ pub struct MessageVideoNote {
 
 impl RObject for MessageVideoNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageVideoNote" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1111,6 +1208,10 @@ pub struct RTDMessageVideoNoteBuilder {
 
 impl RTDMessageVideoNoteBuilder {
   pub fn build(&self) -> MessageVideoNote { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn video_note<T: AsRef<VideoNote>>(&mut self, video_note: T) -> &mut Self {
@@ -1152,6 +1253,9 @@ pub struct MessageVoiceNote {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Message content
   voice_note: VoiceNote,
   /// Voice note caption
@@ -1163,6 +1267,9 @@ pub struct MessageVoiceNote {
 
 impl RObject for MessageVoiceNote {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageVoiceNote" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1194,6 +1301,10 @@ pub struct RTDMessageVoiceNoteBuilder {
 
 impl RTDMessageVoiceNoteBuilder {
   pub fn build(&self) -> MessageVoiceNote { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn voice_note<T: AsRef<VoiceNote>>(&mut self, voice_note: T) -> &mut Self {
@@ -1235,6 +1346,9 @@ pub struct MessageLocation {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Message content
   location: Location,
   /// Time relative to the message sent date until which the location can be updated, in seconds
@@ -1246,6 +1360,9 @@ pub struct MessageLocation {
 
 impl RObject for MessageLocation {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageLocation" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1277,6 +1394,10 @@ pub struct RTDMessageLocationBuilder {
 
 impl RTDMessageLocationBuilder {
   pub fn build(&self) -> MessageLocation { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn location<T: AsRef<Location>>(&mut self, location: T) -> &mut Self {
@@ -1318,6 +1439,9 @@ pub struct MessageVenue {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Message content
   venue: Venue,
   
@@ -1325,6 +1449,9 @@ pub struct MessageVenue {
 
 impl RObject for MessageVenue {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageVenue" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1352,6 +1479,10 @@ pub struct RTDMessageVenueBuilder {
 
 impl RTDMessageVenueBuilder {
   pub fn build(&self) -> MessageVenue { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn venue<T: AsRef<Venue>>(&mut self, venue: T) -> &mut Self {
@@ -1381,6 +1512,9 @@ pub struct MessageContact {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Message content
   contact: Contact,
   
@@ -1388,6 +1522,9 @@ pub struct MessageContact {
 
 impl RObject for MessageContact {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageContact" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1415,6 +1552,10 @@ pub struct RTDMessageContactBuilder {
 
 impl RTDMessageContactBuilder {
   pub fn build(&self) -> MessageContact { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn contact<T: AsRef<Contact>>(&mut self, contact: T) -> &mut Self {
@@ -1444,6 +1585,9 @@ pub struct MessageGame {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Game
   game: Game,
   
@@ -1451,6 +1595,9 @@ pub struct MessageGame {
 
 impl RObject for MessageGame {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageGame" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1478,6 +1625,10 @@ pub struct RTDMessageGameBuilder {
 
 impl RTDMessageGameBuilder {
   pub fn build(&self) -> MessageGame { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn game<T: AsRef<Game>>(&mut self, game: T) -> &mut Self {
@@ -1507,6 +1658,9 @@ pub struct MessagePoll {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Poll
   poll: Poll,
   
@@ -1514,6 +1668,9 @@ pub struct MessagePoll {
 
 impl RObject for MessagePoll {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messagePoll" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1541,6 +1698,10 @@ pub struct RTDMessagePollBuilder {
 
 impl RTDMessagePollBuilder {
   pub fn build(&self) -> MessagePoll { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn poll<T: AsRef<Poll>>(&mut self, poll: T) -> &mut Self {
@@ -1570,6 +1731,9 @@ pub struct MessageInvoice {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Product title
   title: String,
   /// A message with an invoice from a bot
@@ -1593,6 +1757,9 @@ pub struct MessageInvoice {
 
 impl RObject for MessageInvoice {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageInvoice" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1636,6 +1803,10 @@ pub struct RTDMessageInvoiceBuilder {
 
 impl RTDMessageInvoiceBuilder {
   pub fn build(&self) -> MessageInvoice { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn title<T: AsRef<str>>(&mut self, title: T) -> &mut Self {
@@ -1713,6 +1884,9 @@ pub struct MessageCall {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Reason why the call was discarded
   discard_reason: CallDiscardReason,
   /// Call duration, in seconds
@@ -1722,6 +1896,9 @@ pub struct MessageCall {
 
 impl RObject for MessageCall {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageCall" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1751,6 +1928,10 @@ pub struct RTDMessageCallBuilder {
 
 impl RTDMessageCallBuilder {
   pub fn build(&self) -> MessageCall { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn discard_reason<T: AsRef<CallDiscardReason>>(&mut self, discard_reason: T) -> &mut Self {
@@ -1786,6 +1967,9 @@ pub struct MessageBasicGroupChatCreate {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Title of the basic group
   title: String,
   /// User identifiers of members in the basic group
@@ -1795,6 +1979,9 @@ pub struct MessageBasicGroupChatCreate {
 
 impl RObject for MessageBasicGroupChatCreate {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageBasicGroupChatCreate" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1824,6 +2011,10 @@ pub struct RTDMessageBasicGroupChatCreateBuilder {
 
 impl RTDMessageBasicGroupChatCreateBuilder {
   pub fn build(&self) -> MessageBasicGroupChatCreate { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn title<T: AsRef<str>>(&mut self, title: T) -> &mut Self {
@@ -1859,6 +2050,9 @@ pub struct MessageSupergroupChatCreate {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Title of the supergroup or channel
   title: String,
   
@@ -1866,6 +2060,9 @@ pub struct MessageSupergroupChatCreate {
 
 impl RObject for MessageSupergroupChatCreate {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageSupergroupChatCreate" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1893,6 +2090,10 @@ pub struct RTDMessageSupergroupChatCreateBuilder {
 
 impl RTDMessageSupergroupChatCreateBuilder {
   pub fn build(&self) -> MessageSupergroupChatCreate { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn title<T: AsRef<str>>(&mut self, title: T) -> &mut Self {
@@ -1922,6 +2123,9 @@ pub struct MessageChatChangeTitle {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// New chat title
   title: String,
   
@@ -1929,6 +2133,9 @@ pub struct MessageChatChangeTitle {
 
 impl RObject for MessageChatChangeTitle {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageChatChangeTitle" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1956,6 +2163,10 @@ pub struct RTDMessageChatChangeTitleBuilder {
 
 impl RTDMessageChatChangeTitleBuilder {
   pub fn build(&self) -> MessageChatChangeTitle { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn title<T: AsRef<str>>(&mut self, title: T) -> &mut Self {
@@ -1985,6 +2196,9 @@ pub struct MessageChatChangePhoto {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// New chat photo
   photo: Photo,
   
@@ -1992,6 +2206,9 @@ pub struct MessageChatChangePhoto {
 
 impl RObject for MessageChatChangePhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageChatChangePhoto" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2019,6 +2236,10 @@ pub struct RTDMessageChatChangePhotoBuilder {
 
 impl RTDMessageChatChangePhotoBuilder {
   pub fn build(&self) -> MessageChatChangePhoto { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn photo<T: AsRef<Photo>>(&mut self, photo: T) -> &mut Self {
@@ -2048,11 +2269,17 @@ pub struct MessageChatDeletePhoto {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for MessageChatDeletePhoto {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageChatDeletePhoto" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2078,6 +2305,10 @@ pub struct RTDMessageChatDeletePhotoBuilder {
 
 impl RTDMessageChatDeletePhotoBuilder {
   pub fn build(&self) -> MessageChatDeletePhoto { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -2101,6 +2332,9 @@ pub struct MessageChatAddMembers {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// User identifiers of the new members
   member_user_ids: Vec<i64>,
   
@@ -2108,6 +2342,9 @@ pub struct MessageChatAddMembers {
 
 impl RObject for MessageChatAddMembers {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageChatAddMembers" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2135,6 +2372,10 @@ pub struct RTDMessageChatAddMembersBuilder {
 
 impl RTDMessageChatAddMembersBuilder {
   pub fn build(&self) -> MessageChatAddMembers { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn member_user_ids(&mut self, member_user_ids: Vec<i64>) -> &mut Self {
@@ -2164,11 +2405,17 @@ pub struct MessageChatJoinByLink {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for MessageChatJoinByLink {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageChatJoinByLink" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2194,6 +2441,10 @@ pub struct RTDMessageChatJoinByLinkBuilder {
 
 impl RTDMessageChatJoinByLinkBuilder {
   pub fn build(&self) -> MessageChatJoinByLink { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -2217,6 +2468,9 @@ pub struct MessageChatDeleteMember {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// User identifier of the deleted chat member
   user_id: i64,
   
@@ -2224,6 +2478,9 @@ pub struct MessageChatDeleteMember {
 
 impl RObject for MessageChatDeleteMember {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageChatDeleteMember" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2251,6 +2508,10 @@ pub struct RTDMessageChatDeleteMemberBuilder {
 
 impl RTDMessageChatDeleteMemberBuilder {
   pub fn build(&self) -> MessageChatDeleteMember { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn user_id(&mut self, user_id: i64) -> &mut Self {
@@ -2280,6 +2541,9 @@ pub struct MessageChatUpgradeTo {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Identifier of the supergroup to which the basic group was upgraded
   supergroup_id: i64,
   
@@ -2287,6 +2551,9 @@ pub struct MessageChatUpgradeTo {
 
 impl RObject for MessageChatUpgradeTo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageChatUpgradeTo" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2314,6 +2581,10 @@ pub struct RTDMessageChatUpgradeToBuilder {
 
 impl RTDMessageChatUpgradeToBuilder {
   pub fn build(&self) -> MessageChatUpgradeTo { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn supergroup_id(&mut self, supergroup_id: i64) -> &mut Self {
@@ -2343,6 +2614,9 @@ pub struct MessageChatUpgradeFrom {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Title of the newly created supergroup
   title: String,
   /// The identifier of the original basic group
@@ -2352,6 +2626,9 @@ pub struct MessageChatUpgradeFrom {
 
 impl RObject for MessageChatUpgradeFrom {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageChatUpgradeFrom" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2381,6 +2658,10 @@ pub struct RTDMessageChatUpgradeFromBuilder {
 
 impl RTDMessageChatUpgradeFromBuilder {
   pub fn build(&self) -> MessageChatUpgradeFrom { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn title<T: AsRef<str>>(&mut self, title: T) -> &mut Self {
@@ -2416,6 +2697,9 @@ pub struct MessagePinMessage {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Identifier of the pinned message, can be an identifier of a deleted message or 0
   message_id: i64,
   
@@ -2423,6 +2707,9 @@ pub struct MessagePinMessage {
 
 impl RObject for MessagePinMessage {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messagePinMessage" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2450,6 +2737,10 @@ pub struct RTDMessagePinMessageBuilder {
 
 impl RTDMessagePinMessageBuilder {
   pub fn build(&self) -> MessagePinMessage { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn message_id(&mut self, message_id: i64) -> &mut Self {
@@ -2479,11 +2770,17 @@ pub struct MessageScreenshotTaken {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for MessageScreenshotTaken {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageScreenshotTaken" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2509,6 +2806,10 @@ pub struct RTDMessageScreenshotTakenBuilder {
 
 impl RTDMessageScreenshotTakenBuilder {
   pub fn build(&self) -> MessageScreenshotTaken { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -2532,6 +2833,9 @@ pub struct MessageChatSetTtl {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// New TTL
   ttl: i64,
   
@@ -2539,6 +2843,9 @@ pub struct MessageChatSetTtl {
 
 impl RObject for MessageChatSetTtl {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageChatSetTtl" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2566,6 +2873,10 @@ pub struct RTDMessageChatSetTtlBuilder {
 
 impl RTDMessageChatSetTtlBuilder {
   pub fn build(&self) -> MessageChatSetTtl { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn ttl(&mut self, ttl: i64) -> &mut Self {
@@ -2595,6 +2906,9 @@ pub struct MessageCustomServiceAction {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Message text to be shown in the chat
   text: String,
   
@@ -2602,6 +2916,9 @@ pub struct MessageCustomServiceAction {
 
 impl RObject for MessageCustomServiceAction {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageCustomServiceAction" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2629,6 +2946,10 @@ pub struct RTDMessageCustomServiceActionBuilder {
 
 impl RTDMessageCustomServiceActionBuilder {
   pub fn build(&self) -> MessageCustomServiceAction { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<str>>(&mut self, text: T) -> &mut Self {
@@ -2658,6 +2979,9 @@ pub struct MessageGameScore {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Identifier of the message with the game, can be an identifier of a deleted message
   game_message_id: i64,
   /// Identifier of the game; may be different from the games presented in the message with the game
@@ -2669,6 +2993,9 @@ pub struct MessageGameScore {
 
 impl RObject for MessageGameScore {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageGameScore" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2700,6 +3027,10 @@ pub struct RTDMessageGameScoreBuilder {
 
 impl RTDMessageGameScoreBuilder {
   pub fn build(&self) -> MessageGameScore { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn game_message_id(&mut self, game_message_id: i64) -> &mut Self {
@@ -2741,6 +3072,9 @@ pub struct MessagePaymentSuccessful {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Identifier of the message with the corresponding invoice; can be an identifier of a deleted message
   invoice_message_id: i64,
   /// Currency for the price of the product
@@ -2752,6 +3086,9 @@ pub struct MessagePaymentSuccessful {
 
 impl RObject for MessagePaymentSuccessful {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messagePaymentSuccessful" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2783,6 +3120,10 @@ pub struct RTDMessagePaymentSuccessfulBuilder {
 
 impl RTDMessagePaymentSuccessfulBuilder {
   pub fn build(&self) -> MessagePaymentSuccessful { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn invoice_message_id(&mut self, invoice_message_id: i64) -> &mut Self {
@@ -2824,6 +3165,9 @@ pub struct MessagePaymentSuccessfulBot {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Identifier of the message with the corresponding invoice; can be an identifier of a deleted message
   invoice_message_id: i64,
   /// Currency for price of the product
@@ -2845,6 +3189,9 @@ pub struct MessagePaymentSuccessfulBot {
 
 impl RObject for MessagePaymentSuccessfulBot {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messagePaymentSuccessfulBot" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2886,6 +3233,10 @@ pub struct RTDMessagePaymentSuccessfulBotBuilder {
 
 impl RTDMessagePaymentSuccessfulBotBuilder {
   pub fn build(&self) -> MessagePaymentSuccessfulBot { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn invoice_message_id(&mut self, invoice_message_id: i64) -> &mut Self {
@@ -2957,11 +3308,17 @@ pub struct MessageContactRegistered {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for MessageContactRegistered {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageContactRegistered" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -2987,6 +3344,10 @@ pub struct RTDMessageContactRegisteredBuilder {
 
 impl RTDMessageContactRegisteredBuilder {
   pub fn build(&self) -> MessageContactRegistered { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 
@@ -3010,6 +3371,9 @@ pub struct MessageWebsiteConnected {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Domain name of the connected website
   domain_name: String,
   
@@ -3017,6 +3381,9 @@ pub struct MessageWebsiteConnected {
 
 impl RObject for MessageWebsiteConnected {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageWebsiteConnected" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -3044,6 +3411,10 @@ pub struct RTDMessageWebsiteConnectedBuilder {
 
 impl RTDMessageWebsiteConnectedBuilder {
   pub fn build(&self) -> MessageWebsiteConnected { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn domain_name<T: AsRef<str>>(&mut self, domain_name: T) -> &mut Self {
@@ -3073,6 +3444,9 @@ pub struct MessagePassportDataSent {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// List of Telegram Passport element types sent
   types: Vec<PassportElementType>,
   
@@ -3080,6 +3454,9 @@ pub struct MessagePassportDataSent {
 
 impl RObject for MessagePassportDataSent {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messagePassportDataSent" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -3107,6 +3484,10 @@ pub struct RTDMessagePassportDataSentBuilder {
 
 impl RTDMessagePassportDataSentBuilder {
   pub fn build(&self) -> MessagePassportDataSent { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn types(&mut self, types: Vec<PassportElementType>) -> &mut Self {
@@ -3136,6 +3517,9 @@ pub struct MessagePassportDataReceived {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// List of received Telegram Passport elements
   elements: Vec<EncryptedPassportElement>,
   /// Encrypted data credentials
@@ -3145,6 +3529,9 @@ pub struct MessagePassportDataReceived {
 
 impl RObject for MessagePassportDataReceived {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messagePassportDataReceived" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -3174,6 +3561,10 @@ pub struct RTDMessagePassportDataReceivedBuilder {
 
 impl RTDMessagePassportDataReceivedBuilder {
   pub fn build(&self) -> MessagePassportDataReceived { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn elements(&mut self, elements: Vec<EncryptedPassportElement>) -> &mut Self {
@@ -3209,11 +3600,17 @@ pub struct MessageUnsupported {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for MessageUnsupported {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageUnsupported" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -3239,6 +3636,10 @@ pub struct RTDMessageUnsupportedBuilder {
 
 impl RTDMessageUnsupportedBuilder {
   pub fn build(&self) -> MessageUnsupported { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 

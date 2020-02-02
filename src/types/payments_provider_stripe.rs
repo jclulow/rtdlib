@@ -11,6 +11,9 @@ pub struct PaymentsProviderStripe {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Stripe API publishable key
   publishable_key: String,
   /// True, if the user country must be provided
@@ -24,6 +27,9 @@ pub struct PaymentsProviderStripe {
 
 impl RObject for PaymentsProviderStripe {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "paymentsProviderStripe" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -54,6 +60,10 @@ pub struct RTDPaymentsProviderStripeBuilder {
 
 impl RTDPaymentsProviderStripeBuilder {
   pub fn build(&self) -> PaymentsProviderStripe { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn publishable_key<T: AsRef<str>>(&mut self, publishable_key: T) -> &mut Self {

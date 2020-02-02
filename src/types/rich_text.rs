@@ -102,6 +102,7 @@ impl RObject for RichText {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -207,6 +208,9 @@ pub struct RichTextPlain {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text
   text: Box<RichText>,
   
@@ -214,6 +218,9 @@ pub struct RichTextPlain {
 
 impl RObject for RichTextPlain {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTextPlain" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -241,6 +248,10 @@ pub struct RTDRichTextPlainBuilder {
 
 impl RTDRichTextPlainBuilder {
   pub fn build(&self) -> RichTextPlain { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<Box<RichText>>>(&mut self, text: T) -> &mut Self {
@@ -270,6 +281,9 @@ pub struct RichTextBold {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text
   text: Box<RichText>,
   
@@ -277,6 +291,9 @@ pub struct RichTextBold {
 
 impl RObject for RichTextBold {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTextBold" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -304,6 +321,10 @@ pub struct RTDRichTextBoldBuilder {
 
 impl RTDRichTextBoldBuilder {
   pub fn build(&self) -> RichTextBold { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<Box<RichText>>>(&mut self, text: T) -> &mut Self {
@@ -333,6 +354,9 @@ pub struct RichTextItalic {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text
   text: Box<RichText>,
   
@@ -340,6 +364,9 @@ pub struct RichTextItalic {
 
 impl RObject for RichTextItalic {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTextItalic" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -367,6 +394,10 @@ pub struct RTDRichTextItalicBuilder {
 
 impl RTDRichTextItalicBuilder {
   pub fn build(&self) -> RichTextItalic { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<Box<RichText>>>(&mut self, text: T) -> &mut Self {
@@ -396,6 +427,9 @@ pub struct RichTextUnderline {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text
   text: Box<RichText>,
   
@@ -403,6 +437,9 @@ pub struct RichTextUnderline {
 
 impl RObject for RichTextUnderline {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTextUnderline" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -430,6 +467,10 @@ pub struct RTDRichTextUnderlineBuilder {
 
 impl RTDRichTextUnderlineBuilder {
   pub fn build(&self) -> RichTextUnderline { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<Box<RichText>>>(&mut self, text: T) -> &mut Self {
@@ -459,6 +500,9 @@ pub struct RichTextStrikethrough {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text
   text: Box<RichText>,
   
@@ -466,6 +510,9 @@ pub struct RichTextStrikethrough {
 
 impl RObject for RichTextStrikethrough {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTextStrikethrough" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -493,6 +540,10 @@ pub struct RTDRichTextStrikethroughBuilder {
 
 impl RTDRichTextStrikethroughBuilder {
   pub fn build(&self) -> RichTextStrikethrough { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<Box<RichText>>>(&mut self, text: T) -> &mut Self {
@@ -522,6 +573,9 @@ pub struct RichTextFixed {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text
   text: Box<RichText>,
   
@@ -529,6 +583,9 @@ pub struct RichTextFixed {
 
 impl RObject for RichTextFixed {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTextFixed" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -556,6 +613,10 @@ pub struct RTDRichTextFixedBuilder {
 
 impl RTDRichTextFixedBuilder {
   pub fn build(&self) -> RichTextFixed { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<Box<RichText>>>(&mut self, text: T) -> &mut Self {
@@ -585,6 +646,9 @@ pub struct RichTextUrl {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text
   text: Box<RichText>,
   /// URL
@@ -596,6 +660,9 @@ pub struct RichTextUrl {
 
 impl RObject for RichTextUrl {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTextUrl" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -627,6 +694,10 @@ pub struct RTDRichTextUrlBuilder {
 
 impl RTDRichTextUrlBuilder {
   pub fn build(&self) -> RichTextUrl { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<Box<RichText>>>(&mut self, text: T) -> &mut Self {
@@ -668,6 +739,9 @@ pub struct RichTextEmailAddress {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text
   text: Box<RichText>,
   /// Email address
@@ -677,6 +751,9 @@ pub struct RichTextEmailAddress {
 
 impl RObject for RichTextEmailAddress {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTextEmailAddress" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -706,6 +783,10 @@ pub struct RTDRichTextEmailAddressBuilder {
 
 impl RTDRichTextEmailAddressBuilder {
   pub fn build(&self) -> RichTextEmailAddress { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<Box<RichText>>>(&mut self, text: T) -> &mut Self {
@@ -741,6 +822,9 @@ pub struct RichTextSubscript {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text
   text: Box<RichText>,
   
@@ -748,6 +832,9 @@ pub struct RichTextSubscript {
 
 impl RObject for RichTextSubscript {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTextSubscript" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -775,6 +862,10 @@ pub struct RTDRichTextSubscriptBuilder {
 
 impl RTDRichTextSubscriptBuilder {
   pub fn build(&self) -> RichTextSubscript { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<Box<RichText>>>(&mut self, text: T) -> &mut Self {
@@ -804,6 +895,9 @@ pub struct RichTextSuperscript {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text
   text: Box<RichText>,
   
@@ -811,6 +905,9 @@ pub struct RichTextSuperscript {
 
 impl RObject for RichTextSuperscript {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTextSuperscript" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -838,6 +935,10 @@ pub struct RTDRichTextSuperscriptBuilder {
 
 impl RTDRichTextSuperscriptBuilder {
   pub fn build(&self) -> RichTextSuperscript { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<Box<RichText>>>(&mut self, text: T) -> &mut Self {
@@ -867,6 +968,9 @@ pub struct RichTextMarked {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text
   text: Box<RichText>,
   
@@ -874,6 +978,9 @@ pub struct RichTextMarked {
 
 impl RObject for RichTextMarked {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTextMarked" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -901,6 +1008,10 @@ pub struct RTDRichTextMarkedBuilder {
 
 impl RTDRichTextMarkedBuilder {
   pub fn build(&self) -> RichTextMarked { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<Box<RichText>>>(&mut self, text: T) -> &mut Self {
@@ -930,6 +1041,9 @@ pub struct RichTextPhoneNumber {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text
   text: Box<RichText>,
   /// Phone number
@@ -939,6 +1053,9 @@ pub struct RichTextPhoneNumber {
 
 impl RObject for RichTextPhoneNumber {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTextPhoneNumber" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -968,6 +1085,10 @@ pub struct RTDRichTextPhoneNumberBuilder {
 
 impl RTDRichTextPhoneNumberBuilder {
   pub fn build(&self) -> RichTextPhoneNumber { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<Box<RichText>>>(&mut self, text: T) -> &mut Self {
@@ -1003,6 +1124,9 @@ pub struct RichTextIcon {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The image represented as a document. The image can be in GIF, JPEG or PNG format
   document: Document,
   /// Width of a bounding box in which the image should be shown; 0 if unknown
@@ -1014,6 +1138,9 @@ pub struct RichTextIcon {
 
 impl RObject for RichTextIcon {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTextIcon" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1045,6 +1172,10 @@ pub struct RTDRichTextIconBuilder {
 
 impl RTDRichTextIconBuilder {
   pub fn build(&self) -> RichTextIcon { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn document<T: AsRef<Document>>(&mut self, document: T) -> &mut Self {
@@ -1086,6 +1217,9 @@ pub struct RichTextAnchor {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Text
   text: Box<RichText>,
   /// Anchor name
@@ -1095,6 +1229,9 @@ pub struct RichTextAnchor {
 
 impl RObject for RichTextAnchor {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTextAnchor" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1124,6 +1261,10 @@ pub struct RTDRichTextAnchorBuilder {
 
 impl RTDRichTextAnchorBuilder {
   pub fn build(&self) -> RichTextAnchor { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn text<T: AsRef<Box<RichText>>>(&mut self, text: T) -> &mut Self {
@@ -1159,6 +1300,9 @@ pub struct RichTexts {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Texts
   texts: Vec<RichText>,
   
@@ -1166,6 +1310,9 @@ pub struct RichTexts {
 
 impl RObject for RichTexts {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "richTexts" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -1193,6 +1340,10 @@ pub struct RTDRichTextsBuilder {
 
 impl RTDRichTextsBuilder {
   pub fn build(&self) -> RichTexts { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn texts(&mut self, texts: Vec<RichText>) -> &mut Self {

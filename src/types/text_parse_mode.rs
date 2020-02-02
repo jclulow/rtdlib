@@ -50,6 +50,7 @@ impl RObject for TextParseMode {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -90,6 +91,9 @@ pub struct TextParseModeMarkdown {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Version of the parser: 0 or 1  Bot API Markdown parse mode, 2  Bot API MarkdownV2 parse mode
   version: i64,
   
@@ -97,6 +101,9 @@ pub struct TextParseModeMarkdown {
 
 impl RObject for TextParseModeMarkdown {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textParseModeMarkdown" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -124,6 +131,10 @@ pub struct RTDTextParseModeMarkdownBuilder {
 
 impl RTDTextParseModeMarkdownBuilder {
   pub fn build(&self) -> TextParseModeMarkdown { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn version(&mut self, version: i64) -> &mut Self {
@@ -153,11 +164,17 @@ pub struct TextParseModeHTML {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   
 }
 
 impl RObject for TextParseModeHTML {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "textParseModeHTML" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -183,6 +200,10 @@ pub struct RTDTextParseModeHTMLBuilder {
 
 impl RTDTextParseModeHTMLBuilder {
   pub fn build(&self) -> TextParseModeHTML { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
 }
 

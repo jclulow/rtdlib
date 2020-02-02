@@ -11,6 +11,9 @@ pub struct CallProtocol {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// True, if UDP peer-to-peer connections are supported
   udp_p2p: bool,
   /// True, if connection through UDP reflectors is supported
@@ -24,6 +27,9 @@ pub struct CallProtocol {
 
 impl RObject for CallProtocol {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "callProtocol" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -54,6 +60,10 @@ pub struct RTDCallProtocolBuilder {
 
 impl RTDCallProtocolBuilder {
   pub fn build(&self) -> CallProtocol { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn udp_p2p(&mut self, udp_p2p: bool) -> &mut Self {

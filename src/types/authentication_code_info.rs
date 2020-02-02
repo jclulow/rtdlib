@@ -11,6 +11,9 @@ pub struct AuthenticationCodeInfo {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// A phone number that is being authenticated
   phone_number: String,
   /// Describes the way the code was sent to the user
@@ -24,6 +27,9 @@ pub struct AuthenticationCodeInfo {
 
 impl RObject for AuthenticationCodeInfo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "authenticationCodeInfo" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -54,6 +60,10 @@ pub struct RTDAuthenticationCodeInfoBuilder {
 
 impl RTDAuthenticationCodeInfoBuilder {
   pub fn build(&self) -> AuthenticationCodeInfo { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn phone_number<T: AsRef<str>>(&mut self, phone_number: T) -> &mut Self {

@@ -11,6 +11,9 @@ pub struct Message {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Message identifier, unique for the chat to which the message belongs
   id: i64,
   /// Identifier of the user who sent the message; 0 if unknown. Currently, it is unknown for channel posts and for channel posts automatically forwarded to discussion group
@@ -66,6 +69,9 @@ pub struct Message {
 
 impl RObject for Message {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "message" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -138,6 +144,10 @@ pub struct RTDMessageBuilder {
 
 impl RTDMessageBuilder {
   pub fn build(&self) -> Message { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn id(&mut self, id: i64) -> &mut Self {

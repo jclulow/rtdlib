@@ -11,6 +11,9 @@ pub struct Users {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Approximate total count of users found
   total_count: i64,
   /// A list of user identifiers
@@ -20,6 +23,9 @@ pub struct Users {
 
 impl RObject for Users {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "users" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -46,6 +52,10 @@ pub struct RTDUsersBuilder {
 
 impl RTDUsersBuilder {
   pub fn build(&self) -> Users { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn total_count(&mut self, total_count: i64) -> &mut Self {

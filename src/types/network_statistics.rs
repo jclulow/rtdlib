@@ -11,6 +11,9 @@ pub struct NetworkStatistics {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Point in time (Unix timestamp) when the app began collecting statistics
   since_date: i64,
   /// Network statistics entries
@@ -20,6 +23,9 @@ pub struct NetworkStatistics {
 
 impl RObject for NetworkStatistics {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "networkStatistics" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -46,6 +52,10 @@ pub struct RTDNetworkStatisticsBuilder {
 
 impl RTDNetworkStatisticsBuilder {
   pub fn build(&self) -> NetworkStatistics { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn since_date(&mut self, since_date: i64) -> &mut Self {

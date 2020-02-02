@@ -86,6 +86,7 @@ impl RObject for DeviceToken {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -171,6 +172,9 @@ pub struct DeviceTokenFirebaseCloudMessaging {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Device registration token; may be empty to de-register a device
   token: String,
   /// True, if push notifications should be additionally encrypted
@@ -180,6 +184,9 @@ pub struct DeviceTokenFirebaseCloudMessaging {
 
 impl RObject for DeviceTokenFirebaseCloudMessaging {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "deviceTokenFirebaseCloudMessaging" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -209,6 +216,10 @@ pub struct RTDDeviceTokenFirebaseCloudMessagingBuilder {
 
 impl RTDDeviceTokenFirebaseCloudMessagingBuilder {
   pub fn build(&self) -> DeviceTokenFirebaseCloudMessaging { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn token<T: AsRef<str>>(&mut self, token: T) -> &mut Self {
@@ -244,6 +255,9 @@ pub struct DeviceTokenApplePush {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Device token; may be empty to de-register a device
   device_token: String,
   /// True, if App Sandbox is enabled
@@ -253,6 +267,9 @@ pub struct DeviceTokenApplePush {
 
 impl RObject for DeviceTokenApplePush {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "deviceTokenApplePush" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -282,6 +299,10 @@ pub struct RTDDeviceTokenApplePushBuilder {
 
 impl RTDDeviceTokenApplePushBuilder {
   pub fn build(&self) -> DeviceTokenApplePush { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn device_token<T: AsRef<str>>(&mut self, device_token: T) -> &mut Self {
@@ -317,6 +338,9 @@ pub struct DeviceTokenApplePushVoIP {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Device token; may be empty to de-register a device
   device_token: String,
   /// True, if App Sandbox is enabled
@@ -328,6 +352,9 @@ pub struct DeviceTokenApplePushVoIP {
 
 impl RObject for DeviceTokenApplePushVoIP {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "deviceTokenApplePushVoIP" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -359,6 +386,10 @@ pub struct RTDDeviceTokenApplePushVoIPBuilder {
 
 impl RTDDeviceTokenApplePushVoIPBuilder {
   pub fn build(&self) -> DeviceTokenApplePushVoIP { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn device_token<T: AsRef<str>>(&mut self, device_token: T) -> &mut Self {
@@ -400,6 +431,9 @@ pub struct DeviceTokenWindowsPush {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// The access token that will be used to send notifications; may be empty to de-register a device
   access_token: String,
   
@@ -407,6 +441,9 @@ pub struct DeviceTokenWindowsPush {
 
 impl RObject for DeviceTokenWindowsPush {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "deviceTokenWindowsPush" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -434,6 +471,10 @@ pub struct RTDDeviceTokenWindowsPushBuilder {
 
 impl RTDDeviceTokenWindowsPushBuilder {
   pub fn build(&self) -> DeviceTokenWindowsPush { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn access_token<T: AsRef<str>>(&mut self, access_token: T) -> &mut Self {
@@ -463,6 +504,9 @@ pub struct DeviceTokenMicrosoftPush {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Push notification channel URI; may be empty to de-register a device
   channel_uri: String,
   
@@ -470,6 +514,9 @@ pub struct DeviceTokenMicrosoftPush {
 
 impl RObject for DeviceTokenMicrosoftPush {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "deviceTokenMicrosoftPush" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -497,6 +544,10 @@ pub struct RTDDeviceTokenMicrosoftPushBuilder {
 
 impl RTDDeviceTokenMicrosoftPushBuilder {
   pub fn build(&self) -> DeviceTokenMicrosoftPush { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn channel_uri<T: AsRef<str>>(&mut self, channel_uri: T) -> &mut Self {
@@ -526,6 +577,9 @@ pub struct DeviceTokenMicrosoftPushVoIP {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Push notification channel URI; may be empty to de-register a device
   channel_uri: String,
   
@@ -533,6 +587,9 @@ pub struct DeviceTokenMicrosoftPushVoIP {
 
 impl RObject for DeviceTokenMicrosoftPushVoIP {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "deviceTokenMicrosoftPushVoIP" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -560,6 +617,10 @@ pub struct RTDDeviceTokenMicrosoftPushVoIPBuilder {
 
 impl RTDDeviceTokenMicrosoftPushVoIPBuilder {
   pub fn build(&self) -> DeviceTokenMicrosoftPushVoIP { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn channel_uri<T: AsRef<str>>(&mut self, channel_uri: T) -> &mut Self {
@@ -589,6 +650,9 @@ pub struct DeviceTokenWebPush {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Absolute URL exposed by the push service where the application server can send push messages; may be empty to de-register a device
   endpoint: String,
   /// Base64url-encoded P-256 elliptic curve Diffie-Hellman public key
@@ -600,6 +664,9 @@ pub struct DeviceTokenWebPush {
 
 impl RObject for DeviceTokenWebPush {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "deviceTokenWebPush" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -631,6 +698,10 @@ pub struct RTDDeviceTokenWebPushBuilder {
 
 impl RTDDeviceTokenWebPushBuilder {
   pub fn build(&self) -> DeviceTokenWebPush { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn endpoint<T: AsRef<str>>(&mut self, endpoint: T) -> &mut Self {
@@ -672,6 +743,9 @@ pub struct DeviceTokenSimplePush {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Absolute URL exposed by the push service where the application server can send push messages; may be empty to de-register a device
   endpoint: String,
   
@@ -679,6 +753,9 @@ pub struct DeviceTokenSimplePush {
 
 impl RObject for DeviceTokenSimplePush {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "deviceTokenSimplePush" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -706,6 +783,10 @@ pub struct RTDDeviceTokenSimplePushBuilder {
 
 impl RTDDeviceTokenSimplePushBuilder {
   pub fn build(&self) -> DeviceTokenSimplePush { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn endpoint<T: AsRef<str>>(&mut self, endpoint: T) -> &mut Self {
@@ -735,6 +816,9 @@ pub struct DeviceTokenUbuntuPush {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Token; may be empty to de-register a device
   token: String,
   
@@ -742,6 +826,9 @@ pub struct DeviceTokenUbuntuPush {
 
 impl RObject for DeviceTokenUbuntuPush {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "deviceTokenUbuntuPush" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -769,6 +856,10 @@ pub struct RTDDeviceTokenUbuntuPushBuilder {
 
 impl RTDDeviceTokenUbuntuPushBuilder {
   pub fn build(&self) -> DeviceTokenUbuntuPush { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn token<T: AsRef<str>>(&mut self, token: T) -> &mut Self {
@@ -798,6 +889,9 @@ pub struct DeviceTokenBlackBerryPush {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Token; may be empty to de-register a device
   token: String,
   
@@ -805,6 +899,9 @@ pub struct DeviceTokenBlackBerryPush {
 
 impl RObject for DeviceTokenBlackBerryPush {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "deviceTokenBlackBerryPush" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -832,6 +929,10 @@ pub struct RTDDeviceTokenBlackBerryPushBuilder {
 
 impl RTDDeviceTokenBlackBerryPushBuilder {
   pub fn build(&self) -> DeviceTokenBlackBerryPush { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn token<T: AsRef<str>>(&mut self, token: T) -> &mut Self {
@@ -861,6 +962,9 @@ pub struct DeviceTokenTizenPush {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Push service registration identifier; may be empty to de-register a device
   reg_id: String,
   
@@ -868,6 +972,9 @@ pub struct DeviceTokenTizenPush {
 
 impl RObject for DeviceTokenTizenPush {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "deviceTokenTizenPush" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -895,6 +1002,10 @@ pub struct RTDDeviceTokenTizenPushBuilder {
 
 impl RTDDeviceTokenTizenPushBuilder {
   pub fn build(&self) -> DeviceTokenTizenPush { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn reg_id<T: AsRef<str>>(&mut self, reg_id: T) -> &mut Self {

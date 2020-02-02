@@ -11,6 +11,9 @@ pub struct ValidatedOrderInfo {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Temporary identifier of the order information
   order_info_id: String,
   /// Available shipping options
@@ -20,6 +23,9 @@ pub struct ValidatedOrderInfo {
 
 impl RObject for ValidatedOrderInfo {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "validatedOrderInfo" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -46,6 +52,10 @@ pub struct RTDValidatedOrderInfoBuilder {
 
 impl RTDValidatedOrderInfoBuilder {
   pub fn build(&self) -> ValidatedOrderInfo { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn order_info_id<T: AsRef<str>>(&mut self, order_info_id: T) -> &mut Self {

@@ -54,6 +54,7 @@ impl RObject for MessageForwardOrigin {
       _ => "-1",
     }
   }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> { None }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -99,6 +100,9 @@ pub struct MessageForwardOriginUser {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Identifier of the user that originally sent the message
   sender_user_id: i64,
   
@@ -106,6 +110,9 @@ pub struct MessageForwardOriginUser {
 
 impl RObject for MessageForwardOriginUser {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageForwardOriginUser" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -133,6 +140,10 @@ pub struct RTDMessageForwardOriginUserBuilder {
 
 impl RTDMessageForwardOriginUserBuilder {
   pub fn build(&self) -> MessageForwardOriginUser { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn sender_user_id(&mut self, sender_user_id: i64) -> &mut Self {
@@ -162,6 +173,9 @@ pub struct MessageForwardOriginHiddenUser {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Name of the sender
   sender_name: String,
   
@@ -169,6 +183,9 @@ pub struct MessageForwardOriginHiddenUser {
 
 impl RObject for MessageForwardOriginHiddenUser {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageForwardOriginHiddenUser" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -196,6 +213,10 @@ pub struct RTDMessageForwardOriginHiddenUserBuilder {
 
 impl RTDMessageForwardOriginHiddenUserBuilder {
   pub fn build(&self) -> MessageForwardOriginHiddenUser { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn sender_name<T: AsRef<str>>(&mut self, sender_name: T) -> &mut Self {
@@ -225,6 +246,9 @@ pub struct MessageForwardOriginChannel {
   #[doc(hidden)]
   #[serde(rename(serialize = "@type", deserialize = "@type"))]
   td_name: String,
+  #[doc(hidden)]
+  #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
+  td_tag: Option<String>,
   /// Identifier of the chat from which the message was originally forwarded
   chat_id: i64,
   /// Message identifier of the original message; 0 if unknown
@@ -236,6 +260,9 @@ pub struct MessageForwardOriginChannel {
 
 impl RObject for MessageForwardOriginChannel {
   #[doc(hidden)] fn td_name(&self) -> &'static str { "messageForwardOriginChannel" }
+  #[doc(hidden)] fn td_tag(&self) -> Option<&str> {
+    self.td_tag.as_deref()
+  }
   fn to_json(&self) -> RTDResult<String> { Ok(serde_json::to_string(self)?) }
 }
 
@@ -267,6 +294,10 @@ pub struct RTDMessageForwardOriginChannelBuilder {
 
 impl RTDMessageForwardOriginChannelBuilder {
   pub fn build(&self) -> MessageForwardOriginChannel { self.inner.clone() }
+  pub fn td_tag<T: AsRef<str>>(&mut self, tag: T) -> &mut Self {
+    self.inner.td_tag = Some(tag.as_ref().to_string());
+    self
+  }
 
    
   pub fn chat_id(&mut self, chat_id: i64) -> &mut Self {
