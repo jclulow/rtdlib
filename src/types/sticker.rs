@@ -16,7 +16,7 @@ pub struct Sticker {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// The identifier of the sticker set to which the sticker belongs; 0 if none
-  set_id: String,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] set_id: i64,
   /// Sticker width; as defined by the sender
   width: i64,
   /// Sticker height; as defined by the sender
@@ -58,7 +58,7 @@ impl Sticker {
     RTDStickerBuilder { inner }
   }
 
-  pub fn set_id(&self) -> &String { &self.set_id }
+  pub fn set_id(&self) -> i64 { self.set_id }
 
   pub fn width(&self) -> i64 { self.width }
 
@@ -91,8 +91,8 @@ impl RTDStickerBuilder {
   }
 
    
-  pub fn set_id<T: AsRef<str>>(&mut self, set_id: T) -> &mut Self {
-    self.inner.set_id = set_id.as_ref().to_string();
+  pub fn set_id(&mut self, set_id: i64) -> &mut Self {
+    self.inner.set_id = set_id;
     self
   }
 

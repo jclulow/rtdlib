@@ -3114,7 +3114,7 @@ pub struct MessageGameScore {
   /// Identifier of the message with the game, can be an identifier of a deleted message
   game_message_id: i64,
   /// Identifier of the game; may be different from the games presented in the message with the game
-  game_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] game_id: i64,
   /// New score
   score: i64,
   
@@ -3147,7 +3147,7 @@ impl MessageGameScore {
 
   pub fn game_message_id(&self) -> i64 { self.game_message_id }
 
-  pub fn game_id(&self) -> isize { self.game_id }
+  pub fn game_id(&self) -> i64 { self.game_id }
 
   pub fn score(&self) -> i64 { self.score }
 
@@ -3172,7 +3172,7 @@ impl RTDMessageGameScoreBuilder {
   }
 
    
-  pub fn game_id(&mut self, game_id: isize) -> &mut Self {
+  pub fn game_id(&mut self, game_id: i64) -> &mut Self {
     self.inner.game_id = game_id;
     self
   }

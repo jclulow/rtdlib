@@ -16,7 +16,7 @@ pub struct ChatEvent {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Chat event identifier
-  id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// Point in time (Unix timestamp) when the event happened
   date: i64,
   /// Identifier of the user who performed the action that triggered the event
@@ -48,7 +48,7 @@ impl ChatEvent {
     RTDChatEventBuilder { inner }
   }
 
-  pub fn id(&self) -> isize { self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn date(&self) -> i64 { self.date }
 
@@ -71,7 +71,7 @@ impl RTDChatEventBuilder {
   }
 
    
-  pub fn id(&mut self, id: isize) -> &mut Self {
+  pub fn id(&mut self, id: i64) -> &mut Self {
     self.inner.id = id;
     self
   }

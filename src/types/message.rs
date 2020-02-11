@@ -58,7 +58,7 @@ pub struct Message {
   /// Number of times this message was viewed
   views: i64,
   /// Unique identifier of an album this message belongs to. Only photos and videos can be grouped together in albums
-  media_album_id: String,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] media_album_id: i64,
   /// If non-empty, contains a human-readable description of the reason why access to this message must be restricted
   restriction_reason: String,
   /// Content of the message
@@ -132,7 +132,7 @@ impl Message {
 
   pub fn views(&self) -> i64 { self.views }
 
-  pub fn media_album_id(&self) -> &String { &self.media_album_id }
+  pub fn media_album_id(&self) -> i64 { self.media_album_id }
 
   pub fn restriction_reason(&self) -> &String { &self.restriction_reason }
 
@@ -281,8 +281,8 @@ impl RTDMessageBuilder {
   }
 
    
-  pub fn media_album_id<T: AsRef<str>>(&mut self, media_album_id: T) -> &mut Self {
-    self.inner.media_album_id = media_album_id.as_ref().to_string();
+  pub fn media_album_id(&mut self, media_album_id: i64) -> &mut Self {
+    self.inner.media_album_id = media_album_id;
     self
   }
 

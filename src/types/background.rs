@@ -16,7 +16,7 @@ pub struct Background {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Unique background identifier
-  id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// True, if this is one of default backgrounds
   is_default: bool,
   /// True, if the background is dark and is recommended to be used with dark theme
@@ -52,7 +52,7 @@ impl Background {
     RTDBackgroundBuilder { inner }
   }
 
-  pub fn id(&self) -> isize { self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn is_default(&self) -> bool { self.is_default }
 
@@ -79,7 +79,7 @@ impl RTDBackgroundBuilder {
   }
 
    
-  pub fn id(&mut self, id: isize) -> &mut Self {
+  pub fn id(&mut self, id: i64) -> &mut Self {
     self.inner.id = id;
     self
   }

@@ -16,7 +16,7 @@ pub struct InlineQueryResults {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Unique identifier of the inline query
-  inline_query_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] inline_query_id: i64,
   /// The offset for the next request. If empty, there are no more results
   next_offset: String,
   /// Results of the query
@@ -50,7 +50,7 @@ impl InlineQueryResults {
     RTDInlineQueryResultsBuilder { inner }
   }
 
-  pub fn inline_query_id(&self) -> isize { self.inline_query_id }
+  pub fn inline_query_id(&self) -> i64 { self.inline_query_id }
 
   pub fn next_offset(&self) -> &String { &self.next_offset }
 
@@ -75,7 +75,7 @@ impl RTDInlineQueryResultsBuilder {
   }
 
    
-  pub fn inline_query_id(&mut self, inline_query_id: isize) -> &mut Self {
+  pub fn inline_query_id(&mut self, inline_query_id: i64) -> &mut Self {
     self.inner.inline_query_id = inline_query_id;
     self
   }

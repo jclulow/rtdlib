@@ -16,7 +16,7 @@ pub struct ProfilePhoto {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Photo identifier; 0 for an empty photo. Can be used to find a photo in a list of userProfilePhotos
-  id: String,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// A small (160x160) user profile photo. The file can be downloaded only before the photo is changed
   small: File,
   /// A big (640x640) user profile photo. The file can be downloaded only before the photo is changed
@@ -46,7 +46,7 @@ impl ProfilePhoto {
     RTDProfilePhotoBuilder { inner }
   }
 
-  pub fn id(&self) -> &String { &self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn small(&self) -> &File { &self.small }
 
@@ -67,8 +67,8 @@ impl RTDProfilePhotoBuilder {
   }
 
    
-  pub fn id<T: AsRef<str>>(&mut self, id: T) -> &mut Self {
-    self.inner.id = id.as_ref().to_string();
+  pub fn id(&mut self, id: i64) -> &mut Self {
+    self.inner.id = id;
     self
   }
 

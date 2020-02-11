@@ -345,7 +345,7 @@ pub struct TMeUrlTypeStickerSet {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Identifier of the sticker set
-  sticker_set_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] sticker_set_id: i64,
   
 }
 
@@ -374,7 +374,7 @@ impl TMeUrlTypeStickerSet {
     RTDTMeUrlTypeStickerSetBuilder { inner }
   }
 
-  pub fn sticker_set_id(&self) -> isize { self.sticker_set_id }
+  pub fn sticker_set_id(&self) -> i64 { self.sticker_set_id }
 
 }
 
@@ -391,7 +391,7 @@ impl RTDTMeUrlTypeStickerSetBuilder {
   }
 
    
-  pub fn sticker_set_id(&mut self, sticker_set_id: isize) -> &mut Self {
+  pub fn sticker_set_id(&mut self, sticker_set_id: i64) -> &mut Self {
     self.inner.sticker_set_id = sticker_set_id;
     self
   }

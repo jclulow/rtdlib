@@ -16,7 +16,7 @@ pub struct StickerSetInfo {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Identifier of the sticker set
-  id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// Title of the sticker set
   title: String,
   /// Name of the sticker set
@@ -64,7 +64,7 @@ impl StickerSetInfo {
     RTDStickerSetInfoBuilder { inner }
   }
 
-  pub fn id(&self) -> isize { self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn title(&self) -> &String { &self.title }
 
@@ -103,7 +103,7 @@ impl RTDStickerSetInfoBuilder {
   }
 
    
-  pub fn id(&mut self, id: isize) -> &mut Self {
+  pub fn id(&mut self, id: i64) -> &mut Self {
     self.inner.id = id;
     self
   }

@@ -16,7 +16,7 @@ pub struct Poll {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Unique poll identifier
-  id: String,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// Poll question, 1-255 characters
   question: String,
   /// List of poll answer options
@@ -50,7 +50,7 @@ impl Poll {
     RTDPollBuilder { inner }
   }
 
-  pub fn id(&self) -> &String { &self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn question(&self) -> &String { &self.question }
 
@@ -75,8 +75,8 @@ impl RTDPollBuilder {
   }
 
    
-  pub fn id<T: AsRef<str>>(&mut self, id: T) -> &mut Self {
-    self.inner.id = id.as_ref().to_string();
+  pub fn id(&mut self, id: i64) -> &mut Self {
+    self.inner.id = id;
     self
   }
 

@@ -16,7 +16,7 @@ pub struct Session {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Session identifier
-  id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// True, if this session is the current session
   is_current: bool,
   /// True, if a password is needed to complete authorization of the session
@@ -70,7 +70,7 @@ impl Session {
     RTDSessionBuilder { inner }
   }
 
-  pub fn id(&self) -> isize { self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn is_current(&self) -> bool { self.is_current }
 
@@ -115,7 +115,7 @@ impl RTDSessionBuilder {
   }
 
    
-  pub fn id(&mut self, id: isize) -> &mut Self {
+  pub fn id(&mut self, id: i64) -> &mut Self {
     self.inner.id = id;
     self
   }

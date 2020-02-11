@@ -2198,7 +2198,7 @@ pub struct UpdateChatLastMessage {
   /// The new last message in the chat; may be null
   last_message: Option<Message>,
   /// New value of the chat order
-  order: String,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] order: i64,
   
 }
 
@@ -2231,7 +2231,7 @@ impl UpdateChatLastMessage {
 
   pub fn last_message(&self) -> &Option<Message> { &self.last_message }
 
-  pub fn order(&self) -> &String { &self.order }
+  pub fn order(&self) -> i64 { self.order }
 
 }
 
@@ -2260,8 +2260,8 @@ impl RTDUpdateChatLastMessageBuilder {
   }
 
    
-  pub fn order<T: AsRef<str>>(&mut self, order: T) -> &mut Self {
-    self.inner.order = order.as_ref().to_string();
+  pub fn order(&mut self, order: i64) -> &mut Self {
+    self.inner.order = order;
     self
   }
 
@@ -2293,7 +2293,7 @@ pub struct UpdateChatOrder {
   /// Chat identifier
   chat_id: i64,
   /// New value of the order
-  order: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] order: i64,
   
 }
 
@@ -2324,7 +2324,7 @@ impl UpdateChatOrder {
 
   pub fn chat_id(&self) -> i64 { self.chat_id }
 
-  pub fn order(&self) -> isize { self.order }
+  pub fn order(&self) -> i64 { self.order }
 
 }
 
@@ -2347,7 +2347,7 @@ impl RTDUpdateChatOrderBuilder {
   }
 
    
-  pub fn order(&mut self, order: isize) -> &mut Self {
+  pub fn order(&mut self, order: i64) -> &mut Self {
     self.inner.order = order;
     self
   }
@@ -2382,7 +2382,7 @@ pub struct UpdateChatIsPinned {
   /// New value of is_pinned
   is_pinned: bool,
   /// New value of the chat order
-  order: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] order: i64,
   
 }
 
@@ -2415,7 +2415,7 @@ impl UpdateChatIsPinned {
 
   pub fn is_pinned(&self) -> bool { self.is_pinned }
 
-  pub fn order(&self) -> isize { self.order }
+  pub fn order(&self) -> i64 { self.order }
 
 }
 
@@ -2444,7 +2444,7 @@ impl RTDUpdateChatIsPinnedBuilder {
   }
 
    
-  pub fn order(&mut self, order: isize) -> &mut Self {
+  pub fn order(&mut self, order: i64) -> &mut Self {
     self.inner.order = order;
     self
   }
@@ -2566,7 +2566,7 @@ pub struct UpdateChatIsSponsored {
   /// New value of is_sponsored
   is_sponsored: bool,
   /// New value of chat order
-  order: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] order: i64,
   
 }
 
@@ -2599,7 +2599,7 @@ impl UpdateChatIsSponsored {
 
   pub fn is_sponsored(&self) -> bool { self.is_sponsored }
 
-  pub fn order(&self) -> isize { self.order }
+  pub fn order(&self) -> i64 { self.order }
 
 }
 
@@ -2628,7 +2628,7 @@ impl RTDUpdateChatIsSponsoredBuilder {
   }
 
    
-  pub fn order(&mut self, order: isize) -> &mut Self {
+  pub fn order(&mut self, order: i64) -> &mut Self {
     self.inner.order = order;
     self
   }
@@ -3543,7 +3543,7 @@ pub struct UpdateChatDraftMessage {
   /// The new draft message; may be null
   draft_message: Option<DraftMessage>,
   /// New value of the chat order
-  order: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] order: i64,
   
 }
 
@@ -3576,7 +3576,7 @@ impl UpdateChatDraftMessage {
 
   pub fn draft_message(&self) -> &Option<DraftMessage> { &self.draft_message }
 
-  pub fn order(&self) -> isize { self.order }
+  pub fn order(&self) -> i64 { self.order }
 
 }
 
@@ -3605,7 +3605,7 @@ impl RTDUpdateChatDraftMessageBuilder {
   }
 
    
-  pub fn order(&mut self, order: isize) -> &mut Self {
+  pub fn order(&mut self, order: i64) -> &mut Self {
     self.inner.order = order;
     self
   }
@@ -5145,7 +5145,7 @@ pub struct UpdateFileGenerationStart {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Unique identifier for the generation process
-  generation_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] generation_id: i64,
   /// The path to a file from which a new file is generated; may be empty
   original_path: String,
   /// The path to a file that should be created and where the new file should be generated
@@ -5180,7 +5180,7 @@ impl UpdateFileGenerationStart {
     RTDUpdateFileGenerationStartBuilder { inner }
   }
 
-  pub fn generation_id(&self) -> isize { self.generation_id }
+  pub fn generation_id(&self) -> i64 { self.generation_id }
 
   pub fn original_path(&self) -> &String { &self.original_path }
 
@@ -5203,7 +5203,7 @@ impl RTDUpdateFileGenerationStartBuilder {
   }
 
    
-  pub fn generation_id(&mut self, generation_id: isize) -> &mut Self {
+  pub fn generation_id(&mut self, generation_id: i64) -> &mut Self {
     self.inner.generation_id = generation_id;
     self
   }
@@ -5252,7 +5252,7 @@ pub struct UpdateFileGenerationStop {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Unique identifier for the generation process
-  generation_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] generation_id: i64,
   
 }
 
@@ -5281,7 +5281,7 @@ impl UpdateFileGenerationStop {
     RTDUpdateFileGenerationStopBuilder { inner }
   }
 
-  pub fn generation_id(&self) -> isize { self.generation_id }
+  pub fn generation_id(&self) -> i64 { self.generation_id }
 
 }
 
@@ -5298,7 +5298,7 @@ impl RTDUpdateFileGenerationStopBuilder {
   }
 
    
-  pub fn generation_id(&mut self, generation_id: isize) -> &mut Self {
+  pub fn generation_id(&mut self, generation_id: i64) -> &mut Self {
     self.inner.generation_id = generation_id;
     self
   }
@@ -5806,7 +5806,7 @@ pub struct UpdateInstalledStickerSets {
   /// True, if the list of installed mask sticker sets was updated
   is_masks: bool,
   /// The new list of installed ordinary sticker sets
-  sticker_set_ids: Vec<isize>,
+  sticker_set_ids: Vec<i64>,
   
 }
 
@@ -5837,7 +5837,7 @@ impl UpdateInstalledStickerSets {
 
   pub fn is_masks(&self) -> bool { self.is_masks }
 
-  pub fn sticker_set_ids(&self) -> &Vec<isize> { &self.sticker_set_ids }
+  pub fn sticker_set_ids(&self) -> &Vec<i64> { &self.sticker_set_ids }
 
 }
 
@@ -5860,7 +5860,7 @@ impl RTDUpdateInstalledStickerSetsBuilder {
   }
 
    
-  pub fn sticker_set_ids(&mut self, sticker_set_ids: Vec<isize>) -> &mut Self {
+  pub fn sticker_set_ids(&mut self, sticker_set_ids: Vec<i64>) -> &mut Self {
     self.inner.sticker_set_ids = sticker_set_ids;
     self
   }
@@ -6634,7 +6634,7 @@ pub struct UpdateNewInlineQuery {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Unique query identifier
-  id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// Identifier of the user who sent the query
   sender_user_id: i64,
   /// User location, provided by the client; may be null
@@ -6671,7 +6671,7 @@ impl UpdateNewInlineQuery {
     RTDUpdateNewInlineQueryBuilder { inner }
   }
 
-  pub fn id(&self) -> isize { self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn sender_user_id(&self) -> i64 { self.sender_user_id }
 
@@ -6696,7 +6696,7 @@ impl RTDUpdateNewInlineQueryBuilder {
   }
 
    
-  pub fn id(&mut self, id: isize) -> &mut Self {
+  pub fn id(&mut self, id: i64) -> &mut Self {
     self.inner.id = id;
     self
   }
@@ -6868,7 +6868,7 @@ pub struct UpdateNewCallbackQuery {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Unique query identifier
-  id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// Identifier of the user who sent the query
   sender_user_id: i64,
   /// Identifier of the chat where the query was sent
@@ -6876,7 +6876,7 @@ pub struct UpdateNewCallbackQuery {
   /// Identifier of the message, from which the query originated
   message_id: i64,
   /// Identifier that uniquely corresponds to the chat to which the message was sent
-  chat_instance: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] chat_instance: i64,
   /// Query payload
   payload: CallbackQueryPayload,
   
@@ -6907,7 +6907,7 @@ impl UpdateNewCallbackQuery {
     RTDUpdateNewCallbackQueryBuilder { inner }
   }
 
-  pub fn id(&self) -> isize { self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn sender_user_id(&self) -> i64 { self.sender_user_id }
 
@@ -6915,7 +6915,7 @@ impl UpdateNewCallbackQuery {
 
   pub fn message_id(&self) -> i64 { self.message_id }
 
-  pub fn chat_instance(&self) -> isize { self.chat_instance }
+  pub fn chat_instance(&self) -> i64 { self.chat_instance }
 
   pub fn payload(&self) -> &CallbackQueryPayload { &self.payload }
 
@@ -6934,7 +6934,7 @@ impl RTDUpdateNewCallbackQueryBuilder {
   }
 
    
-  pub fn id(&mut self, id: isize) -> &mut Self {
+  pub fn id(&mut self, id: i64) -> &mut Self {
     self.inner.id = id;
     self
   }
@@ -6958,7 +6958,7 @@ impl RTDUpdateNewCallbackQueryBuilder {
   }
 
    
-  pub fn chat_instance(&mut self, chat_instance: isize) -> &mut Self {
+  pub fn chat_instance(&mut self, chat_instance: i64) -> &mut Self {
     self.inner.chat_instance = chat_instance;
     self
   }
@@ -6995,13 +6995,13 @@ pub struct UpdateNewInlineCallbackQuery {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Unique query identifier
-  id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// Identifier of the user who sent the query
   sender_user_id: i64,
   /// Identifier of the inline message, from which the query originated
   inline_message_id: String,
   /// An identifier uniquely corresponding to the chat a message was sent to
-  chat_instance: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] chat_instance: i64,
   /// Query payload
   payload: CallbackQueryPayload,
   
@@ -7032,13 +7032,13 @@ impl UpdateNewInlineCallbackQuery {
     RTDUpdateNewInlineCallbackQueryBuilder { inner }
   }
 
-  pub fn id(&self) -> isize { self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn sender_user_id(&self) -> i64 { self.sender_user_id }
 
   pub fn inline_message_id(&self) -> &String { &self.inline_message_id }
 
-  pub fn chat_instance(&self) -> isize { self.chat_instance }
+  pub fn chat_instance(&self) -> i64 { self.chat_instance }
 
   pub fn payload(&self) -> &CallbackQueryPayload { &self.payload }
 
@@ -7057,7 +7057,7 @@ impl RTDUpdateNewInlineCallbackQueryBuilder {
   }
 
    
-  pub fn id(&mut self, id: isize) -> &mut Self {
+  pub fn id(&mut self, id: i64) -> &mut Self {
     self.inner.id = id;
     self
   }
@@ -7075,7 +7075,7 @@ impl RTDUpdateNewInlineCallbackQueryBuilder {
   }
 
    
-  pub fn chat_instance(&mut self, chat_instance: isize) -> &mut Self {
+  pub fn chat_instance(&mut self, chat_instance: i64) -> &mut Self {
     self.inner.chat_instance = chat_instance;
     self
   }
@@ -7112,7 +7112,7 @@ pub struct UpdateNewShippingQuery {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Unique query identifier
-  id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// Identifier of the user who sent the query
   sender_user_id: i64,
   /// Invoice payload
@@ -7147,7 +7147,7 @@ impl UpdateNewShippingQuery {
     RTDUpdateNewShippingQueryBuilder { inner }
   }
 
-  pub fn id(&self) -> isize { self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn sender_user_id(&self) -> i64 { self.sender_user_id }
 
@@ -7170,7 +7170,7 @@ impl RTDUpdateNewShippingQueryBuilder {
   }
 
    
-  pub fn id(&mut self, id: isize) -> &mut Self {
+  pub fn id(&mut self, id: i64) -> &mut Self {
     self.inner.id = id;
     self
   }
@@ -7219,7 +7219,7 @@ pub struct UpdateNewPreCheckoutQuery {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Unique query identifier
-  id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// Identifier of the user who sent the query
   sender_user_id: i64,
   /// Currency for the product price
@@ -7260,7 +7260,7 @@ impl UpdateNewPreCheckoutQuery {
     RTDUpdateNewPreCheckoutQueryBuilder { inner }
   }
 
-  pub fn id(&self) -> isize { self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn sender_user_id(&self) -> i64 { self.sender_user_id }
 
@@ -7289,7 +7289,7 @@ impl RTDUpdateNewPreCheckoutQueryBuilder {
   }
 
    
-  pub fn id(&mut self, id: isize) -> &mut Self {
+  pub fn id(&mut self, id: i64) -> &mut Self {
     self.inner.id = id;
     self
   }
@@ -7433,7 +7433,7 @@ pub struct UpdateNewCustomQuery {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// The query identifier
-  id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// JSON-serialized query data
   data: String,
   /// Query timeout
@@ -7466,7 +7466,7 @@ impl UpdateNewCustomQuery {
     RTDUpdateNewCustomQueryBuilder { inner }
   }
 
-  pub fn id(&self) -> isize { self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn data(&self) -> &String { &self.data }
 
@@ -7487,7 +7487,7 @@ impl RTDUpdateNewCustomQueryBuilder {
   }
 
    
-  pub fn id(&mut self, id: isize) -> &mut Self {
+  pub fn id(&mut self, id: i64) -> &mut Self {
     self.inner.id = id;
     self
   }

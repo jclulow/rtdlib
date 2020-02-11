@@ -1839,9 +1839,9 @@ pub struct ChatEventStickerSetChanged {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Previous identifier of the chat sticker set; 0 if none
-  old_sticker_set_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] old_sticker_set_id: i64,
   /// New identifier of the chat sticker set; 0 if none
-  new_sticker_set_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] new_sticker_set_id: i64,
   
 }
 
@@ -1870,9 +1870,9 @@ impl ChatEventStickerSetChanged {
     RTDChatEventStickerSetChangedBuilder { inner }
   }
 
-  pub fn old_sticker_set_id(&self) -> isize { self.old_sticker_set_id }
+  pub fn old_sticker_set_id(&self) -> i64 { self.old_sticker_set_id }
 
-  pub fn new_sticker_set_id(&self) -> isize { self.new_sticker_set_id }
+  pub fn new_sticker_set_id(&self) -> i64 { self.new_sticker_set_id }
 
 }
 
@@ -1889,13 +1889,13 @@ impl RTDChatEventStickerSetChangedBuilder {
   }
 
    
-  pub fn old_sticker_set_id(&mut self, old_sticker_set_id: isize) -> &mut Self {
+  pub fn old_sticker_set_id(&mut self, old_sticker_set_id: i64) -> &mut Self {
     self.inner.old_sticker_set_id = old_sticker_set_id;
     self
   }
 
    
-  pub fn new_sticker_set_id(&mut self, new_sticker_set_id: isize) -> &mut Self {
+  pub fn new_sticker_set_id(&mut self, new_sticker_set_id: i64) -> &mut Self {
     self.inner.new_sticker_set_id = new_sticker_set_id;
     self
   }

@@ -173,7 +173,7 @@ pub struct InputBackgroundRemote {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// The background identifier
-  background_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] background_id: i64,
   
 }
 
@@ -202,7 +202,7 @@ impl InputBackgroundRemote {
     RTDInputBackgroundRemoteBuilder { inner }
   }
 
-  pub fn background_id(&self) -> isize { self.background_id }
+  pub fn background_id(&self) -> i64 { self.background_id }
 
 }
 
@@ -219,7 +219,7 @@ impl RTDInputBackgroundRemoteBuilder {
   }
 
    
-  pub fn background_id(&mut self, background_id: isize) -> &mut Self {
+  pub fn background_id(&mut self, background_id: i64) -> &mut Self {
     self.inner.background_id = background_id;
     self
   }

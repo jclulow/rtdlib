@@ -16,7 +16,7 @@ pub struct CallConnection {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Reflector identifier
-  id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// IPv4 reflector address
   ip: String,
   /// IPv6 reflector address
@@ -50,7 +50,7 @@ impl CallConnection {
     RTDCallConnectionBuilder { inner }
   }
 
-  pub fn id(&self) -> isize { self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn ip(&self) -> &String { &self.ip }
 
@@ -75,7 +75,7 @@ impl RTDCallConnectionBuilder {
   }
 
    
-  pub fn id(&mut self, id: isize) -> &mut Self {
+  pub fn id(&mut self, id: i64) -> &mut Self {
     self.inner.id = id;
     self
   }

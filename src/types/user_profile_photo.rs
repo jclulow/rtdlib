@@ -16,7 +16,7 @@ pub struct UserProfilePhoto {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Unique user profile photo identifier
-  id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// Point in time (Unix timestamp) when the photo has been added
   added_date: i64,
   /// Available variants of the user photo, in different sizes
@@ -46,7 +46,7 @@ impl UserProfilePhoto {
     RTDUserProfilePhotoBuilder { inner }
   }
 
-  pub fn id(&self) -> isize { self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn added_date(&self) -> i64 { self.added_date }
 
@@ -67,7 +67,7 @@ impl RTDUserProfilePhotoBuilder {
   }
 
    
-  pub fn id(&mut self, id: isize) -> &mut Self {
+  pub fn id(&mut self, id: i64) -> &mut Self {
     self.inner.id = id;
     self
   }

@@ -16,7 +16,7 @@ pub struct Game {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Game ID
-  id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] id: i64,
   /// Game short name. To share a game use the URL https://t.me/{bot_username}?game={game_short_name}
   short_name: String,
   /// Game title
@@ -54,7 +54,7 @@ impl Game {
     RTDGameBuilder { inner }
   }
 
-  pub fn id(&self) -> isize { self.id }
+  pub fn id(&self) -> i64 { self.id }
 
   pub fn short_name(&self) -> &String { &self.short_name }
 
@@ -83,7 +83,7 @@ impl RTDGameBuilder {
   }
 
    
-  pub fn id(&mut self, id: isize) -> &mut Self {
+  pub fn id(&mut self, id: i64) -> &mut Self {
     self.inner.id = id;
     self
   }

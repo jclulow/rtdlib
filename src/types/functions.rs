@@ -3416,7 +3416,7 @@ pub struct GetChats {
   /// The chat list in which to return chats
   chat_list: ChatList,
   /// Chat order to return chats from
-  offset_order: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] offset_order: i64,
   /// Chat identifier to return chats from
   offset_chat_id: i64,
   /// The maximum number of chats to be returned. It is possible that fewer chats than the limit are returned even if the end of the list is not reached
@@ -3451,7 +3451,7 @@ impl GetChats {
 
   pub fn chat_list(&self) -> &ChatList { &self.chat_list }
 
-  pub fn offset_order(&self) -> isize { self.offset_order }
+  pub fn offset_order(&self) -> i64 { self.offset_order }
 
   pub fn offset_chat_id(&self) -> i64 { self.offset_chat_id }
 
@@ -3478,7 +3478,7 @@ impl RTDGetChatsBuilder {
   }
 
    
-  pub fn offset_order(&mut self, offset_order: isize) -> &mut Self {
+  pub fn offset_order(&mut self, offset_order: i64) -> &mut Self {
     self.inner.offset_order = offset_order;
     self
   }
@@ -5275,7 +5275,7 @@ pub struct SearchSecretMessages {
   /// Query to search for. If empty, searchChatMessages should be used instead
   query: String,
   /// The identifier from the result of a previous request, use 0 to get results from the last message
-  from_search_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] from_search_id: i64,
   /// Maximum number of messages to be returned; up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
   limit: i64,
   /// A filter for the content of messages in the search results
@@ -5312,7 +5312,7 @@ impl SearchSecretMessages {
 
   pub fn query(&self) -> &String { &self.query }
 
-  pub fn from_search_id(&self) -> isize { self.from_search_id }
+  pub fn from_search_id(&self) -> i64 { self.from_search_id }
 
   pub fn limit(&self) -> i64 { self.limit }
 
@@ -5345,7 +5345,7 @@ impl RTDSearchSecretMessagesBuilder {
   }
 
    
-  pub fn from_search_id(&mut self, from_search_id: isize) -> &mut Self {
+  pub fn from_search_id(&mut self, from_search_id: i64) -> &mut Self {
     self.inner.from_search_id = from_search_id;
     self
   }
@@ -6662,7 +6662,7 @@ pub struct SendInlineQueryResultMessage {
   /// Options to be used to send the message
   options: SendMessageOptions,
   /// Identifier of the inline query
-  query_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] query_id: i64,
   /// Identifier of the inline result
   result_id: String,
   /// If true, there will be no mention of a bot, via which the message is sent. Can be used only for bots GetOption("animation_search_bot_username"), GetOption("photo_search_bot_username") and GetOption("venue_search_bot_username")
@@ -6701,7 +6701,7 @@ impl SendInlineQueryResultMessage {
 
   pub fn options(&self) -> &SendMessageOptions { &self.options }
 
-  pub fn query_id(&self) -> isize { self.query_id }
+  pub fn query_id(&self) -> i64 { self.query_id }
 
   pub fn result_id(&self) -> &String { &self.result_id }
 
@@ -6740,7 +6740,7 @@ impl RTDSendInlineQueryResultMessageBuilder {
   }
 
    
-  pub fn query_id(&mut self, query_id: isize) -> &mut Self {
+  pub fn query_id(&mut self, query_id: i64) -> &mut Self {
     self.inner.query_id = query_id;
     self
   }
@@ -9740,7 +9740,7 @@ pub struct AnswerInlineQuery {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Identifier of the inline query
-  inline_query_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] inline_query_id: i64,
   /// True, if the result of the query can be cached for the specified user
   is_personal: bool,
   /// The results of the query
@@ -9781,7 +9781,7 @@ impl AnswerInlineQuery {
     RTDAnswerInlineQueryBuilder { inner }
   }
 
-  pub fn inline_query_id(&self) -> isize { self.inline_query_id }
+  pub fn inline_query_id(&self) -> i64 { self.inline_query_id }
 
   pub fn is_personal(&self) -> bool { self.is_personal }
 
@@ -9810,7 +9810,7 @@ impl RTDAnswerInlineQueryBuilder {
   }
 
    
-  pub fn inline_query_id(&mut self, inline_query_id: isize) -> &mut Self {
+  pub fn inline_query_id(&mut self, inline_query_id: i64) -> &mut Self {
     self.inner.inline_query_id = inline_query_id;
     self
   }
@@ -9974,7 +9974,7 @@ pub struct AnswerCallbackQuery {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Identifier of the callback query
-  callback_query_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] callback_query_id: i64,
   /// Text of the answer
   text: String,
   /// If true, an alert should be shown to the user instead of a toast notification
@@ -10011,7 +10011,7 @@ impl AnswerCallbackQuery {
     RTDAnswerCallbackQueryBuilder { inner }
   }
 
-  pub fn callback_query_id(&self) -> isize { self.callback_query_id }
+  pub fn callback_query_id(&self) -> i64 { self.callback_query_id }
 
   pub fn text(&self) -> &String { &self.text }
 
@@ -10036,7 +10036,7 @@ impl RTDAnswerCallbackQueryBuilder {
   }
 
    
-  pub fn callback_query_id(&mut self, callback_query_id: isize) -> &mut Self {
+  pub fn callback_query_id(&mut self, callback_query_id: i64) -> &mut Self {
     self.inner.callback_query_id = callback_query_id;
     self
   }
@@ -10091,7 +10091,7 @@ pub struct AnswerShippingQuery {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Identifier of the shipping query
-  shipping_query_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] shipping_query_id: i64,
   /// Available shipping options
   shipping_options: Vec<ShippingOption>,
   /// An error message, empty on success
@@ -10124,7 +10124,7 @@ impl AnswerShippingQuery {
     RTDAnswerShippingQueryBuilder { inner }
   }
 
-  pub fn shipping_query_id(&self) -> isize { self.shipping_query_id }
+  pub fn shipping_query_id(&self) -> i64 { self.shipping_query_id }
 
   pub fn shipping_options(&self) -> &Vec<ShippingOption> { &self.shipping_options }
 
@@ -10145,7 +10145,7 @@ impl RTDAnswerShippingQueryBuilder {
   }
 
    
-  pub fn shipping_query_id(&mut self, shipping_query_id: isize) -> &mut Self {
+  pub fn shipping_query_id(&mut self, shipping_query_id: i64) -> &mut Self {
     self.inner.shipping_query_id = shipping_query_id;
     self
   }
@@ -10188,7 +10188,7 @@ pub struct AnswerPreCheckoutQuery {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Identifier of the pre-checkout query
-  pre_checkout_query_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] pre_checkout_query_id: i64,
   /// An error message, empty on success
   error_message: String,
   
@@ -10219,7 +10219,7 @@ impl AnswerPreCheckoutQuery {
     RTDAnswerPreCheckoutQueryBuilder { inner }
   }
 
-  pub fn pre_checkout_query_id(&self) -> isize { self.pre_checkout_query_id }
+  pub fn pre_checkout_query_id(&self) -> i64 { self.pre_checkout_query_id }
 
   pub fn error_message(&self) -> &String { &self.error_message }
 
@@ -10238,7 +10238,7 @@ impl RTDAnswerPreCheckoutQueryBuilder {
   }
 
    
-  pub fn pre_checkout_query_id(&mut self, pre_checkout_query_id: isize) -> &mut Self {
+  pub fn pre_checkout_query_id(&mut self, pre_checkout_query_id: i64) -> &mut Self {
     self.inner.pre_checkout_query_id = pre_checkout_query_id;
     self
   }
@@ -15187,7 +15187,7 @@ pub struct WriteGeneratedFilePart {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// The identifier of the generation process
-  generation_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] generation_id: i64,
   /// The offset from which to write the data to the file
   offset: i64,
   /// The data to write
@@ -15220,7 +15220,7 @@ impl WriteGeneratedFilePart {
     RTDWriteGeneratedFilePartBuilder { inner }
   }
 
-  pub fn generation_id(&self) -> isize { self.generation_id }
+  pub fn generation_id(&self) -> i64 { self.generation_id }
 
   pub fn offset(&self) -> i64 { self.offset }
 
@@ -15241,7 +15241,7 @@ impl RTDWriteGeneratedFilePartBuilder {
   }
 
    
-  pub fn generation_id(&mut self, generation_id: isize) -> &mut Self {
+  pub fn generation_id(&mut self, generation_id: i64) -> &mut Self {
     self.inner.generation_id = generation_id;
     self
   }
@@ -15284,7 +15284,7 @@ pub struct SetFileGenerationProgress {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// The identifier of the generation process
-  generation_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] generation_id: i64,
   /// Expected size of the generated file, in bytes; 0 if unknown
   expected_size: i64,
   /// The number of bytes already generated
@@ -15317,7 +15317,7 @@ impl SetFileGenerationProgress {
     RTDSetFileGenerationProgressBuilder { inner }
   }
 
-  pub fn generation_id(&self) -> isize { self.generation_id }
+  pub fn generation_id(&self) -> i64 { self.generation_id }
 
   pub fn expected_size(&self) -> i64 { self.expected_size }
 
@@ -15338,7 +15338,7 @@ impl RTDSetFileGenerationProgressBuilder {
   }
 
    
-  pub fn generation_id(&mut self, generation_id: isize) -> &mut Self {
+  pub fn generation_id(&mut self, generation_id: i64) -> &mut Self {
     self.inner.generation_id = generation_id;
     self
   }
@@ -15381,7 +15381,7 @@ pub struct FinishFileGeneration {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// The identifier of the generation process
-  generation_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] generation_id: i64,
   /// If set, means that file generation has failed and should be terminated
   error: Error,
   
@@ -15412,7 +15412,7 @@ impl FinishFileGeneration {
     RTDFinishFileGenerationBuilder { inner }
   }
 
-  pub fn generation_id(&self) -> isize { self.generation_id }
+  pub fn generation_id(&self) -> i64 { self.generation_id }
 
   pub fn error(&self) -> &Error { &self.error }
 
@@ -15431,7 +15431,7 @@ impl RTDFinishFileGenerationBuilder {
   }
 
    
-  pub fn generation_id(&mut self, generation_id: isize) -> &mut Self {
+  pub fn generation_id(&mut self, generation_id: i64) -> &mut Self {
     self.inner.generation_id = generation_id;
     self
   }
@@ -16053,7 +16053,7 @@ pub struct DiscardCall {
   /// The call duration, in seconds
   duration: i64,
   /// Identifier of the connection used during the call
-  connection_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] connection_id: i64,
   
 }
 
@@ -16088,7 +16088,7 @@ impl DiscardCall {
 
   pub fn duration(&self) -> i64 { self.duration }
 
-  pub fn connection_id(&self) -> isize { self.connection_id }
+  pub fn connection_id(&self) -> i64 { self.connection_id }
 
 }
 
@@ -16123,7 +16123,7 @@ impl RTDDiscardCallBuilder {
   }
 
    
-  pub fn connection_id(&mut self, connection_id: isize) -> &mut Self {
+  pub fn connection_id(&mut self, connection_id: i64) -> &mut Self {
     self.inner.connection_id = connection_id;
     self
   }
@@ -17622,7 +17622,7 @@ pub struct GetArchivedStickerSets {
   /// Pass true to return mask stickers sets; pass false to return ordinary sticker sets
   is_masks: bool,
   /// Identifier of the sticker set from which to return the result
-  offset_sticker_set_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] offset_sticker_set_id: i64,
   /// Maximum number of sticker sets to return
   limit: i64,
   
@@ -17655,7 +17655,7 @@ impl GetArchivedStickerSets {
 
   pub fn is_masks(&self) -> bool { self.is_masks }
 
-  pub fn offset_sticker_set_id(&self) -> isize { self.offset_sticker_set_id }
+  pub fn offset_sticker_set_id(&self) -> i64 { self.offset_sticker_set_id }
 
   pub fn limit(&self) -> i64 { self.limit }
 
@@ -17680,7 +17680,7 @@ impl RTDGetArchivedStickerSetsBuilder {
   }
 
    
-  pub fn offset_sticker_set_id(&mut self, offset_sticker_set_id: isize) -> &mut Self {
+  pub fn offset_sticker_set_id(&mut self, offset_sticker_set_id: i64) -> &mut Self {
     self.inner.offset_sticker_set_id = offset_sticker_set_id;
     self
   }
@@ -17861,7 +17861,7 @@ pub struct GetStickerSet {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Identifier of the sticker set
-  set_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] set_id: i64,
   
 }
 
@@ -17890,7 +17890,7 @@ impl GetStickerSet {
     RTDGetStickerSetBuilder { inner }
   }
 
-  pub fn set_id(&self) -> isize { self.set_id }
+  pub fn set_id(&self) -> i64 { self.set_id }
 
 }
 
@@ -17907,7 +17907,7 @@ impl RTDGetStickerSetBuilder {
   }
 
    
-  pub fn set_id(&mut self, set_id: isize) -> &mut Self {
+  pub fn set_id(&mut self, set_id: i64) -> &mut Self {
     self.inner.set_id = set_id;
     self
   }
@@ -18189,7 +18189,7 @@ pub struct ChangeStickerSet {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Identifier of the sticker set
-  set_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] set_id: i64,
   /// The new value of is_installed
   is_installed: bool,
   /// The new value of is_archived. A sticker set can't be installed and archived simultaneously
@@ -18222,7 +18222,7 @@ impl ChangeStickerSet {
     RTDChangeStickerSetBuilder { inner }
   }
 
-  pub fn set_id(&self) -> isize { self.set_id }
+  pub fn set_id(&self) -> i64 { self.set_id }
 
   pub fn is_installed(&self) -> bool { self.is_installed }
 
@@ -18243,7 +18243,7 @@ impl RTDChangeStickerSetBuilder {
   }
 
    
-  pub fn set_id(&mut self, set_id: isize) -> &mut Self {
+  pub fn set_id(&mut self, set_id: i64) -> &mut Self {
     self.inner.set_id = set_id;
     self
   }
@@ -18286,7 +18286,7 @@ pub struct ViewTrendingStickerSets {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Identifiers of viewed trending sticker sets
-  sticker_set_ids: Vec<isize>,
+  sticker_set_ids: Vec<i64>,
   
 }
 
@@ -18315,7 +18315,7 @@ impl ViewTrendingStickerSets {
     RTDViewTrendingStickerSetsBuilder { inner }
   }
 
-  pub fn sticker_set_ids(&self) -> &Vec<isize> { &self.sticker_set_ids }
+  pub fn sticker_set_ids(&self) -> &Vec<i64> { &self.sticker_set_ids }
 
 }
 
@@ -18332,7 +18332,7 @@ impl RTDViewTrendingStickerSetsBuilder {
   }
 
    
-  pub fn sticker_set_ids(&mut self, sticker_set_ids: Vec<isize>) -> &mut Self {
+  pub fn sticker_set_ids(&mut self, sticker_set_ids: Vec<i64>) -> &mut Self {
     self.inner.sticker_set_ids = sticker_set_ids;
     self
   }
@@ -18365,7 +18365,7 @@ pub struct ReorderInstalledStickerSets {
   /// Pass true to change the order of mask sticker sets; pass false to change the order of ordinary sticker sets
   is_masks: bool,
   /// Identifiers of installed sticker sets in the new correct order
-  sticker_set_ids: Vec<isize>,
+  sticker_set_ids: Vec<i64>,
   
 }
 
@@ -18396,7 +18396,7 @@ impl ReorderInstalledStickerSets {
 
   pub fn is_masks(&self) -> bool { self.is_masks }
 
-  pub fn sticker_set_ids(&self) -> &Vec<isize> { &self.sticker_set_ids }
+  pub fn sticker_set_ids(&self) -> &Vec<i64> { &self.sticker_set_ids }
 
 }
 
@@ -18419,7 +18419,7 @@ impl RTDReorderInstalledStickerSetsBuilder {
   }
 
    
-  pub fn sticker_set_ids(&mut self, sticker_set_ids: Vec<isize>) -> &mut Self {
+  pub fn sticker_set_ids(&mut self, sticker_set_ids: Vec<i64>) -> &mut Self {
     self.inner.sticker_set_ids = sticker_set_ids;
     self
   }
@@ -19933,7 +19933,7 @@ pub struct DeleteProfilePhoto {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Identifier of the profile photo to delete
-  profile_photo_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] profile_photo_id: i64,
   
 }
 
@@ -19962,7 +19962,7 @@ impl DeleteProfilePhoto {
     RTDDeleteProfilePhotoBuilder { inner }
   }
 
-  pub fn profile_photo_id(&self) -> isize { self.profile_photo_id }
+  pub fn profile_photo_id(&self) -> i64 { self.profile_photo_id }
 
 }
 
@@ -19979,7 +19979,7 @@ impl RTDDeleteProfilePhotoBuilder {
   }
 
    
-  pub fn profile_photo_id(&mut self, profile_photo_id: isize) -> &mut Self {
+  pub fn profile_photo_id(&mut self, profile_photo_id: i64) -> &mut Self {
     self.inner.profile_photo_id = profile_photo_id;
     self
   }
@@ -20549,7 +20549,7 @@ pub struct TerminateSession {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Session identifier
-  session_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] session_id: i64,
   
 }
 
@@ -20578,7 +20578,7 @@ impl TerminateSession {
     RTDTerminateSessionBuilder { inner }
   }
 
-  pub fn session_id(&self) -> isize { self.session_id }
+  pub fn session_id(&self) -> i64 { self.session_id }
 
 }
 
@@ -20595,7 +20595,7 @@ impl RTDTerminateSessionBuilder {
   }
 
    
-  pub fn session_id(&mut self, session_id: isize) -> &mut Self {
+  pub fn session_id(&mut self, session_id: i64) -> &mut Self {
     self.inner.session_id = session_id;
     self
   }
@@ -20760,7 +20760,7 @@ pub struct DisconnectWebsite {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Website identifier
-  website_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] website_id: i64,
   
 }
 
@@ -20789,7 +20789,7 @@ impl DisconnectWebsite {
     RTDDisconnectWebsiteBuilder { inner }
   }
 
-  pub fn website_id(&self) -> isize { self.website_id }
+  pub fn website_id(&self) -> i64 { self.website_id }
 
 }
 
@@ -20806,7 +20806,7 @@ impl RTDDisconnectWebsiteBuilder {
   }
 
    
-  pub fn website_id(&mut self, website_id: isize) -> &mut Self {
+  pub fn website_id(&mut self, website_id: i64) -> &mut Self {
     self.inner.website_id = website_id;
     self
   }
@@ -20993,7 +20993,7 @@ pub struct SetSupergroupStickerSet {
   /// Identifier of the supergroup
   supergroup_id: i64,
   /// New value of the supergroup sticker set identifier. Use 0 to remove the supergroup sticker set
-  sticker_set_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] sticker_set_id: i64,
   
 }
 
@@ -21024,7 +21024,7 @@ impl SetSupergroupStickerSet {
 
   pub fn supergroup_id(&self) -> i64 { self.supergroup_id }
 
-  pub fn sticker_set_id(&self) -> isize { self.sticker_set_id }
+  pub fn sticker_set_id(&self) -> i64 { self.sticker_set_id }
 
 }
 
@@ -21047,7 +21047,7 @@ impl RTDSetSupergroupStickerSetBuilder {
   }
 
    
-  pub fn sticker_set_id(&mut self, sticker_set_id: isize) -> &mut Self {
+  pub fn sticker_set_id(&mut self, sticker_set_id: i64) -> &mut Self {
     self.inner.sticker_set_id = sticker_set_id;
     self
   }
@@ -21614,7 +21614,7 @@ pub struct GetChatEventLog {
   /// Search query by which to filter events
   query: String,
   /// Identifier of an event from which to return results. Use 0 to get results from the latest events
-  from_event_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] from_event_id: i64,
   /// Maximum number of events to return; up to 100
   limit: i64,
   /// The types of events to return. By default, all types will be returned
@@ -21653,7 +21653,7 @@ impl GetChatEventLog {
 
   pub fn query(&self) -> &String { &self.query }
 
-  pub fn from_event_id(&self) -> isize { self.from_event_id }
+  pub fn from_event_id(&self) -> i64 { self.from_event_id }
 
   pub fn limit(&self) -> i64 { self.limit }
 
@@ -21688,7 +21688,7 @@ impl RTDGetChatEventLogBuilder {
   }
 
    
-  pub fn from_event_id(&mut self, from_event_id: isize) -> &mut Self {
+  pub fn from_event_id(&mut self, from_event_id: i64) -> &mut Self {
     self.inner.from_event_id = from_event_id;
     self
   }
@@ -22741,7 +22741,7 @@ pub struct RemoveBackground {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// The background indentifier
-  background_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] background_id: i64,
   
 }
 
@@ -22770,7 +22770,7 @@ impl RemoveBackground {
     RTDRemoveBackgroundBuilder { inner }
   }
 
-  pub fn background_id(&self) -> isize { self.background_id }
+  pub fn background_id(&self) -> i64 { self.background_id }
 
 }
 
@@ -22787,7 +22787,7 @@ impl RTDRemoveBackgroundBuilder {
   }
 
    
-  pub fn background_id(&mut self, background_id: isize) -> &mut Self {
+  pub fn background_id(&mut self, background_id: i64) -> &mut Self {
     self.inner.background_id = background_id;
     self
   }
@@ -27865,7 +27865,7 @@ pub struct AnswerCustomQuery {
   #[serde(rename(serialize = "@extra", deserialize = "@extra"))]
   td_tag: Option<Extra>,
   /// Identifier of a custom query
-  custom_query_id: isize,
+  #[serde(deserialize_with = "serde_aux::field_attributes::deserialize_number_from_string")] custom_query_id: i64,
   /// JSON-serialized answer to the query
   data: String,
   
@@ -27896,7 +27896,7 @@ impl AnswerCustomQuery {
     RTDAnswerCustomQueryBuilder { inner }
   }
 
-  pub fn custom_query_id(&self) -> isize { self.custom_query_id }
+  pub fn custom_query_id(&self) -> i64 { self.custom_query_id }
 
   pub fn data(&self) -> &String { &self.data }
 
@@ -27915,7 +27915,7 @@ impl RTDAnswerCustomQueryBuilder {
   }
 
    
-  pub fn custom_query_id(&mut self, custom_query_id: isize) -> &mut Self {
+  pub fn custom_query_id(&mut self, custom_query_id: i64) -> &mut Self {
     self.inner.custom_query_id = custom_query_id;
     self
   }
